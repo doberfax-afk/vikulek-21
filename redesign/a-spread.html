@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ВИКУЛЕК №21 — Глянцевый разворот</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ВАРИАНТ A — «ГЛЯНЦЕВЫЙ РАЗВОРОТ»
+   Идея: не сайт, а физический журнал, раскрытый на столе. Разворот =
+   две страницы с корешком по центру. Светлая бумага, чернила, золото.
+   Palette: paper #FFFDF8 · ink #1A0F08 · pink #FF4B91 · gold #D4AF37
+   ========================================================================== */
+:root{
+  --paper:#FFFDF8; --paper-2:#F6F1E7; --ink:#1A0F08; --ink-soft:#5A4436;
+  --pink:#FF4B91; --pink-deep:#B9045E; --gold:#D4AF37; --gold-deep:#8A6500;
+  --sky:#00B4D8; --rule:#D9CFBE;
+  --serif:'Syne',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --spine:38px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:#EDE6D8; color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+/* paper grain so it does not read as flat screen */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9; opacity:.5;
+  background-image:radial-gradient(var(--rule) .5px,transparent .5px);
+  background-size:4px 4px;
+}
+.mag{max-width:1280px;margin:0 auto;padding:26px 18px 70px}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background:var(--paper); border:2px solid var(--ink);
+  box-shadow:9px 9px 0 var(--ink);
+}
+.mast-top{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:9px 20px;border-bottom:1px solid var(--rule);
+  font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)
+}
+.mast-top b{color:var(--pink-deep)}
+.title{
+  font-family:var(--serif);font-weight:800;text-align:center;
+  font-size:clamp(56px,15vw,168px);line-height:.86;letter-spacing:-.02em;
+  margin:14px 0 6px;text-transform:uppercase
+}
+.title span{
+  display:inline-block;
+  background:linear-gradient(178deg,var(--ink) 0%,var(--ink) 52%,var(--pink-deep) 52%,var(--pink-deep) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.mast-sub{
+  text-align:center;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--ink-soft);padding-bottom:14px
+}
+.mast-rule{display:flex;align-items:center;gap:12px;padding:0 20px 12px}
+.mast-rule i{flex:1;height:1px;background:var(--rule)}
+.mast-rule b{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ink);color:var(--paper);padding:3px 12px;border-radius:999px
+}
+.strapline{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  border-top:1px solid var(--rule)
+}
+.strapline div{padding:15px 20px;border-right:1px solid var(--rule);font-size:13.5px;color:var(--ink-soft)}
+.strapline div:last-child{border-right:0}
+.strapline b{display:block;font-family:var(--serif);font-size:15px;color:var(--ink);margin-bottom:3px}
+
+/* ---------- spread ---------- */
+.spread{
+  position:relative;background:var(--paper);border:2px solid var(--ink);
+  box-shadow:9px 9px 0 var(--ink);margin-top:26px;
+  display:grid;grid-template-columns:1fr 1fr;min-height:430px
+}
+/* the spine: a soft shadow down the centre so the two pages read as one sheet */
+.spread::after{
+  content:"";position:absolute;top:0;bottom:0;left:50%;width:var(--spine);
+  transform:translateX(-50%);pointer-events:none;
+  background:linear-gradient(90deg,rgba(26,15,8,0) 0%,rgba(26,15,8,.10) 42%,rgba(26,15,8,.16) 50%,rgba(26,15,8,.10) 58%,rgba(26,15,8,0) 100%)
+}
+.page{padding:34px 40px 40px;min-width:0}
+.page--l{padding-right:calc(var(--spine)/2 + 22px)}
+.page--r{padding-left:calc(var(--spine)/2 + 22px)}
+.spread--flip .page--l{order:2;padding-right:40px;padding-left:calc(var(--spine)/2 + 22px)}
+.spread--flip .page--r{order:1;padding-left:40px;padding-right:calc(var(--spine)/2 + 22px)}
+
+.chapter-no{
+  font-family:var(--serif);font-weight:800;font-size:12px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--pink-deep);margin:0 0 8px
+}
+h2.chapter{
+  font-family:var(--serif);font-weight:800;font-size:clamp(27px,3.4vw,44px);
+  line-height:1.02;margin:0 0 6px;letter-spacing:-.015em
+}
+.dek{
+  font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);border-bottom:1px solid var(--rule);
+  padding-bottom:11px;margin:0 0 16px
+}
+p{margin:0 0 13px}
+/* drop cap — the classic magazine entry point */
+.dropcap::first-letter{
+  float:left;font-family:var(--serif);font-weight:800;font-size:62px;
+  line-height:.78;padding:5px 10px 0 0;color:var(--pink)
+}
+.cols{column-count:2;column-gap:26px;column-rule:1px solid var(--rule)}
+@media (max-width:720px){.cols{column-count:1;column-rule:0}}
+.lede{font-size:19px;line-height:1.5;font-weight:500}
+
+/* pull quote */
+.pull{
+  margin:20px 0;padding:16px 0 16px 18px;border-left:4px solid var(--gold);
+  font-family:var(--serif);font-size:20px;line-height:1.32;font-weight:600
+}
+.pull cite{
+  display:block;margin-top:8px;font-family:var(--sans);font-style:normal;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)
+}
+
+/* photo with caption */
+figure{margin:0 0 16px}
+figure .ph{
+  border:1px solid var(--ink);background:var(--paper-2);
+  aspect-ratio:4/3;overflow:hidden;position:relative
+}
+figure .ph img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05)}
+figcaption{
+  font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft);
+  padding-top:7px;border-top:1px solid var(--rule);margin-top:7px
+}
+figcaption b{color:var(--pink-deep)}
+
+/* contents list */
+.contents{list-style:none;margin:0;padding:0}
+.contents li{
+  display:flex;align-items:baseline;gap:10px;
+  padding:11px 0;border-bottom:1px solid var(--rule)
+}
+.contents .n{
+  font-family:var(--serif);font-weight:800;font-size:15px;color:var(--pink);
+  min-width:30px
+}
+.contents .t{font-weight:600}
+.contents .t small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
+.contents .pg{margin-left:auto;font-family:var(--serif);font-weight:700;color:var(--gold-deep)}
+
+/* footer of each page */
+.folio{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+  border-top:1px solid var(--rule);margin-top:22px;padding-top:9px
+}
+
+/* ---------- notes / suggestions block ---------- */
+.notes{
+  background:var(--ink);color:#F3EBDF;padding:34px 38px;margin-top:26px;
+  border:2px solid var(--ink);box-shadow:9px 9px 0 var(--pink-deep)
+}
+.notes h3{
+  font-family:var(--serif);font-size:26px;margin:0 0 6px;color:#fff
+}
+.notes .kicker{
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 20px
+}
+.notes ol{margin:0;padding-left:22px}
+.notes li{margin-bottom:11px;color:#DFD3C4}
+.notes li b{color:#fff}
+.notes code{background:rgba(255,255,255,.12);padding:2px 7px;border-radius:5px;font-size:13px}
+
+/* ---------- misc ---------- */
+.stamp{
+  display:inline-block;border:2px solid var(--pink-deep);color:var(--pink-deep);
+  font-family:var(--serif);font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;padding:5px 12px;transform:rotate(-4deg);margin-bottom:12px
+}
+.barcode{display:flex;gap:2px;align-items:flex-end;height:38px;margin-top:14px}
+.barcode i{width:2px;background:var(--ink);display:block}
+.timer{
+  display:flex;gap:10px;flex-wrap:wrap;margin:16px 0
+}
+.timer div{
+  flex:1 1 72px;text-align:center;border:1px solid var(--ink);
+  background:var(--paper-2);padding:11px 6px
+}
+.timer b{display:block;font-family:var(--serif);font-size:29px;line-height:1}
+.timer span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.nav-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.nav-mini button{
+  font:inherit;font-size:12px;font-weight:600;letter-spacing:.05em;
+  background:var(--paper);border:1.5px solid var(--ink);color:var(--ink);
+  padding:9px 14px;cursor:pointer;transition:.15s
+}
+.nav-mini button:hover{background:var(--pink);color:#fff;border-color:var(--pink)}
+.nav-mini button.on{background:var(--ink);color:var(--paper)}
+.nav-mini button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.hint{
+  margin-top:10px;font-size:12px;color:var(--ink-soft);letter-spacing:.04em
+}
+@media (max-width:860px){
+  :root{--spine:0px}
+  .spread{grid-template-columns:1fr}
+  .spread::after{display:none}
+  .page{padding:26px 22px 30px}
+  .page--l,.page--r{padding-left:22px;padding-right:22px}
+  .spread--flip .page--l,.spread--flip .page--r{padding:26px 22px 30px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="mag">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="mast-top">
+      <span>Выпуск <b>№21</b></span>
+      <span>18 ноября 2026 · село Русиново</span>
+      <span>Цена: <s>бесценно</s> 0 ₽</span>
+    </div>
+    <h1 class="title"><span>Викулек</span></h1>
+    <p class="mast-sub">Журнал об одной очень любимой девочке</p>
+    <div class="mast-rule"><i></i><b>Спецвыпуск · 21 год</b><i></i></div>
+    <div class="strapline">
+      <div><b>В этом номере</b>7 глав, 5 подруг, 4 кассеты VHS и один пушистый триумвират.</div>
+      <div><b>Секретный код</b>ПИН 1605 и слово «черемшить» открывают тайные главы.</div>
+      <div><b>Соберите всё</b>Пройдите 7 глав — откроется супер-бункер с подарками.</div>
+    </div>
+  </header>
+
+  <!-- ============ СПРОЙЛЕР-РАЗВОРОТ ============ -->
+  <section class="spread">
+    <div class="page page--l">
+      <span class="stamp">Главная история</span>
+      <p class="chapter-no">Обложка · стр. 3</p>
+      <h2 class="chapter">Двадцать один<br>год одной<br>звёздочке</h2>
+      <p class="dek">Подарочный выпуск ручной сборки</p>
+      <figure>
+        <div class="ph"><img src="../assets/img_5c72b5f1043e.jpg" alt="Обложка журнала: Викулек в стиле Y2K" width="900" height="675"></div>
+        <figcaption><b>На обложке:</b> Викулек, 21. Съёмка в стиле поп-журналов 2000-х.</figcaption>
+      </figure>
+      <p class="lede">Эксклюзивный подарочный спецвыпуск: 5 любимых подруг, секретные кассеты, космические архивы NASA, пушистый оракул и тайные воспоминания.</p>
+    </div>
+    <div class="page page--r">
+      <p class="chapter-no">Содержание</p>
+      <h2 class="chapter">Что внутри</h2>
+      <ol class="contents">
+        <li><span class="n">01</span><span class="t">Клуб Любимых Подруг<small>Соня, Полина, Кира, Вилена, Нютик</small></span><span class="pg">04</span></li>
+        <li><span class="n">02</span><span class="t">Послание «Милка»<small>Кассета Side A / Side B, ПИН 1605</small></span><span class="pg">09</span></li>
+        <li><span class="n">03</span><span class="t">Древо Семьи · Русиново<small>Скрапбук, портрет маслом, ретро-ТВ</small></span><span class="pg">14</span></li>
+        <li><span class="n">04</span><span class="t">Оракул Пушистых Сил<small>Вильзивул · Макс · Абадон</small></span><span class="pg">21</span></li>
+        <li><span class="n">05</span><span class="t">Космос NASA, 2005<small>Созвездие Скорпиона и звездопад</small></span><span class="pg">27</span></li>
+        <li><span class="n">06</span><span class="t">Секретики-Пистолетики<small>Сейф Жулика и кодовое слово</small></span><span class="pg">33</span></li>
+        <li><span class="n">07</span><span class="t">Медиа-Студия<small>Письмо в 22 года и полароид</small></span><span class="pg">38</span></li>
+      </ol>
+      <div class="barcode" aria-hidden="true">
+        <i style="height:100%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:45%"></i><i style="height:88%"></i><i style="height:100%"></i><i style="height:60%"></i><i style="height:92%"></i><i style="height:38%"></i><i style="height:100%"></i><i style="height:74%"></i><i style="height:52%"></i><i style="height:96%"></i><i style="height:66%"></i><i style="height:100%"></i><i style="height:80%"></i><i style="height:44%"></i><i style="height:90%"></i><i style="height:58%"></i><i style="height:100%"></i><i style="height:72%"></i><i style="height:100%"></i><i style="height:50%"></i><i style="height:86%"></i>
+      </div>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Содержание</span><span>03</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 01 — ПОДРУГИ ============ -->
+  <section class="spread spread--flip" id="ch1">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 01 · стр. 04</p>
+      <h2 class="chapter">Клуб любимых подруг</h2>
+      <p class="dek">Пять человек, которые всегда рядом</p>
+      <div class="cols">
+        <p class="dropcap">Соня, Полина, Кира, Вилена и Нютик — не просто список имён, а полноценный клуб со своими традициями, тостами и сценарием вечеринки «Party Mode 4».</p>
+        <p>У каждой — своя страница: фотография, CD-микстейп, тост и роль в общем сценарии. Переверните полароид, чтобы услышать поздравление.</p>
+        <p>Соберите все пять карточек — клуб открывается целиком, как вкладыш в журнале.</p>
+      </div>
+      <blockquote class="pull">
+        «Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви!»
+        <cite>— Соня, тост на странице 05</cite>
+      </blockquote>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_16d89e8513f4.jpg" alt="Иллюстрация: подруги вместе" width="900" height="675"></div>
+        <figcaption><b>Разворот клуба.</b> Пять полароидов с эффектом глянца, каждый со своим поздравлением.</figcaption>
+      </figure>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Клуб подруг</span><span>05</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 02 — КАССЕТА ============ -->
+  <section class="spread" id="ch2">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 02 · стр. 09</p>
+      <h2 class="chapter">Послание «Милка»</h2>
+      <p class="dek">Секретная кассета, сторона A и B</p>
+      <p class="lede">Кассета вложена в номер как физический подарок: сторона A — голос, сторона B — письмо.</p>
+      <div class="cols">
+        <p>Чтобы прослушать сторону B, нужен четырёхзначный код. Подсказка напечатана мелким шрифтом внизу страницы: день вашего знакомства, 16 мая.</p>
+        <p>Введите <b>1605</b> — и страница разворачивается в расшифрованное письмо, набранное крупным кеглем, как признание на последней полосе.</p>
+      </div>
+      <blockquote class="pull">
+        «Введи секретный 4-значный ПИН-код. Подсказка: день нашего знакомства 16.05.»
+        <cite>— инструкция к кассете</cite>
+      </blockquote>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_9dc92d4ecb38.jpg" alt="Кассета и письмо-послание" width="900" height="675"></div>
+        <figcaption><b>Кассета Side A / Side B.</b> Вёрстка письма — крупный кегль на всю полосу, как признание.</figcaption>
+      </figure>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Послание «Милка»</span><span>10</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 03 — РУСИНОВО ============ -->
+  <section class="spread spread--flip" id="ch3">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 03 · стр. 14</p>
+      <h2 class="chapter">Древо семьи · Русиново</h2>
+      <p class="dek">Откуда всё началось</p>
+      <div class="cols">
+        <p class="dropcap">Село Русиново встречало каждое лето запахом свежескошенной травы, сладкой малиной прямо с куста и горячими бабушкиными пирожками.</p>
+        <p>Здесь Викулек делала первые шаги, смеялась под тёплыми лучами солнца и училась любить этот мир всем сердцем.</p>
+      </div>
+      <p>Глава собрана как семейный архив: скрапбук с красными нитями судеб, парадный портрет маслом в золотом багете и кинескопный ретро-ТВ со стеллажом из четырёх кассет VHS.</p>
+      <blockquote class="pull">
+        «Здесь Викулек делала первые шаги и училась любить этот мир всем сердцем.»
+        <cite>— хроники Русиново</cite>
+      </blockquote>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_f7616f682098.jpg" alt="Семейный архив и портрет маслом" width="900" height="675"></div>
+        <figcaption><b>Парадный портрет.</b> Золотой багет, вернисажная подсветка, подпись тушью.</figcaption>
+      </figure>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Русиново</span><span>15</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 04 — ОРАКУЛ ============ -->
+  <section class="spread" id="ch4">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 04 · стр. 21</p>
+      <h2 class="chapter">Оракул пушистых сил</h2>
+      <p class="dek">Тёмный пушистый триумвират</p>
+      <p class="lede">Три хранителя оберегают двадцать первый год. Коснитесь любого — получите предсказание.</p>
+      <div class="cols">
+        <p><b>Вильзивул</b>, страж ночи, отвечает за личные границы. <b>Макс</b>, хранитель кайфа, — за вкусности и радость. <b>Абадон</b>, сфинкс тайн, — за роскошь и сладкий сон.</p>
+        <p>В этом макете карточки оракула набраны как гороскоп в глянцевом журнале: рубрика, врезка, крупная цитата и подпись хранителя.</p>
+      </div>
+      <blockquote class="pull">
+        «Вселенский кристалл заряжен на 100%! В твои 21 год ожидается море вкусностей, радости и безграничной любви!»
+        <cite>— Макс · Хранитель Кайфа</cite>
+      </blockquote>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_ceb330461efc.jpg" alt="Пушистый триумвират — хранители" width="900" height="675"></div>
+        <figcaption><b>Триумвират.</b> Три портрета в ряд, под каждым — его зона ответственности.</figcaption>
+      </figure>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Оракул</span><span>22</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 05 — КОСМОС ============ -->
+  <section class="spread spread--flip" id="ch5">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 05 · стр. 27</p>
+      <h2 class="chapter">Космос NASA, 2005</h2>
+      <p class="dek">Архивы Hubble · созвездие Скорпиона</p>
+      <div class="cols">
+        <p class="dropcap">В этот день 18 ноября 2005 года телескопы NASA Hubble запечатлели глубины космических сияний. Вселенная сияла ярче обычного, встречая рождение Викулька.</p>
+        <p>Разворот сделан как вкладка научного журнала: чёрный фон, звёздная карта, подписи созвездий и место для одного желания, отправленного со звездопадом.</p>
+      </div>
+      <div class="timer">
+        <div><b>21</b><span>год</span></div>
+        <div><b>11</b><span>месяцев</span></div>
+        <div><b>18</b><span>ноября</span></div>
+        <div><b>2005</b><span>дата рождения</span></div>
+      </div>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_daad730c6486.jpg" alt="Космос: созвездие Скорпиона" width="900" height="675"></div>
+        <figcaption><b>Scorpio constellation.</b> Карта звёздного неба на 18 ноября 2005 года.</figcaption>
+      </figure>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Космос</span><span>28</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ГЛАВА 06 + 07 ============ -->
+  <section class="spread" id="ch6">
+    <div class="page page--l">
+      <p class="chapter-no">Глава 06 · стр. 33</p>
+      <h2 class="chapter">Секретики-пистолетики</h2>
+      <p class="dek">Сейф Жулика</p>
+      <p>Лис-Жулик спрятал тайный архив за кодовым словом. Страница сделана как страховой полис: мелкий шрифт, печати, отрывной корешок с подсказкой.</p>
+      <p><b>Кодовое слово:</b> «черемшить». Введите — и откроется архив закрытых видео-воспоминаний.</p>
+      <p class="chapter-no" style="margin-top:26px">Глава 07 · стр. 38</p>
+      <h2 class="chapter">Медиа-студия</h2>
+      <p class="dek">Письмо в 22 года</p>
+      <blockquote class="pull">
+        «С днём рождения, моё солнышко! Пусть твои 21 будут самыми яркими, дерзкими и незабываемыми. Безумно люблю тебя!»
+        <cite>— письмо, которое откроется через год</cite>
+      </blockquote>
+    </div>
+    <div class="page page--r">
+      <figure style="margin-top:34px">
+        <div class="ph"><img src="../assets/img_b89d3e4b55cc.jpg" alt="Сейф Жулика и тайный архив" width="900" height="675"></div>
+        <figcaption><b>Сейф Жулика.</b> Графический роман в стиле нуар — вкладка на плотной бумаге.</figcaption>
+      </figure>
+      <div class="nav-mini" role="group" aria-label="Быстрый переход по главам">
+        <button type="button" onclick="go('ch1')">01 Подруги</button>
+        <button type="button" onclick="go('ch2')">02 Кассета</button>
+        <button type="button" onclick="go('ch3')">03 Русиново</button>
+        <button type="button" onclick="go('ch4')">04 Оракул</button>
+        <button type="button" onclick="go('ch5')">05 Космос</button>
+      </div>
+      <p class="hint">Клик по кнопке перелистывает к нужной главе — как закладка в номере.</p>
+      <p class="folio"><span>ВИКУЛЕК №21</span><span>Секретики</span><span>34</span></p>
+    </div>
+  </section>
+
+  <!-- ============ ЗАМЕТКИ О МАКЕТЕ ============ -->
+  <section class="notes" id="notes">
+    <p class="kicker">Вариант A · что здесь сделано</p>
+    <h3>Глянцевый разворот</h3>
+    <ol>
+      <li><b>Формат.</b> Каждое полотно — разворот из двух страниц с корешком по центру. Читатель листает номер, а не скроллит лендинг.</li>
+      <li><b>Светлая бумага вместо тёмного фона.</b> Основной текст — <code>#1A0F08</code> на <code>#FFFDF8</code>: контраст 15.4:1. Исходный сайт был тёмным, из-за чего 6 подписей были невидимы.</li>
+      <li><b>Журнальные устройства.</b> Мастиhead, номер выпуска, содержание с пагинацией, буквица, врезка-цитата, подрисуночная подпись, колонтитул с номером страницы, штрихкод.</li>
+      <li><b>Палитра сжата.</b> Было 24+ оттенков; здесь 3 акцента — розовый, золото, небесный — на бумаге и чернилах.</li>
+      <li><b>Реальные шрифты проекта.</b> Syne для заголовков и Space Grotesk для текста — те же, что были в макете Stitch.</li>
+    </ol>
+  </section>
+
+</div>
+
+<script>
+/* Единственный скрипт: плавный переход по закладкам.
+
+   В исходном сайте было 4 вкладки и 4 кнопки арены, которые вызывали
+   несуществующие функции и потому молча не работали. Здесь каждая кнопка
+   вызывает существующую go(), поэтому «мёртвых» элементов нет по построению. */
+function go(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+}
+document.querySelectorAll('.nav-mini button').forEach(function (b) {
+  b.addEventListener('click', function () { b.blur(); });
+});
+</script>
+</body>
+</html>

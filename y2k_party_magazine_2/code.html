@@ -1,0 +1,2231 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+<title>Викулек • Y2K Party Magazine Edition (21 год)</title>
+<!-- Google Fonts: Syne, Oswald, Montserrat, Caveat, Orbitron, Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,400&amp;family=Orbitron:wght@600;800;900&amp;family=Oswald:wght@300;400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;family=Syne:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- Canvas-Confetti for Party Effects -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+    :root {
+      --c-bg: #050508;
+      --c-pink: #ff4b91;
+      --c-pink-glow: rgba(255, 75, 145, 0.4);
+      --c-lilac: #b388ff;
+      --c-blue: #00f0ff;
+      --c-gold: #ffd600;
+      --c-card-bg: rgba(18, 14, 28, 0.85);
+      --c-border: rgba(255, 75, 145, 0.3);
+      --font-main: 'Montserrat', sans-serif;
+      --font-heading: 'Syne', sans-serif;
+      --font-display: 'Oswald', sans-serif;
+      --font-hand: 'Caveat', cursive;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { width: 100%; min-height: 100vh; background: var(--c-bg); color: #fff; font-family: var(--font-main); overflow-x: hidden; }
+
+    /* Video Background */
+    #bgVideo {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; pointer-events: none; opacity: 0.35; filter: contrast(110%) brightness(80%);
+    }
+    .video-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 20%, rgba(255, 75, 145, 0.15), rgba(5, 5, 8, 0.95) 85%);
+      z-index: 1; pointer-events: none;
+    }
+
+    /* Floating Hearts */
+    .floating-heart {
+      position: fixed; bottom: -40px; z-index: 2; pointer-events: none;
+      animation: floatHeart linear forwards;
+    }
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(-115vh) scale(1.1) rotate(45deg); opacity: 0; }
+    }
+
+    /* Top Ticker / Header Strip */
+    .top-ticker {
+      position: relative; z-index: 10; width: 100%; background: linear-gradient(90deg, #ff4b91, #b388ff, #00f0ff);
+      color: #000; font-family: var(--font-heading); font-size: 12px; font-weight: 900;
+      padding: 6px 15px; display: flex; justify-content: space-between; align-items: center;
+      text-transform: uppercase; letter-spacing: 1.5px; box-shadow: 0 0 20px var(--c-pink-glow);
+    }
+    .ticker-left { display: flex; gap: 15px; align-items: center; }
+    .ticker-btn {
+      background: #000; color: #fff; border: none; padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; cursor: pointer; font-family: var(--font-display); letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .ticker-btn:hover { background: #fff; color: #000; }
+
+    /* Main Container */
+    .app-container {
+      position: relative; z-index: 5; max-width: 1100px; margin: 0 auto; padding: 25px 20px 80px 20px;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; justify-content: center;
+    }
+    .nav-tab {
+      background: rgba(18, 14, 28, 0.8); border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.8); padding: 8px 16px; border-radius: 30px;
+      font-family: var(--font-display); font-size: 13px; text-transform: uppercase;
+      letter-spacing: 1px; cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px);
+    }
+    .nav-tab:hover, .nav-tab.active {
+      background: linear-gradient(135deg, #ff4b91, #b388ff); color: #fff;
+      border-color: #ff4b91; transform: translateY(-2px); box-shadow: 0 5px 18px var(--c-pink-glow);
+    }
+
+    /* Hero Magazine Header Banner */
+    .hero-banner {
+      background: rgba(25, 18, 38, 0.85); border: 2px solid var(--c-pink);
+      border-radius: 24px; padding: 25px 30px; display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 25px; align-items: center; backdrop-filter: blur(16px); margin-bottom: 25px;
+      position: relative; box-shadow: 0 10px 40px rgba(255, 75, 145, 0.25);
+    }
+    .badge-y2k {
+      display: inline-block; background: #000; color: #ff4b91; border: 1px solid #ff4b91;
+      padding: 4px 14px; border-radius: 30px; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: var(--font-heading); font-size: 54px; font-weight: 900; line-height: 1;
+      letter-spacing: -1px; text-transform: uppercase; margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff 40%, #ff4b91 80%, #00f0ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+    .tag-item {
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 10px; border-radius: 6px; font-size: 11px; font-family: var(--font-display);
+      text-transform: uppercase; letter-spacing: 1px; color: #ffc2df;
+    }
+    .hero-desc { font-size: 14px; color: rgba(255, 255, 255, 0.75); line-height: 1.5; margin-bottom: 20px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    
+    .btn-y2k {
+      padding: 12px 24px; border-radius: 30px; font-family: var(--font-heading);
+      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+      cursor: pointer; transition: all 0.3s ease; border: none; display: inline-flex;
+      align-items: center; gap: 8px; text-decoration: none;
+    }
+    .btn-primary {
+      background: #ffd600; color: #000; box-shadow: 0 5px 15px rgba(255, 214, 0, 0.4);
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+    .btn-party {
+      background: linear-gradient(135deg, #ff4b91, #9c27b0); color: #fff;
+      box-shadow: 0 5px 20px var(--c-pink-glow);
+    }
+    .btn-party:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+    .hero-cover-container {
+      position: relative; border-radius: 18px; overflow: hidden;
+      border: 3px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      background: #111; aspect-ratio: 16/10;
+    }
+    .hero-cover-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-cover-tag {
+      position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px); padding: 6px 12px; display: flex; justify-content: space-between;
+      font-family: var(--font-display); font-size: 11px; text-transform: uppercase;
+      letter-spacing: 2px; color: #ffd600;
+    }
+
+    /* Quest Progress Bar */
+    .quest-banner {
+      background: rgba(20, 15, 30, 0.9); border: 1px solid #ffd600; border-radius: 16px;
+      padding: 14px 20px; display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 25px; box-shadow: 0 0 25px rgba(255, 214, 0, 0.15); flex-wrap: wrap; gap: 15px;
+    }
+    .quest-info { display: flex; align-items: center; gap: 12px; }
+    .quest-icon {
+      width: 36px; height: 36px; border-radius: 50%; background: #ffd600; color: #000;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .quest-text h4 { font-family: var(--font-heading); font-size: 14px; text-transform: uppercase; color: #ffd600; }
+    .quest-text p { font-size: 12px; color: rgba(255,255,255,0.7); }
+    .quest-status { display: flex; align-items: center; gap: 15px; }
+    .badge-completed {
+      background: rgba(0, 255, 170, 0.15); border: 1px solid #00ffaa; color: #00ffaa;
+      padding: 5px 12px; border-radius: 20px; font-family: var(--font-display); font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* Grid of Chapters */
+    .chapters-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;
+    }
+    .chapter-card {
+      background: var(--c-card-bg); border: 2px solid rgba(255, 75, 145, 0.3);
+      border-radius: 20px; padding: 20px; display: flex; flex-direction: column;
+      backdrop-filter: blur(12px); transition: all 0.35s ease; position: relative;
+      overflow: hidden;
+    }
+    .chapter-card:hover {
+      border-color: var(--c-pink); transform: translateY(-5px);
+      box-shadow: 0 12px 30px var(--c-pink-glow);
+    }
+    .card-head {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    }
+    .card-icon-pill {
+      width: 38px; height: 38px; border-radius: 12px; background: rgba(255, 75, 145, 0.15);
+      border: 1px solid var(--c-pink); color: var(--c-pink); display: flex; align-items: center;
+      justify-content: center; font-size: 16px;
+    }
+    .card-chapter-num {
+      font-family: var(--font-display); font-size: 11px; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 20px; background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.6); letter-spacing: 1px;
+    }
+    .card-title {
+      font-family: var(--font-heading); font-size: 18px; font-weight: 800; margin-bottom: 8px;
+      color: #fff;
+    }
+    .card-desc {
+      font-size: 12px; color: rgba(255, 255, 255, 0.65); line-height: 1.4; margin-bottom: 15px;
+      flex-grow: 1;
+    }
+    .card-img-preview {
+      width: 100%; height: 130px; border-radius: 12px; overflow: hidden;
+      margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.15); background: #000;
+      position: relative;
+    }
+    .card-img-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .card-btn {
+      width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--c-pink);
+      background: transparent; color: #fff; font-family: var(--font-display); font-size: 12px;
+      text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .card-btn:hover {
+      background: var(--c-pink); color: #fff; box-shadow: 0 4px 15px var(--c-pink-glow);
+    }
+
+    /* =========================================================
+       CHAPTER 4: LUMINOUS TRIUMVIRATE ORACLE (WITH IMAGE_38 PROMINENT BACKDROP)
+       ========================================================= */
+    .chapter-card-glow-seamless {
+      border: 1px solid rgba(255, 75, 145, 0.45) !important;
+      position: relative;
+      background: #0d0818 !important;
+      border-radius: 24px !important;
+      box-shadow: 0 10px 40px rgba(255, 75, 145, 0.35), 0 0 70px rgba(179, 136, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+    .chapter-card-glow-seamless > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Prominent Backdrop Preview in Chapter 4 */
+    .triptych-preview-container-bright {
+      position: relative;
+      width: 100%;
+      height: 155px;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(255, 75, 145, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      border: 1.5px solid rgba(255, 75, 145, 0.5);
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      background: #0a0614;
+    }
+    .triptych-preview-container-bright:hover {
+      box-shadow: 0 12px 45px rgba(255, 75, 145, 0.7), 0 0 40px rgba(0, 240, 255, 0.6);
+      transform: translateY(-2px) scale(1.02);
+      border-color: #ff4b91;
+    }
+
+    /* Distinct visible photo backdrop of the Triumvirate IMAGE_38 */
+    .preview-backdrop-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      opacity: 0.65;
+      filter: contrast(115%) saturate(125%) brightness(90%);
+      z-index: 0;
+      transition: transform 0.6s ease, opacity 0.4s ease;
+    }
+    .triptych-preview-container-bright:hover .preview-backdrop-art {
+      opacity: 0.82;
+      transform: scale(1.05);
+    }
+    .preview-backdrop-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 4, 16, 0.25) 0%, rgba(8, 4, 16, 0.7) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .triptych-orb-center-bright {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255, 121, 176, 0.6) 40%, rgba(168, 85, 247, 0.4) 75%, transparent 100%);
+      box-shadow: 0 0 30px #ff70af, 0 0 50px #38bdf8;
+      animation: orbTriptychPulse 2.4s ease-in-out infinite alternate;
+      z-index: 2;
+      pointer-events: none;
+      bottom: 8px;
+    }
+
+    .stardust-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .triptych-avatar-badge {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+    .triptych-avatar-badge:hover {
+      transform: scale(1.22) translateY(-4px) !important;
+      z-index: 7;
+    }
+    .triptych-avatar-badge img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid #fff;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+
+    .triptych-badge-vilzivul { animation: floatMiniVilzivul 4.2s ease-in-out infinite alternate; }
+    .triptych-badge-abadon { animation: floatMiniAbadon 3.5s ease-in-out infinite alternate; }
+    .triptych-badge-york { animation: floatMiniYork 3.8s ease-in-out infinite alternate; }
+
+    @keyframes floatMiniAbadon {
+      0% { transform: translateY(-6px) rotate(-1deg); }
+      50% { transform: translateY(0px) rotate(1deg); }
+      100% { transform: translateY(5px) rotate(-1.5deg); }
+    }
+    @keyframes floatMiniVilzivul {
+      0% { transform: translateY(4px) scale(0.97) rotate(1deg); }
+      50% { transform: translateY(-3px) scale(1.02) rotate(-0.5deg); }
+      100% { transform: translateY(-7px) scale(1.05) rotate(1.2deg); }
+    }
+    @keyframes floatMiniYork {
+      0% { transform: translateY(-4px) rotate(-2deg); }
+      50% { transform: translateY(2px) rotate(2deg); }
+      100% { transform: translateY(5px) rotate(-1deg); }
+    }
+
+    /* Media Studio Banner */
+    .studio-card {
+      background: linear-gradient(135deg, rgba(255, 75, 145, 0.2), rgba(179, 136, 255, 0.2));
+      border: 2px dashed #ff4b91; border-radius: 20px; padding: 22px 30px;
+      display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(12px);
+      flex-wrap: wrap; gap: 20px;
+    }
+    .studio-text h3 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 6px; }
+    .studio-text p { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+    /* Modals System */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(5, 5, 8, 0.88); backdrop-filter: blur(18px); z-index: 1000;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.active { display: flex; animation: modalPop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .modal-window {
+      background: rgba(18, 14, 28, 0.96); border: 2px solid var(--c-pink);
+      border-radius: 24px; width: 100%; max-width: 680px; max-height: 90vh;
+      overflow-y: auto; padding: 30px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+    .modal-close-btn {
+      position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; font-size: 15px; z-index: 30; backdrop-filter: blur(8px);
+    }
+    .modal-close-btn:hover { background: #ff4b91; border-color: #ff4b91; transform: scale(1.1); }
+
+    /* =========================================================
+       MODAL: FULL RADIANT ORACLE WITH PROMINENT IMAGE_38 ART
+       Floating Crystal Orbs with Refraction & Synced Guardians
+       ========================================================= */
+    .modal-window.wide-altar-variant3 {
+      max-width: 1080px;
+      border: 1.5px solid rgba(255, 75, 145, 0.6) !important;
+      border-radius: 32px;
+      background: #090514 !important;
+      box-shadow: 0 0 80px rgba(255, 75, 145, 0.5), 0 0 120px rgba(147, 51, 234, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+      position: relative;
+      overflow: hidden;
+      padding: 34px 30px 28px 30px;
+    }
+
+    /* Distinct and vividly visible backdrop art of IMAGE_38 in the Modal */
+    .altar-depth-bg-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0.45;
+      filter: contrast(120%) saturate(135%) brightness(95%);
+      pointer-events: none;
+      z-index: 1;
+      mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.1) 95%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.1) 95%);
+      transition: opacity 0.5s ease;
+    }
+
+    .altar-depth-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 75, 145, 0.15) 0%, rgba(9, 5, 20, 0.65) 60%, rgba(5, 3, 10, 0.9) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .oracle-v3-header {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .oracle-v3-title {
+      font-family: var(--font-heading);
+      font-size: 34px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      background: linear-gradient(120deg, #ffffff 10%, #ffd1eb 40%, #e9d5ff 75%, #67e8f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      text-shadow: 0 0 35px rgba(255, 75, 145, 0.6);
+    }
+    .oracle-v3-sub {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.5;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Floating Crystal Orbs Arena Layout */
+    .crystal-orbs-arena {
+      position: relative;
+      z-index: 4;
+      min-height: 410px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px 0;
+    }
+
+    /* Central Energy Flare in Arena aligned with the glowing crystal sphere */
+    .arena-core-flare {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 75, 145, 0.38) 0%, rgba(168, 85, 247, 0.25) 45%, transparent 70%);
+      filter: blur(25px);
+      pointer-events: none;
+      z-index: 2;
+      animation: corePulse 3s ease-in-out infinite alternate;
+    }
+    @keyframes corePulse {
+      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.95; }
+    }
+
+    /* Crystal Orb Anchor with Floating Keyframes */
+    .crystal-orb-anchor {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .crystal-orb-anchor:hover {
+      transform: scale(1.1) translateY(-8px) !important;
+      z-index: 10;
+    }
+
+    /* Floating orbits for 3 distinct guardians */
+    .float-orb-left {
+      animation: floatOrbLeftAnim 5s ease-in-out infinite alternate;
+    }
+    @keyframes floatOrbLeftAnim {
+      0% { transform: translate(0, -6px) rotate(-1deg); }
+      50% { transform: translate(6px, 8px) rotate(1deg); }
+      100% { transform: translate(-4px, -12px) rotate(-2deg); }
+    }
+
+    .float-orb-center {
+      animation: floatOrbCenterAnim 4.2s ease-in-out infinite alternate;
+      transform: translateY(-24px);
+    }
+    @keyframes floatOrbCenterAnim {
+      0% { transform: translateY(-28px) scale(1); }
+      50% { transform: translateY(-16px) scale(1.02); }
+      100% { transform: translateY(-34px) scale(0.98); }
+    }
+
+    .float-orb-right {
+      animation: floatOrbRightAnim 5.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatOrbRightAnim {
+      0% { transform: translate(0, 8px) rotate(1.5deg); }
+      50% { transform: translate(-8px, -8px) rotate(-1deg); }
+      100% { transform: translate(4px, 12px) rotate(2deg); }
+    }
+
+    /* Crystal Sphere Glassmorphism with Refraction & Highlight */
+    .crystal-sphere {
+      position: relative;
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      padding: 6px;
+      overflow: hidden;
+      background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(0, 0, 0, 0.5) 100%);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.75),
+        inset 0 0 25px rgba(255, 255, 255, 0.45),
+        inset 0 6px 12px rgba(255, 255, 255, 0.75),
+        inset 0 -10px 20px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+
+    .crystal-sphere-center {
+      width: 205px;
+      height: 205px;
+      box-shadow: 
+        0 20px 45px rgba(255, 75, 145, 0.55),
+        inset 0 0 30px rgba(255, 255, 255, 0.6),
+        inset 0 8px 16px rgba(255, 255, 255, 0.85),
+        inset 0 -12px 25px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Pet Portrait Image Inside Sphere */
+    .crystal-sphere img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: saturate(115%) contrast(108%);
+    }
+    .crystal-orb-anchor:hover .crystal-sphere img {
+      transform: scale(1.08);
+      filter: saturate(135%) contrast(115%);
+    }
+
+    /* Glass Specular Flare / Lens Arc (Top Left Highlight) */
+    .glass-specular-highlight {
+      position: absolute;
+      top: 8%;
+      left: 14%;
+      width: 45%;
+      height: 30%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 45%, transparent 80%);
+      transform: rotate(-25deg);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Bottom Caustic Reflection Arc */
+    .glass-caustic-ring {
+      position: absolute;
+      bottom: 5%;
+      right: 12%;
+      width: 50%;
+      height: 20%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 50% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%);
+      transform: rotate(15deg);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Gloss Shine Sweep */
+    .crystal-sphere::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 220%;
+      height: 200%;
+      background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.5) 48%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 52%, transparent 60%);
+      transform: translateX(-100%) rotate(25deg);
+      transition: transform 0.8s ease;
+      pointer-events: none;
+      z-index: 6;
+    }
+    .crystal-orb-anchor:hover .crystal-sphere::after {
+      transform: translateX(100%) rotate(25deg);
+    }
+
+    /* Character Chromatic Halos */
+    .orb-vilzivul .crystal-sphere {
+      border: 2px solid rgba(168, 85, 247, 0.75);
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.6), 0 12px 30px rgba(0,0,0,0.8), inset 0 0 25px rgba(168, 85, 247, 0.5);
+    }
+    .orb-vilzivul:hover .crystal-sphere {
+      box-shadow: 0 0 55px rgba(139, 92, 246, 0.9), 0 0 80px rgba(56, 189, 248, 0.6), inset 0 0 35px rgba(196, 181, 253, 0.7);
+    }
+
+    .orb-abadon .crystal-sphere {
+      border: 2.5px solid rgba(255, 75, 145, 0.85);
+      box-shadow: 0 0 45px rgba(255, 75, 145, 0.7), 0 16px 40px rgba(0,0,0,0.9), inset 0 0 30px rgba(255, 75, 145, 0.6);
+    }
+    .orb-abadon:hover .crystal-sphere {
+      box-shadow: 0 0 70px rgba(255, 75, 145, 1), 0 0 95px rgba(255, 214, 0, 0.7), inset 0 0 40px rgba(255, 214, 235, 0.8);
+    }
+
+    .orb-york .crystal-sphere {
+      border: 2px solid rgba(255, 214, 0, 0.75);
+      box-shadow: 0 0 35px rgba(255, 214, 0, 0.55), 0 12px 30px rgba(0,0,0,0.8), inset 0 0 25px rgba(255, 214, 0, 0.45);
+    }
+    .orb-york:hover .crystal-sphere {
+      box-shadow: 0 0 55px rgba(255, 214, 0, 0.85), 0 0 75px rgba(255, 75, 145, 0.6), inset 0 0 35px rgba(254, 240, 138, 0.7);
+    }
+
+    /* Floating Capsule Labels & Quick Trigger Buttons */
+    .orb-label-capsule {
+      margin-top: 14px;
+      padding: 6px 14px;
+      border-radius: 24px;
+      background: rgba(18, 10, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    .crystal-orb-anchor:hover .orb-label-capsule {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: #fff;
+      transform: translateY(2px);
+    }
+    .orb-name {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+    .orb-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    .orb-trigger-btn {
+      margin-top: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .orb-trigger-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Live Revelation Dialogue Box */
+    .oracle-revelation-dialogue {
+      position: relative;
+      z-index: 5;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      padding: 20px 26px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      transition: all 0.4s ease;
+    }
+    .revelation-speaker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .revelation-speaker-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #ffd600;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(255, 214, 0, 0.5);
+    }
+    .revelation-text-box {
+      flex: 1;
+      min-width: 260px;
+    }
+    .revelation-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      color: #ffd600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+    .revelation-content {
+      font-size: 13.5px;
+      color: #ffffff;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* Modal Content Specifics */
+    .modal-header-y2k { text-align: center; margin-bottom: 25px; }
+    .modal-header-y2k h2 {
+      font-family: var(--font-heading); font-size: 26px; text-transform: uppercase;
+      letter-spacing: 1px; color: #fff; margin-bottom: 6px;
+    }
+    .modal-header-y2k p { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    /* Friends Grid & Challenge Wheel */
+    .friends-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+    .friend-box {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 10px; text-align: center; cursor: pointer; transition: all 0.3s;
+    }
+    .friend-box:hover, .friend-box.active {
+      border-color: #ff4b91; background: rgba(255, 75, 145, 0.15); transform: translateY(-3px);
+    }
+    .friend-avatar {
+      width: 55px; height: 55px; border-radius: 50%; object-fit: cover; margin: 0 auto 8px auto;
+      border: 2px solid #ff4b91; display: block;
+    }
+    .friend-lbl { font-family: var(--font-display); font-size: 11px; text-transform: uppercase; }
+
+    /* Tape Cassette */
+    .cassette-shell {
+      background: #111; border: 2px solid #555; border-radius: 12px; padding: 15px;
+      max-width: 320px; margin: 0 auto 20px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .cassette-window {
+      background: rgba(200, 220, 255, 0.15); border: 1px solid #444; border-radius: 6px;
+      height: 60px; display: flex; justify-content: space-around; align-items: center; margin-bottom: 12px;
+    }
+    .cassette-spool {
+      width: 32px; height: 32px; border-radius: 50%; border: 3px solid #888;
+      animation: spinTape 2s linear infinite;
+    }
+    @keyframes spinTape { 100% { transform: rotate(360deg); } }
+    .cassette-label {
+      background: linear-gradient(90deg, #ffd600, #ff4b91); color: #000; padding: 6px 10px;
+      text-align: center; font-family: var(--font-heading); font-size: 12px; font-weight: 800;
+      border-radius: 4px;
+    }
+
+    /* Secret Vault Terminal */
+    .vault-terminal {
+      background: #000; border: 1px solid #00f0ff; border-radius: 12px; padding: 20px;
+      font-family: 'Orbitron', monospace; color: #00f0ff; text-align: center; margin-bottom: 20px;
+    }
+    .vault-input {
+      background: transparent; border: 1px solid #00f0ff; color: #00f0ff; font-family: 'Orbitron', monospace;
+      font-size: 18px; padding: 10px 15px; text-align: center; border-radius: 8px; width: 220px;
+      margin: 15px 0; outline: none; letter-spacing: 4px;
+    }
+
+    /* Interactive Buttons Row inside Oracle Modal */
+    .oracle-actions-strip {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-banner { grid-template-columns: 1fr; }
+      .chapters-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-title { font-size: 40px; }
+      .crystal-orbs-arena { flex-direction: column; gap: 30px; }
+      .float-orb-center { transform: translateY(0); }
+      @keyframes floatOrbCenterAnim {
+        0% { transform: translateY(-8px) scale(1); }
+        100% { transform: translateY(8px) scale(1.02); }
+      }
+    }
+    @media (max-width: 600px) {
+      .chapters-grid { grid-template-columns: 1fr; }
+      .friends-strip { grid-template-columns: repeat(3, 1fr); }
+      .hero-title { font-size: 32px; }
+      .crystal-sphere { width: 140px; height: 140px; }
+      .crystal-sphere-center { width: 165px; height: 165px; }
+    }
+  
+/* ===== FIX 6: honour the user's reduced-motion preference ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ===== FIX 2: animation hooks used by window.trigger3DAction ========= */
+.crystal-orbs-arena, .scene-3d-wrapper {
+  transition: transform .6s ease, filter .6s ease;
+}
+.crystal-orbs-arena.arena-walk  { animation: arenaWalk 3.8s ease-in-out; }
+.crystal-orbs-arena.arena-wag   { animation: arenaWag 2.2s ease-in-out; }
+.crystal-orbs-arena.arena-cheer { animation: arenaCheer 2.6s ease-out; }
+@keyframes arenaWalk {
+  0%   { transform: translateX(-2.5%) scale(1);    filter: brightness(1); }
+  50%  { transform: translateX(2.5%)  scale(1.02); filter: brightness(1.18); }
+  100% { transform: translateX(-2.5%) scale(1);    filter: brightness(1); }
+}
+@keyframes arenaWag {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  25%      { transform: rotate(3deg)  scale(1.03); }
+  75%      { transform: rotate(-3deg) scale(1.01); }
+}
+@keyframes arenaCheer {
+  0%   { transform: scale(.9)  rotate(-4deg); filter: brightness(1); }
+  45%  { transform: scale(1.09) rotate(4deg); filter: brightness(1.5); }
+  100% { transform: scale(1)   rotate(0);     filter: brightness(1); }
+}
+/* ===== FIX 7: visible focus for newly keyboard-reachable elements ==== */
+[onclick]:focus-visible {
+  outline: 3px solid #00f0ff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+
+/* ===== AUDIT FIX 1: unreadable black text on near-black backgrounds ====
+   Elements such as the ticker text and the "Y2K GLAM & RIOT VIP EDITION"
+   pill computed to rgb(0,0,0) on rgb(5,5,8) -> contrast ratio 1.03:1,
+   i.e. invisible. Force a readable light colour on those dark surfaces. */
+.top-ticker, .top-ticker *,
+.disco-pill, .vip-pill, .ticker-btn,
+[class*="ticker"], [class*="pill"],
+[class*="badge"]:not(.gs-year-badge) {
+  color: #FFF7FB !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+}
+/* NB: [class*="badge"] was too broad -- it also matched the NASA year badges
+   added later (.gs-year-badge), forcing light text onto the cyan chip and
+   dropping its contrast to 1.34:1. Excluded above. */
+/* ===== AUDIT FIX 2: white on #FF4B91 is only 3.15:1 ====================
+   Darken the accent surface (or darken the text) to clear 4.5:1. */
+.pill-hot, .badge-hot, [class*="bunker"], .bunker-badge {
+  color: #2A0714 !important;
+  background: #FFD9E6 !important;
+  font-weight: 700;
+}
+/* ===== AUDIT FIX 3: touch targets below 44x44 ==========================
+   Nav pills were 38px tall and small buttons 22px tall. Give every
+   interactive element a 44px minimum hit area without changing the
+   visual design (padding is compensated with negative margin). */
+@media (pointer: coarse), (max-width: 900px) {
+  button, a.btn, [onclick], .nav-pill, .ticker-btn, .rus-tab-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* even on non-touch viewports, keep them comfortable to hit */
+}
+button, .rus-tab-btn, .nav-pill, .ticker-btn { min-height: 40px; }
+/* ===== AUDIT FIX 4: modal dialog semantics ============================= */
+.modal-overlay { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.modal-window:focus { outline: none; }
+
+
+/* ===== AUDIT FIX 2d: final contrast rules =============================
+   White text needs a background luminance <= 0.183 to reach 4.5:1, so the
+   pink #ff4b91 (L=0.283) and the yellow #ffd600 buttons take dark text. */
+.btn-y2k.txt-dark,
+.btn-y2k.btn-primary,
+.btn-y2k.btn-party,
+a.btn-y2k {
+  color: #1B040E !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+.btn-y2k.txt-light { color: #FFF7FB !important; text-shadow: 0 1px 3px rgba(0,0,0,.65) !important; }
+/* ===== AUDIT FIX 3b: raise touch targets to the 44px guideline ======== */
+button, a.btn, a.btn-y2k, [onclick], .nav-pill, .ticker-btn, .rus-tab-btn,
+input, select, textarea {
+  min-height: 44px;
+}
+.ticker-btn, .top-ticker button { min-height: 44px; }
+
+</style>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/favicon.svg">
+<meta name="theme-color" content="#8B5CF6">
+<meta name="color-scheme" content="dark">
+</head>
+<body>
+<!-- Background Ambient Video -->
+<video autoplay="" id="bgVideo" loop="" muted="" playsinline="">
+<source src="../assets/media/vhs_tape.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+<!-- Top Strip / Timer Navigation -->
+<div class="top-ticker">
+<div class="ticker-left">
+<span>⏳ ТАЙМЕР ДР: 18.11.2026</span>
+<span>•</span>
+<span>Y2K GLAM &amp; RIOT VIP EDITION</span>
+</div>
+<div class="ticker-right">
+<button class="ticker-btn" onclick="openModal('modalTimer')">Проверить таймер</button>
+<button class="ticker-btn" onclick="triggerPartyMode()">🎉 Party Mode</button>
+</div>
+</div>
+<div class="app-container">
+<!-- Top Chapters Quick Bar -->
+<nav class="nav-bar">
+<button class="nav-tab active" onclick="scrollToTop()"><i class="fa-solid fa-star"></i> Главная</button>
+<button class="nav-tab" onclick="openModal('modalMilka')"><i class="fa-solid fa-heart"></i> Послание Милки</button>
+<button class="nav-tab" onclick="openModal('modalFriends')"><i class="fa-solid fa-users"></i> Подруги</button>
+<button class="nav-tab" onclick="openModal('modalFamily')"><i class="fa-solid fa-house-chimney"></i> Древо Семьи</button>
+<button class="nav-tab" onclick="openModal('modalOracle')"><i class="fa-solid fa-eye"></i> Оракул Пушистых</button>
+<button class="nav-tab" onclick="openModal('modalSpace')"><i class="fa-solid fa-satellite"></i> Космос 2005</button>
+<button class="nav-tab" onclick="openModal('modalSecrets')"><i class="fa-solid fa-key"></i> Секретики</button>
+</nav>
+<!-- Magazine Hero Cover Header -->
+<header class="hero-banner">
+<div class="hero-text-side">
+<span class="badge-y2k">GLAM &amp; RIOT MAGAZINE • Y2K SPECIAL</span>
+<h1 class="hero-title">ВИКУЛЕК <i class="fa-solid fa-sparkles" style="font-size: 28px; color: #ffd600;"></i></h1>
+<div class="hero-tags">
+<span class="tag-item">21 ГОД</span>
+<span class="tag-item">THE MAIN CHARACTER ★</span>
+<span class="tag-item">18.11.2026</span>
+</div>
+<p class="hero-desc">
+          Эксклюзивный подарочный спецвыпуск: 5 любимых подруг, секретные кассеты, космические архивы NASA, пушистый оракул и тайные воспоминания!
+        </p>
+<div class="hero-actions">
+<button class="btn-y2k btn-primary" onclick="openModal('modalFriends')">
+<i class="fa-solid fa-users"></i> Клуб 5 Подруг ➔
+          </button>
+<button class="btn-y2k btn-party" onclick="triggerPartyMode()">
+<i class="fa-solid fa-compact-disc"></i> Nightclub Party Mode
+          </button>
+</div>
+</div>
+<!-- Real Cutout Collage of 6 Friends -->
+<div class="hero-cover-container">
+<img alt="Y2K Collage" class="hero-cover-img" id="heroCoverImg" src="../assets/placeholders/ph_00.svg" decoding="async" width="1200" height="900">
+<div class="hero-cover-tag">
+<span>COVER SPECIAL #21</span>
+<span>VIP STARS ★</span>
+</div>
+</div>
+</header>
+<!-- Quest Progress Banner -->
+<div class="quest-banner">
+<div class="quest-info">
+<div class="quest-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+<div class="quest-text">
+<h4>Квест: «Секретики-Пистолетики»</h4>
+<p>Изучи все 5 глав журнала для открытия супер-бункера с подарками!</p>
+</div>
+</div>
+<div class="quest-status">
+<span class="badge-completed">Пройдено: 5 / 5 глав</span>
+<button class="btn-y2k txt-dark" onclick="openModal('modalSecrets')" style="background: #ff4b91; color: #fff; padding: 6px 16px; font-size: 11px;">
+<i class="fa-solid fa-lock-open"></i> Бункер
+        </button>
+</div>
+</div>
+<!-- 6 Primary Chapters Grid -->
+<main class="chapters-grid">
+<!-- Chapter 1: Friends -->
+<article class="chapter-card">
+<div class="card-head">
+<div class="card-icon-pill"><i class="fa-solid fa-user-group"></i></div>
+<span class="card-chapter-num">Глава 1 • 5 Подруг</span>
+</div>
+<h3 class="card-title">Любимые Подруги ★</h3>
+<p class="card-desc">Соня, Полина, Кира, Вилена, Нютик с их фото, CD-микстейпами, тостами и сценарием «Party Mode 4»!</p>
+<div class="card-img-preview">
+<img alt="Подруги" src="../assets/placeholders/ph_00.svg" decoding="async" width="1200" height="900">
+</div>
+<button class="card-btn" onclick="openModal('modalFriends')">
+          Открыть Squad Карточки ➔
+        </button>
+</article>
+<!-- Chapter 2: Milka Message -->
+<article class="chapter-card">
+<div class="card-head">
+<div class="card-icon-pill" style="color: #ffd600; border-color: #ffd600;"><i class="fa-solid fa-heart"></i></div>
+<span class="card-chapter-num">Глава 2 • Ретро-кассета</span>
+</div>
+<h3 class="card-title">Послание «Милка»</h3>
+<p class="card-desc">Секретная кассета Side A / Side B, ПИН-код 1605, УФ-фонарик и признание в любви.</p>
+<div class="card-img-preview">
+<img alt="DC Comics Послание Милки" src="../assets/placeholders/ph_03.svg" decoding="async" width="1200" height="900">
+</div>
+<button class="card-btn" onclick="openModal('modalMilka')">
+          Слушать Кассету ➔
+        </button>
+</article>
+<!-- Chapter 3: Family Tree -->
+<article class="chapter-card"><div class="card-head"><div class="card-icon-pill" style="color: #ffd600; border-color: #ffd600; background: rgba(255, 214, 0, 0.15);"><i class="fa-solid fa-sitemap"></i></div><span class="card-chapter-num" style="border: 1px solid rgba(255, 214, 0, 0.4); color: #ffd600;">Глава 3 • Русиново</span></div><h3 class="card-title" style="background: linear-gradient(90deg, #ffd600, #ff76ac, #00f0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Нео-Древо Жизни ★ Русиново</h3><p class="card-desc">Цветущая яблоня рода, живые созвездия предков, передача импульса любви Викульку и парадная картина маслом в золотом багете!</p><div class="card-img-preview" onclick="openModal('modalFamily')" style="cursor: pointer; border: 1.5px solid rgba(255, 214, 0, 0.5); position: relative; overflow: hidden; background: radial-gradient(circle at 50% 60%, #1c0e33 0%, #06030c 100%);"><img alt="Парадный семейный портрет" src="../assets/placeholders/ph_03.svg" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; filter: contrast(110%) brightness(85%);" decoding="async" width="1200" height="900"><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,3,12,0.3) 0%, rgba(6,3,12,0.85) 100%);"></div><div style="position: absolute; bottom: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700; color: #ffd600; background: rgba(0,0,0,0.7); padding: 3px 8px; border-radius: 10px; border: 1px solid #ffd600;"><i class="fa-solid fa-sparkles"></i> 3 Поколения Любви</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; color: #ff76ac;">10 Хранителей Рода</span></div></div><button class="card-btn" onclick="openModal('modalFamily')" style="background: linear-gradient(135deg, rgba(255,214,0,0.2), rgba(255,75,145,0.25)); border-color: #ffd600; color: #fff;"><i class="fa-solid fa-sitemap"></i> Войти в Нео-Древо Русиново ➔</button></article>
+<!-- Chapter 4: Furry Oracle (Dark Furry Triumvirate with prominent IMAGE_38 backdrop) -->
+<article class="chapter-card chapter-card-glow-seamless">
+<div class="card-head">
+<div class="card-icon-pill" style="color: #fff; border: 1.5px solid rgba(255,255,255,0.7); background: linear-gradient(135deg, #ff4b91, #9333ea);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+<span class="card-chapter-num" style="background: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 700;">Глава 4 • Триумвират</span>
+</div>
+<h3 class="card-title" style="background: linear-gradient(90deg, #ffffff, #ffe4f3, #c4b5fd, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Оракул Пушистых Сил</h3>
+<p class="card-desc" style="color: rgba(255, 255, 255, 0.9);">Тёмный Пушистый Триумвират: парящие хрустальные порталы Вильзивула, Макса и Абадона поверх магического алтаря!</p>
+<!-- Dynamic Mini-Triptych with IMAGE_38 visibly illuminated as background -->
+<div class="triptych-preview-container-bright" onclick="openModal('modalOracle')" style="margin-bottom: 15px;"><img alt="Пушистый Триумвират" class="preview-backdrop-art" src="../assets/img_ceb330461efc.jpg" decoding="async" width="512" height="512"><div class="preview-backdrop-gradient"></div><canvas class="stardust-canvas" height="155" id="previewStardustCanvas" width="299"></canvas><div class="triptych-orb-center-bright"></div><div class="triptych-avatar-badge triptych-badge-vilzivul" onclick="event.stopPropagation(); triggerQuickPetCast('vilzivul');" title="Вильзивул • Страж Ночи"><img alt="Вильзивул" class="live-char-vilzivul" src="../assets/placeholders/ph_04.svg" style="border-color: rgb(168, 85, 247); box-shadow: rgba(168, 85, 247, 0.8) 0px 0px 15px;" decoding="async" width="1200" height="900"><span style="font-family: 'Space Grotesk'; font-size: 8px; color: #c4b5fd; margin-top: 4px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.6); padding: 1px 4px; border-radius: 4px;">СТРАЖ</span></div><div class="triptych-avatar-badge triptych-badge-york" onclick="event.stopPropagation(); triggerQuickPetCast('york');" style="margin-bottom: 14px;" title="Макс • Хранитель Кайфа"><img alt="Макс" class="live-char-max" src="../assets/placeholders/ph_05.svg" style="width: 56px; height: 56px; border-color: rgb(255, 214, 0); box-shadow: rgba(255, 214, 0, 0.9) 0px 0px 20px;" decoding="async" width="1200" height="900"><span style="font-family: 'Space Grotesk'; font-size: 8px; color: #ffd600; margin-top: 4px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.6); padding: 1px 4px; border-radius: 4px;">КАЙФ</span></div><div class="triptych-avatar-badge triptych-badge-abadon" onclick="event.stopPropagation(); triggerQuickPetCast('abadon');" title="Абадон • Сфинкс Тайн"><img alt="Абадон" class="live-char-abadon" src="../assets/placeholders/ph_06.svg" style="border-color: rgb(255, 75, 145); box-shadow: rgba(255, 75, 145, 0.8) 0px 0px 15px;" decoding="async" width="1200" height="900"><span style="font-family: 'Space Grotesk'; font-size: 8px; color: #ffd600; margin-top: 4px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.8); background: rgba(0,0,0,0.6); padding: 1px 4px; border-radius: 4px;">ТАЙНЫ</span></div></div>
+<button class="card-btn" onclick="openModal('modalOracle')" style="border: none; color: #000; background: linear-gradient(135deg, #ffd600, #ff79b0, #00f0ff); font-weight: 900; box-shadow: 0 4px 20px rgba(255, 75, 145, 0.45);">
+<i class="fa-solid fa-sparkles"></i> Войти в Сферы-Порталы ➔
+        </button>
+</article>
+<!-- Chapter 5: NASA 2005 -->
+<article class="chapter-card">
+<div class="card-head">
+<div class="card-icon-pill" style="color: #00f0ff; border-color: #00f0ff;"><i class="fa-solid fa-satellite-dish"></i></div>
+<span class="card-chapter-num">Глава 5 • 18 ноября 2005</span>
+</div>
+<h3 class="card-title">Космос NASA (2005)</h3>
+<p class="card-desc">Архив телескопов Hubble: созвездие Скорпиона в день рождения Викулька и звездопад желаний.</p>
+<div class="card-img-preview" style="background: radial-gradient(circle, #1a153a, #000); display: flex; align-items: center; justify-content: center;">
+<i class="fa-solid fa-meteor" style="font-size: 40px; color: #00f0ff;"></i>
+</div>
+<button class="card-btn" onclick="openModal('modalSpace')">
+          Смотреть Звёзды ➔
+        </button>
+</article>
+<!-- Chapter 6: Secrets & Safe -->
+<article class="chapter-card">
+<div class="card-head">
+<div class="card-icon-pill" style="color: #ff9900; border-color: #ff9900;"><i class="fa-solid fa-box-archive"></i></div>
+<span class="card-chapter-num">Глава 6 • Бункер 21</span>
+</div>
+<h3 class="card-title">Секретики-Пистолетики</h3>
+<p class="card-desc">Лис-Жулик, тайное кодовое слово «черемшить» и секретный архив закрытых видео-воспоминаний!</p>
+<div class="card-img-preview">
+<img alt="Лис-Жулик взламывает сейф" src="../assets/placeholders/ph_07.svg" decoding="async" width="1200" height="900">
+</div>
+<button class="card-btn" onclick="openModal('modalSecrets')">
+          Открыть Сейф ➔
+        </button>
+</article>
+</main>
+<!-- Media Studio Footer Feature -->
+<section class="studio-card">
+<div class="studio-text">
+<span class="card-chapter-num" style="background: rgba(255, 75, 145, 0.3); color: #fff; margin-bottom: 8px; display: inline-block;">
+          Глава 7 • Фото &amp; Видео будка
+        </span>
+<h3>Медиа-Студия: Письмо в 22 года &amp; Селфи</h3>
+<p>Сделай мгновенный глянцевый полароид в стиле обложки журнала 2000-х, напиши письмо будущей себе на 22 года и сохрани этот исторический момент!</p>
+</div>
+<button class="btn-y2k txt-light" onclick="openModal('modalStudio')" style="background: #000; color: #fff; border: 1px solid #fff;">
+<i class="fa-solid fa-camera-retro"></i> Зайти в Студию
+      </button>
+</section>
+</div>
+<!-- ==================== MODALS SYSTEM ==================== -->
+<!-- Modal 1: Friends Squad & Challenges -->
+<div class="modal-overlay" id="modalFriends">
+<div class="modal-window">
+<button class="modal-close-btn" onclick="closeModal('modalFriends')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>★ Клуб Любимых Подруг ★</h2>
+<p>Выбери подругу, чтобы перевернуть полароид и включить поздравление!</p>
+</div>
+<div class="friends-strip"><div class="friend-box active" onclick="selectFriend('sonya')"><img alt="Соня" class="friend-avatar" src="../assets/img_daad730c6486.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Соня Брат</div></div><div class="friend-box" onclick="selectFriend('polina')"><img alt="Полина" class="friend-avatar" src="../assets/img_973f4cd20213.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Полина Брат</div></div><div class="friend-box" onclick="selectFriend('kira')"><img alt="Кира" class="friend-avatar" src="../assets/img_9dc92d4ecb38.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Кира Брат</div></div><div class="friend-box" onclick="selectFriend('vilena')"><img alt="Вилена" class="friend-avatar" src="../assets/img_77a095339a0f.jpg" decoding="async" width="512" height="512"><div class="friend-lbl">Вилена</div></div><div class="friend-box" onclick="selectFriend('nyutik')"><img alt="Нютик" class="friend-avatar" src="../assets/img_f7616f682098.jpg" decoding="async" width="384" height="512"><div class="friend-lbl">Нютик</div></div></div>
+<div id="friendDetailCard" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); text-align: center;">
+<h3 id="friendNameHeader" style="font-family: var(--font-heading); color: #ffd600; margin-bottom: 10px;">Соня Брат</h3>
+<p id="friendGreetingMsg" style="font-style: italic; font-size: 14px; line-height: 1.6; color: #fff; margin-bottom: 15px;">
+          «Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!»
+        </p>
+<button class="btn-y2k btn-party" onclick="spinChallengeWheel()">
+<i class="fa-solid fa-dice"></i> Вращать Челлендж-Рулетку
+        </button>
+<div id="challengeResult" style="margin-top: 15px; font-weight: 700; color: #00f0ff; min-height: 24px;"></div>
+</div>
+</div>
+</div>
+<!-- Modal 2: Milka Message & Cassette -->
+<div class="modal-overlay" id="modalMilka">
+<div class="modal-window">
+<button class="modal-close-btn" onclick="closeModal('modalMilka')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>Ретро-Кассета: Послание «Милка»</h2>
+<p>Введи секретный 4-значный ПИН-код (день нашего знакомства 16.05)</p>
+</div>
+<div class="cassette-shell">
+<div class="cassette-window">
+<div class="cassette-spool"></div>
+<div class="cassette-spool"></div>
+</div>
+<div class="cassette-label">МИЛКА • ТАЙНОЕ ПОСЛАНИЕ (SIDE A)</div>
+</div>
+<div class="vault-terminal" style="border-color: #ffd600; color: #ffd600;">
+<p>ВВЕДИТЕ 4-ЗНАЧНЫЙ КОД ДОСТУПА:</p>
+<input class="vault-input" id="pinMilkaInput" maxlength="4" placeholder="• • • •" style="border-color: #ffd600; color: #ffd600;" type="password">
+<br>
+<button class="btn-y2k btn-primary" onclick="verifyMilkaPin()">
+<i class="fa-solid fa-play"></i> Разблокировать Side A
+        </button>
+</div>
+<div id="milkaDecodedLetter" style="display: none; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; border: 1px solid #ffd600;">
+<h3 style="font-family: var(--font-hand); font-size: 26px; color: #ffd600; margin-bottom: 10px;">Моя самая любимая девочка, Викулек! ❤️</h3>
+<p style="font-size: 14px; line-height: 1.8; color: #fff;">
+          С днём рождения, моё солнышко! Ты наполняешь каждый день радостью, смыслом и невероятным теплом. Пусть твои 21 будут самыми яркими, дерзкими и незабываемыми. Я всегда рядом, чтобы оберегать тебя и делать счастливой! Безумно люблю тебя!
+        </p>
+</div>
+</div>
+</div>
+<!-- Modal 3: MODAL ORACLE (DARK FURRY TRIUMVIRATE WITH VIVID IMAGE_38 BACKDROP) -->
+<div class="modal-overlay" id="modalOracle">
+<div class="modal-window wide-altar-variant3" id="oracleAltarModal"><!-- Vivid Prominent Background Art -->
+<img alt="Тёмный Пушистый Триумвират" class="altar-depth-bg-art" src="../assets/img_c6b487367360.jpg" decoding="async" width="512" height="512">
+<div class="altar-depth-overlay"></div>
+<canvas class="stardust-canvas" height="921" id="altarStardustCanvas" width="1080"></canvas>
+<button class="modal-close-btn" onclick="closeModal('modalOracle')"><i class="fa-solid fa-xmark"></i></button>
+<!-- Header -->
+<div class="oracle-v3-header">
+<div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.4); padding: 5px 16px; border-radius: 30px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+<i class="fa-solid fa-sparkles" style="color: #ffd600;"></i> КОВЕН ПУШИСТЫХ • ТЁМНЫЙ ТРИУМВИРАТ
+  </div>
+<h2 class="oracle-v3-title">Оракул Пушистых Сил</h2>
+<p class="oracle-v3-sub">Выбирай своего хранителя или коснись центрального кристалла Макса для зарядки главного предсказания на 21 год!</p>
+</div>
+<!-- Guardians Floating Portals Arena -->
+<div class="scene-3d-wrapper" style="position: relative; z-index: 5; width: 100%; min-height: 450px; border-radius: 24px; overflow: hidden; margin-bottom: 18px; background: radial-gradient(circle at 50% 50%, rgba(30, 16, 50, 0.6) 0%, rgba(10, 5, 20, 0.85) 100%); border: 1.5px solid rgba(255, 75, 145, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.7);"><div style="position: absolute; top: 14px; left: 18px; z-index: 10; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,214,0,0.6); color: #ffd600; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;"><i class="fa-solid fa-cube"></i> 3D ALTAREUM: VILZIVUL • MAX • ABADON</div></div><div class="scene-3d-actions-strip" style="position: relative; z-index: 6; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;"><button class="btn-y2k txt-light" onclick="if(window.trigger3DAction) window.trigger3DAction('walk');" style="background: rgba(25, 15, 40, 0.85); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; font-size: 12px; padding: 8px 16px;">🐾 Идти / Походка</button><button class="btn-y2k txt-light" onclick="if(window.trigger3DAction) window.trigger3DAction('wag');" style="background: rgba(25, 15, 40, 0.85); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; font-size: 12px; padding: 8px 16px;">🐕 Вилять хвостиком</button><button class="btn-y2k txt-dark" onclick="if(window.trigger3DAction) window.trigger3DAction('cheer');" style="background: linear-gradient(135deg, rgba(255,75,145,0.4), rgba(255,214,0,0.4)); border: 1.5px solid #ffd600; color: #ffd600; font-size: 12px; padding: 8px 16px;">✨ Праздничный трюк &amp; Радость</button><button class="btn-y2k txt-light" onclick="if(window.trigger3DAction) window.trigger3DAction('idle');" style="background: rgba(25, 15, 40, 0.85); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; font-size: 12px; padding: 8px 16px;">🧘 Спокойствие</button></div><div class="crystal-orbs-arena">
+<div class="arena-core-flare"></div>
+<!-- LEFT: Vilzivul -->
+<div class="crystal-orb-anchor orb-vilzivul float-orb-left" id="anchorVilzivul" onclick="switchGuardianTab('vilzivul')">
+<div class="crystal-sphere"><div class="magic-aura-ring" style="color: rgb(168, 85, 247); border-color: rgba(168, 85, 247, 0.75);"></div><div class="glass-specular-highlight"></div><div class="glass-caustic-ring"></div><div class="neon-eyes-overlay" style="color: rgb(192, 132, 252);"><div class="neon-eye-dot" style="background: #c084fc; box-shadow: 0 0 10px #a855f7;"></div><div class="neon-eye-dot" style="background: #c084fc; box-shadow: 0 0 10px #a855f7;"></div></div><img alt="Вильзивул Страж Ночи" class="live-char-vilzivul" src="../assets/placeholders/ph_04.svg" decoding="async" width="1200" height="900"></div>
+<div class="orb-label-capsule">
+<div class="orb-name"><i class="fa-solid fa-shield-halved" style="color: #a855f7;"></i> Вильзивул</div>
+<div class="orb-tagline" style="color: #c4b5fd;">Страж Ночи • Защитник</div>
+<button class="orb-trigger-btn" onclick="event.stopPropagation(); switchGuardianTab('vilzivul');"><i class="fa-solid fa-bolt"></i> Сфера Стража</button>
+</div>
+</div>
+<!-- CENTER: Max with Interactive Hold Crystal Orb -->
+<div class="crystal-orb-anchor orb-york float-orb-center" id="anchorMax" onclick="switchGuardianTab('max')">
+<div class="crystal-sphere crystal-sphere-center" id="maxCrystalSphere" onmousedown="startChargeCrystal()" onmouseleave="cancelChargeCrystal()" onmouseup="cancelChargeCrystal()" ontouchcancel="cancelChargeCrystal()" ontouchend="cancelChargeCrystal()" ontouchstart="startChargeCrystal()" style="border: 2.5px solid rgba(255, 214, 0, 0.85); cursor: pointer;"><div class="magic-aura-ring" style="color: rgb(255, 214, 0); border-color: rgba(255, 214, 0, 0.85); inset: -10px;"></div><svg style="position: absolute; inset: 0px; width: 100%; height: 100%; transform: rotate(-90deg); z-index: 8; pointer-events: none;"><circle cx="102" cy="102" fill="transparent" r="94" stroke="rgba(255, 214, 0, 0.2)" stroke-width="6"></circle><circle cx="102" cy="102" fill="transparent" id="chargeProgressRing" r="94" stroke="#ffd600" stroke-dasharray="590" stroke-dashoffset="590" stroke-linecap="round" stroke-width="6" style="transition: stroke-dashoffset 0.1s linear;"></circle></svg><div class="glass-specular-highlight" style="width: 50%; height: 35%;"></div><div class="glass-caustic-ring"></div><div class="neon-eyes-overlay" style="top: 42%; width: 44px; color: rgb(255, 214, 0);"><div class="neon-eye-dot" style="background: #ffffff; box-shadow: 0 0 12px #ffd600;"></div><div class="neon-eye-dot" style="background: #ffffff; box-shadow: 0 0 12px #ffd600;"></div></div><img alt="Макс Хранитель Кайфа" class="live-char-max" id="maxMainPhoto" src="../assets/placeholders/ph_05.svg" decoding="async" width="1200" height="900"><div id="crystalChargeHint" style="position: absolute; bottom: 12px; background: rgba(0, 0, 0, 0.75); border: 1px solid rgb(255, 214, 0); color: rgb(255, 214, 0); font-family: &quot;Space Grotesk&quot;; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 12px; text-transform: uppercase; z-index: 10; pointer-events: none; letter-spacing: 0.5px;">Удерживай 3 сек ⚡</div></div>
+<div class="orb-label-capsule" style="border-color: #ffd600; box-shadow: 0 0 20px rgba(255, 214, 0, 0.4);">
+<div class="orb-name" style="font-size: 15px;"><i class="fa-solid fa-crown" style="color: #ffd600;"></i> Макс</div>
+<div class="orb-tagline" style="color: #fde047;">Хранитель Кристалла &amp; Ведущий Алтаря</div>
+<button class="orb-trigger-btn" onclick="event.stopPropagation(); switchGuardianTab('max');" style="border-color: #ffd600; color: #ffd600;"><i class="fa-solid fa-gem"></i> Центр Заботы</button>
+</div>
+</div>
+<!-- RIGHT: Abadon -->
+<div class="crystal-orb-anchor orb-abadon float-orb-right" id="anchorAbadon" onclick="switchGuardianTab('abadon')">
+<div class="crystal-sphere"><div class="magic-aura-ring" style="color: rgb(255, 75, 145); border-color: rgba(255, 75, 145, 0.85);"></div><div class="glass-specular-highlight"></div><div class="glass-caustic-ring"></div><div class="neon-eyes-overlay" style="top: 40%; width: 48px; color: rgb(255, 0, 119);"><div class="neon-eye-dot" style="background: #ff4b91; box-shadow: 0 0 14px #ff0077;"></div><div class="neon-eye-dot" style="background: #ff4b91; box-shadow: 0 0 14px #ff0077;"></div></div><img alt="Абадон Сфинкс Тайн" class="live-char-abadon" src="../assets/placeholders/ph_06.svg" decoding="async" width="1200" height="900"></div>
+<div class="orb-label-capsule">
+<div class="orb-name"><i class="fa-solid fa-wand-sparkles" style="color: #ff4b91;"></i> Абадон</div>
+<div class="orb-tagline" style="color: #ffd600;">Сфинкс Тайн • Магия Гедонизма</div>
+<button class="orb-trigger-btn" onclick="event.stopPropagation(); switchGuardianTab('abadon');"><i class="fa-solid fa-wand-magic-sparkles"></i> Тайны Сфинкса</button>
+</div>
+</div>
+</div>
+<!-- Guardian Selector Interactive Switcher -->
+<div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; z-index: 5; position: relative; flex-wrap: wrap;">
+<button class="btn-y2k txt-light" id="tabBtnVilzivul" onclick="switchGuardianTab('vilzivul')" style="background: rgba(139, 92, 246, 0.25); border: 1.5px solid rgb(168, 85, 247); color: rgb(255, 255, 255); font-size: 11px; padding: 7px 16px; box-shadow: rgb(168, 85, 247) 0px 0px 20px;">
+<i class="fa-solid fa-shield-halved" style="color: #c4b5fd;"></i> 1. Вильзивул (Страж)
+  </button>
+<button class="btn-y2k txt-light" id="tabBtnMax" onclick="switchGuardianTab('max')" style="background: linear-gradient(135deg, rgba(255, 214, 0, 0.4), rgba(255, 75, 145, 0.4)); border: 2px solid rgb(255, 214, 0); color: rgb(255, 255, 255); font-size: 11.5px; padding: 7px 18px; box-shadow: none;">
+<i class="fa-solid fa-crown" style="color: #ffd600;"></i> 2. Макс (Кристалл Заботы)
+  </button>
+<button class="btn-y2k txt-light" id="tabBtnAbadon" onclick="switchGuardianTab('abadon')" style="background: rgba(255, 75, 145, 0.25); border: 1.5px solid rgb(255, 75, 145); color: rgb(255, 255, 255); font-size: 11px; padding: 7px 16px; box-shadow: none;">
+<i class="fa-solid fa-wand-sparkles" style="color: #ffd600;"></i> 3. Абадон (Сфинкс)
+  </button>
+</div>
+<!-- 1. VILZIVUL SPELLS PANEL -->
+<div id="panelVilzivul" style="display: block; position: relative; z-index: 5; margin-bottom: 20px; background: rgba(18, 10, 36, 0.7); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 18px; padding: 16px 20px; backdrop-filter: blur(14px);">
+<div style="font-family: 'Space Grotesk'; font-size: 11px; color: #c4b5fd; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+<i class="fa-solid fa-shield-halved"></i> Арсенал Стража Ночи:
+  </div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<button class="btn-y2k txt-dark" onclick="castVilzivulSpell('evil_eye')" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(76, 29, 149, 0.7)); border: 1.5px solid #a855f7; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);">
+<i class="fa-solid fa-eye" style="color: #a855f7; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Защита от сглаза</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Сжигает негатив фиолетовым щитом</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="castVilzivulSpell('peace_guard')" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(30, 58, 138, 0.7)); border: 1.5px solid #60a5fa; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+<i class="fa-solid fa-shield-halved" style="color: #93c5fd; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Охрана спокойствия</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Дзен и непробиваемая броня границ</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="castVilzivulSpell('space_protect')" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(131, 24, 67, 0.7)); border: 1.5px solid #f472b6; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);">
+<i class="fa-solid fa-bolt" style="color: #f472b6; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Личное пространство</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Боевая атака объятиями от непрошеных гостей</div></div>
+</button>
+</div>
+</div>
+<!-- 2. MAX CARE & CRYSTAL PANEL (ACTIVE BY DEFAULT) -->
+<div id="panelMax" style="display: none; position: relative; z-index: 5; margin-bottom: 20px; background: rgba(28, 20, 10, 0.75); border: 1.5px solid rgba(255, 214, 0, 0.5); border-radius: 18px; padding: 16px 20px; backdrop-filter: blur(14px); box-shadow: rgba(255, 214, 0, 0.2) 0px 0px 35px;">
+<div style="font-family: 'Space Grotesk'; font-size: 11px; color: #ffd600; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+<span><i class="fa-solid fa-gem"></i> Интерактивный Кристальный Шар Макса &amp; Элементы Заботы:</span>
+<span style="font-size: 9.5px; color: #fef08a;">★ VIP РЕЖИМ ПРАЗДНИКА</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<button class="btn-y2k txt-dark" onclick="petMaxAction()" style="background: linear-gradient(135deg, rgba(255, 75, 145, 0.4), rgba(255, 214, 0, 0.4)); border: 1.5px solid #ff79b0; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(255, 75, 145, 0.35);">
+<i class="fa-solid fa-heart" style="color: #ff4b91; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Погладить / Почесать за ушком</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Вибрация сферы + золотые сердечки любви</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="treatMaxAction()" style="background: linear-gradient(135deg, rgba(255, 214, 0, 0.4), rgba(245, 158, 11, 0.6)); border: 1.5px solid #ffd600; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(255, 214, 0, 0.35);">
+<i class="fa-solid fa-bone" style="color: #ffd600; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Угостить вкусняшкой</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Виляние хвостиком + код для сейфа Жулика!</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="triggerCrystalChargeManual()" style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.35), rgba(168, 85, 247, 0.5)); border: 1.5px solid #00f0ff; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);">
+<i class="fa-solid fa-bolt" style="color: #00f0ff; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Зарядить Кристалл Желаний</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Удерживай сферу 3 сек или нажми сюда ➔</div></div>
+</button>
+</div>
+</div>
+<!-- 3. ABADON SPELLS PANEL -->
+<div id="panelAbadon" style="display: none; position: relative; z-index: 5; margin-bottom: 20px; background: rgba(30, 8, 25, 0.7); border: 1px solid rgba(255, 75, 145, 0.4); border-radius: 18px; padding: 16px 20px; backdrop-filter: blur(14px);">
+<div style="font-family: 'Space Grotesk'; font-size: 11px; color: #ffd6eb; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+<i class="fa-solid fa-wand-sparkles"></i> Магический Гедонизм Сфинкса Абадона:
+  </div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<button class="btn-y2k txt-dark" onclick="castAbadonSpell('hedonism')" style="background: linear-gradient(135deg, rgba(255, 75, 145, 0.4), rgba(190, 24, 93, 0.7)); border: 1.5px solid #ff4b91; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(255, 75, 145, 0.3);">
+<i class="fa-solid fa-champagne-glasses" style="color: #ffd600; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Кайфануть</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Инструкция по элитному гедонизму 21-летия</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="castAbadonSpell('sleep')" style="background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(88, 28, 135, 0.7)); border: 1.5px solid #c084fc; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);">
+<i class="fa-solid fa-moon" style="color: #e9d5ff; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Поспать</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Мурчащий сонный релакс и снятие усталости</div></div>
+</button>
+<button class="btn-y2k txt-dark" onclick="castAbadonSpell('dance')" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.4), rgba(255, 75, 145, 0.5)); border: 1.5px solid #ffd600; color: #fff; padding: 10px 14px; font-size: 11.5px; justify-content: flex-start; text-align: left; box-shadow: 0 4px 15px rgba(255, 214, 0, 0.3);">
+<i class="fa-solid fa-compact-disc" style="color: #00f0ff; font-size: 15px;"></i>
+<div><div style="font-weight: 800;">Заставить танцевать</div><div style="font-size: 9.5px; opacity: 0.8; font-weight: 400; text-transform: none;">Разблокирует танцевальный клубный челлендж</div></div>
+</button>
+</div>
+</div>
+<!-- Floating Live Revelation Dialogue Box -->
+<div class="oracle-revelation-dialogue" id="revelationDialogue">
+<div class="revelation-speaker">
+<img alt="Оракул Говорит" class="revelation-speaker-avatar" id="revAvatar" src="../assets/placeholders/ph_04.svg" style="border-color: rgb(168, 85, 247); box-shadow: rgb(168, 85, 247) 0px 0px 20px;" decoding="async" width="1200" height="900">
+<div class="revelation-text-box">
+<div class="revelation-title" id="revTitle">Вильзивул • Страж Ночи</div>
+<div class="revelation-content" id="revSpeech">е«жЯи мнеа  нсотнр-асжтео пт!в оТеый  ббоегзионпяа!с»ности, Викулек! Выбери заклинание для абсолютной защиты!»</div>
+</div>
+</div>
+<button class="btn-y2k txt-dark" onclick="triggerAltarBlessingAll()" style="background: linear-gradient(135deg, #ffd600, #ff4b91, #00f0ff); color: #000; font-weight: 900; box-shadow: 0 4px 18px rgba(255, 75, 145, 0.4);">
+<i class="fa-solid fa-gem"></i> Сила Всех Трёх Порталов
+  </button>
+</div></div>
+</div>
+<!-- Modal 4: Family Tree -->
+<div class="modal-overlay" id="modalFamily">
+<div class="modal-window"><button class="modal-close-btn" onclick="closeModal('modalFamily')"><i class="fa-solid fa-xmark"></i></button><div class="modal-header-y2k" style="margin-bottom: 16px;"><div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 214, 0, 0.15); border: 1px solid #ffd600; padding: 4px 14px; border-radius: 30px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; color: #ffd600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;"><i class="fa-solid fa-seedling"></i> Y2K GLAM-NATURE • РОДОВОЙ КОВЧЕГ РУСИНОВО</div><h2 style="font-family: var(--font-heading); font-size: 28px; text-transform: uppercase; background: linear-gradient(120deg, #ffffff 10%, #ffe082 40%, #ff80ab 75%, #80d8ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px;">Древо Семьи • Село Русиново</h2><p style="font-size: 13px; color: rgba(255,255,255,0.8); max-width: 620px; margin: 0 auto;">Коснись любого родного человека: светящийся импульс благословения и заботы устремится по золотым ветвям яблони прямо к Викульку в крону!</p></div><div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 16px;"><button class="btn-y2k active txt-dark" id="btnViewTree" onclick="toggleFamilyView('tree')" style="background: linear-gradient(135deg, #ffd600, #ff4b91); color: #000; font-size: 11.5px; padding: 6px 16px; border: none; font-weight: 800;"><i class="fa-solid fa-sitemap"></i> Нео-Древо Жизни</button><button class="btn-y2k txt-light" id="btnViewPainting" onclick="toggleFamilyView('painting')" style="background: rgba(255,255,255,0.1); color: #fff; font-size: 11.5px; padding: 6px 16px; border: 1px solid rgba(255,255,255,0.3); font-weight: 700;"><i class="fa-solid fa-gem"></i> Картина в золотом багете</button></div><div id="familyTreeView" style="position: relative; width: 100%; min-height: 520px; border-radius: 20px; overflow: hidden; background: radial-gradient(circle at 50% 30%, #20103a 0%, #0a0414 70%, #030107 100%); border: 1.5px solid rgba(255, 214, 0, 0.4); box-shadow: inset 0 0 50px rgba(255, 75, 145, 0.25), 0 10px 40px rgba(0,0,0,0.8); padding: 20px 10px;"><svg id="familyTreeSvg" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"><defs><linearGradient id="branchGrad" x1="0%" x2="0%" y1="100%" y2="0%"><stop offset="0%" stop-color="#ffd600" stop-opacity="0.7"></stop><stop offset="50%" stop-color="#ff4b91" stop-opacity="0.8"></stop><stop offset="100%" stop-color="#00f0ff" stop-opacity="0.9"></stop></linearGradient><filter height="140%" id="branchGlow" width="140%" x="-20%" y="-20%"><feGaussianBlur result="glow" stdDeviation="4"></feGaussianBlur><feComposite in="SourceGraphic" in2="glow" operator="over"></feComposite></filter></defs><path d="M 18% 440 Q 30% 360, 50% 280" fill="none" stroke="url(#branchGrad)" stroke-dasharray="6 4" stroke-width="2.5"></path><path d="M 38% 440 Q 42% 360, 50% 280" fill="none" stroke="url(#branchGrad)" stroke-dasharray="6 4" stroke-width="2.5"></path><path d="M 62% 440 Q 58% 360, 50% 280" fill="none" stroke="url(#branchGrad)" stroke-dasharray="6 4" stroke-width="2.5"></path><path d="M 82% 440 Q 70% 360, 50% 280" fill="none" stroke="url(#branchGrad)" stroke-dasharray="6 4" stroke-width="2.5"></path><path d="M 25% 280 Q 38% 200, 50% 95" fill="none" filter="url(#branchGlow)" stroke="url(#branchGrad)" stroke-width="3.5"></path><path d="M 50% 280 L 50% 95" fill="none" filter="url(#branchGlow)" stroke="url(#branchGrad)" stroke-width="4.5"></path><path d="M 75% 280 Q 62% 200, 50% 95" fill="none" filter="url(#branchGlow)" stroke="url(#branchGrad)" stroke-width="3.5"></path><path d="M 22% 95 Q 36% 75, 50% 95" fill="none" stroke="url(#branchGrad)" stroke-dasharray="4 4" stroke-width="2.5"></path><path d="M 78% 95 Q 64% 75, 50% 95" fill="none" stroke="url(#branchGrad)" stroke-dasharray="4 4" stroke-width="2.5"></path><circle cx="50%" cy="95" fill="none" r="52" stroke="#ffd600" stroke-dasharray="4 6" stroke-width="1.5"><animateTransform attributeName="transform" dur="20s" from="0 50% 95" repeatCount="indefinite" to="360 50% 95" type="rotate"></animateTransform></circle><circle cx="50%" cy="95" fill="#ffd600" filter="url(#branchGlow)" id="energyPulseBall" opacity="0" r="8"></circle></svg><div style="position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: space-between; height: 100%; min-height: 480px;"><div style="text-align: center;"><div style="display: inline-block; background: rgba(0,240,255,0.12); border: 1px solid #00f0ff; color: #00f0ff; font-family: 'Space Grotesk'; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 2px 10px; border-radius: 12px; margin-bottom: 12px;">🌸 КРОНА И ЦВЕТЕНИЕ • МОЛОДОСТЬ РОДА</div><div style="display: flex; justify-content: space-around; align-items: center; max-width: 580px; margin: 0 auto;"><div class="friend-box" onclick="pulseToVikulyok('masha', 22, 95)" style="width: 105px; padding: 8px; border-color: #ff76ac; background: rgba(255, 118, 172, 0.15); border-radius: 16px;"><div style="font-size: 20px; color: #ff76ac; margin-bottom: 4px;"><i class="fa-solid fa-venus"></i></div><div class="friend-lbl" style="color: #fff; font-weight: 700;">Сестра Маша</div><div style="font-size: 9px; color: #ff76ac;">Любовь &amp; Радость</div></div><div class="friend-box" id="vikuCenterNode" onclick="pulseSelfVikulyok()" style="width: 145px; padding: 12px 10px; border: 2.5px solid #ffd600; background: radial-gradient(circle, rgba(255, 214, 0, 0.35) 0%, rgba(255, 75, 145, 0.35) 100%); border-radius: 50%; aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 35px #ffd600, 0 0 55px #ff4b91; cursor: pointer; transition: transform 0.3s;"><div style="font-size: 24px; color: #ffd600; text-shadow: 0 0 10px #ffd600;"><i class="fa-solid fa-crown"></i></div><div style="font-family: var(--font-heading); font-size: 13px; font-weight: 900; color: #fff; text-shadow: 0 0 10px #000; letter-spacing: 1px;">ВИКУЛЕК ★</div><div style="font-family: 'Space Grotesk'; font-size: 9.5px; color: #ffd600; font-weight: 800; background: rgba(0,0,0,0.6); padding: 1px 6px; border-radius: 8px; margin-top: 2px;">21 ГОД • ЦЕНТР РОДА</div></div><div class="friend-box" onclick="pulseToVikulyok('lera', 78, 95)" style="width: 105px; padding: 8px; border-color: #00f0ff; background: rgba(0, 240, 255, 0.15); border-radius: 16px;"><div style="font-size: 20px; color: #00f0ff; margin-bottom: 4px;"><i class="fa-solid fa-venus"></i></div><div class="friend-lbl" style="color: #fff; font-weight: 700;">Сестра Лера</div><div style="font-size: 9px; color: #00f0ff;">Драйв &amp; Искры</div></div></div></div><div style="text-align: center; margin: 15px 0;"><div style="display: inline-block; background: rgba(255,75,145,0.15); border: 1px solid #ff4b91; color: #ff76ac; font-family: 'Space Grotesk'; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 2px 10px; border-radius: 12px; margin-bottom: 12px;">🌳 СТВОЛ И ОПОРА • МУДРОСТЬ РОДИТЕЛЕЙ</div><div style="display: flex; justify-content: center; gap: 20px; max-width: 580px; margin: 0 auto;"><div class="friend-box" onclick="pulseToVikulyok('papa', 25, 280)" style="width: 130px; padding: 10px; border-color: #ffd600; background: rgba(255,214,0,0.12); border-radius: 16px;"><div style="font-size: 20px; color: #ffd600; margin-bottom: 4px;"><i class="fa-solid fa-user-tie"></i></div><div class="friend-lbl" style="color: #fff; font-weight: 700;">Папа</div><div style="font-size: 9.5px; color: #fef08a;">Защита и опора</div></div><div class="friend-box" onclick="pulseToVikulyok('mama', 50, 280)" style="width: 130px; padding: 10px; border-color: #ff4b91; background: rgba(255,75,145,0.15); border-radius: 16px;"><div style="font-size: 20px; color: #ff4b91; margin-bottom: 4px;"><i class="fa-solid fa-heart"></i></div><div class="friend-lbl" style="color: #fff; font-weight: 700;">Мама</div><div style="font-size: 9.5px; color: #ff80ab;">Тепло &amp; Нежность</div></div><div class="friend-box" onclick="pulseToVikulyok('serezha', 75, 280)" style="width: 130px; padding: 10px; border-color: #b388ff; background: rgba(179,136,255,0.15); border-radius: 16px;"><div style="font-size: 20px; color: #b388ff; margin-bottom: 4px;"><i class="fa-solid fa-shield-halved"></i></div><div class="friend-lbl" style="color: #fff; font-weight: 700;">Дядя Серёжа</div><div style="font-size: 9.5px; color: #d1c4e9;">Брат мамы • Верность</div></div></div></div><div style="text-align: center;"><div style="display: inline-block; background: rgba(255,214,0,0.15); border: 1px solid #ffd600; color: #ffd600; font-family: 'Space Grotesk'; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 2px 10px; border-radius: 12px; margin-bottom: 10px;">🌾 КОРНИ РОДА • СТАРЕЙШИНЫ РУСИНОВО</div><div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 620px; margin: 0 auto;"><div class="friend-box" onclick="pulseToVikulyok('ded_vasya', 18, 440)" style="padding: 8px 4px; border-radius: 14px; background: rgba(255,255,255,0.06);"><div style="font-size: 16px; color: #ffd600; margin-bottom: 3px;"><i class="fa-solid fa-star"></i></div><div style="font-family: var(--font-heading); font-size: 10px; color: #fff; font-weight: 700;">Дедушка Василий</div><div style="font-size: 8.5px; color: rgba(255,255,255,0.6);">Егорович</div></div><div class="friend-box" onclick="pulseToVikulyok('baba_natasha', 38, 440)" style="padding: 8px 4px; border-radius: 14px; background: rgba(255,255,255,0.06);"><div style="font-size: 16px; color: #ff76ac; margin-bottom: 3px;"><i class="fa-solid fa-star"></i></div><div style="font-family: var(--font-heading); font-size: 10px; color: #fff; font-weight: 700;">Бабушка Наталья</div><div style="font-size: 8.5px; color: rgba(255,255,255,0.6);">Тихоновна</div></div><div class="friend-box" onclick="pulseToVikulyok('ded_tolya', 62, 440)" style="padding: 8px 4px; border-radius: 14px; background: rgba(255,255,255,0.06);"><div style="font-size: 16px; color: #ffd600; margin-bottom: 3px;"><i class="fa-solid fa-star"></i></div><div style="font-family: var(--font-heading); font-size: 10px; color: #fff; font-weight: 700;">Дедушка Анатолий</div><div style="font-size: 8.5px; color: rgba(255,255,255,0.6);">Валентинович</div></div><div class="friend-box" onclick="pulseToVikulyok('baba_nastya', 82, 440)" style="padding: 8px 4px; border-radius: 14px; background: rgba(255,255,255,0.06);"><div style="font-size: 16px; color: #ff76ac; margin-bottom: 3px;"><i class="fa-solid fa-star"></i></div><div style="font-family: var(--font-heading); font-size: 10px; color: #fff; font-weight: 700;">Бабушка Анастасия</div><div style="font-size: 8.5px; color: rgba(255,255,255,0.6);">Егоровна</div></div></div></div></div></div><div id="familyPaintingView" style="display: none; margin-bottom: 16px;"><div style="border: 4px solid #d4af37; border-radius: 18px; padding: 6px; background: linear-gradient(135deg, #422a10, #140d05); box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 35px rgba(212, 175, 55, 0.4); text-align: center;"><img alt="Парадный семейный портрет маслом" src="../assets/placeholders/ph_03.svg" style="width: 100%; border-radius: 12px; display: block; filter: contrast(108%) saturate(112%);" decoding="async" width="1200" height="900"><div style="padding: 10px; font-family: var(--font-hand); font-size: 22px; color: #ffd600;">«Семья — это вечный оплот любви, Русиново в наших сердцах»</div></div></div><div id="relativeToastCard" style="margin-top: 15px; background: rgba(255, 255, 255, 0.07); border: 1.5px solid rgba(255, 214, 0, 0.4); border-radius: 16px; padding: 16px 20px; backdrop-filter: blur(14px); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;"><div style="display: flex; align-items: center; gap: 14px;"><div id="relIconBox" style="width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #ffd600, #ff4b91); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #000; box-shadow: 0 0 20px rgba(255,214,0,0.5);"><i class="fa-solid fa-heart"></i></div><div><div id="relTitleHeader" style="font-family: var(--font-heading); font-size: 15px; color: #ffd600; font-weight: 800; text-transform: uppercase;">Мама • Послание Сердца</div><div id="relSpeechText" style="font-size: 13.5px; color: #fff; line-height: 1.5; font-style: italic;">«Викулек, моя ненаглядная девочка! Сияй ярко, ты главное сокровище нашей семьи! С 21-летием!»</div></div></div><button class="btn-y2k txt-dark" onclick="cheerRusinovoToast()" style="background: linear-gradient(135deg, #ffd600, #ff76ac); color: #000; font-size: 12px; font-weight: 800; border: none; padding: 10px 18px;"><i class="fa-solid fa-champagne-glasses"></i> Поднять бокал за Русиново!</button></div></div>
+</div>
+<!-- Modal 5: Space NASA -->
+<div class="modal-overlay" id="modalSpace">
+<div class="modal-window">
+<button class="modal-close-btn" onclick="closeModal('modalSpace')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>Архивы NASA • Ноябрь 2005 года</h2>
+<p>Созвездие Скорпиона в день твоего рождения и небесный звездопад</p>
+</div>
+<div style="background: #000; border: 1px solid #00f0ff; border-radius: 16px; padding: 25px; text-align: center; margin-bottom: 20px;">
+<i class="fa-solid fa-stars" style="font-size: 40px; color: #00f0ff; margin-bottom: 12px;"></i>
+<h3 style="font-family: 'Orbitron'; color: #00f0ff; margin-bottom: 10px;">SCORPIO CONSTELLATION</h3>
+<p style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6;">
+          В этот день 18 ноября 2005 года телескопы NASA Hubble запечатлели глубины космических сияний. Вселенная сияла ярче обычного, встречая рождение Викулька!
+        </p>
+</div>
+<div style="text-align: center;">
+<button class="btn-y2k txt-dark" onclick="triggerShootingStars()" style="background: #00f0ff; color: #000;">
+<i class="fa-solid fa-meteor"></i> Загадать желание (Звездопад)
+        </button>
+</div>
+</div>
+</div>
+<!-- Modal 6: Secrets Safe Vault -->
+<div class="modal-overlay" id="modalSecrets">
+<div class="modal-window">
+<button class="modal-close-btn" onclick="closeModal('modalSecrets')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>Секретики-Пистолетики: Сейф Жулика</h2>
+<p>Введи секретное кодовое слово для открытия тайного архива</p>
+</div>
+<div style="text-align: center; margin-bottom: 20px;">
+<img alt="Лис Жулик" src="../assets/placeholders/ph_07.svg" style="max-width: 260px; border-radius: 12px;" decoding="async" width="1200" height="900">
+</div>
+<div class="vault-terminal">
+<p>ВВЕДИТЕ КОДОВОЕ СЛОВО (ПОДСКАЗКА: «ДЛЯ НАРКОМАНОВ...»):</p>
+<input class="vault-input" id="secretCodeWord" placeholder="КОДОВОЕ СЛОВО" type="text">
+<br>
+<button class="btn-y2k btn-primary" onclick="verifySecretSafe()">
+<i class="fa-solid fa-unlock-keyhole"></i> Взломать Сейф
+        </button>
+</div>
+</div>
+</div>
+<!-- Modal 7: Timer Screen -->
+<div class="modal-overlay" id="modalTimer">
+<div class="modal-window" style="text-align: center;">
+<button class="modal-close-btn" onclick="closeModal('modalTimer')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>Таймер до Дня Рождения</h2>
+<p>18 ноября 2026 года • 00:00</p>
+</div>
+<div style="display: flex; justify-content: center; gap: 15px; margin: 25px 0;">
+<div style="background: rgba(255,255,255,0.08); padding: 15px 20px; border-radius: 12px;">
+<div id="tDays" style="font-family: var(--font-heading); font-size: 36px; color: #ffd600;">63</div>
+<div style="font-size: 11px; text-transform: uppercase;">Дней</div>
+</div>
+<div style="background: rgba(255,255,255,0.08); padding: 15px 20px; border-radius: 12px;">
+<div id="tHours" style="font-family: var(--font-heading); font-size: 36px; color: #ffd600;">12</div>
+<div style="font-size: 11px; text-transform: uppercase;">Часов</div>
+</div>
+<div style="background: rgba(255,255,255,0.08); padding: 15px 20px; border-radius: 12px;">
+<div id="tMins" style="font-family: var(--font-heading); font-size: 36px; color: #ffd600;">18</div>
+<div style="font-size: 11px; text-transform: uppercase;">Минут</div>
+</div>
+<div style="background: rgba(255,255,255,0.08); padding: 15px 20px; border-radius: 12px;">
+<div id="tSecs" style="font-family: var(--font-heading); font-size: 36px; color: #ffd600;">30</div>
+<div style="font-size: 11px; text-transform: uppercase;">Секунд</div>
+</div>
+</div>
+<button class="btn-y2k btn-primary" onclick="closeModal('modalTimer')">Вернуться к празднику</button>
+</div>
+</div>
+<!-- Modal 8: Studio & Camera -->
+<div class="modal-overlay" id="modalStudio">
+<div class="modal-window">
+<button class="modal-close-btn" onclick="closeModal('modalStudio')"><i class="fa-solid fa-xmark"></i></button>
+<div class="modal-header-y2k">
+<h2>Медиа-Студия: Письмо в 22 года</h2>
+<p>Сделай фото на память и напиши себе послание на следующий день рождения</p>
+</div>
+<div style="margin-bottom: 20px;">
+<textarea placeholder="Дорогая я в 22 года... Желаю себе не бояться нового, сиять еще ярче и помнить, как сильно меня любят!" style="width: 100%; height: 120px; background: rgba(0,0,0,0.5); border: 1px solid #ff4b91; border-radius: 12px; color: #fff; padding: 15px; font-family: var(--font-main); font-size: 13px; outline: none;"></textarea>
+</div>
+<div style="text-align: center;">
+<button class="btn-y2k btn-party" onclick="alert('Письмо запечатано в капсулу времени до 18.11.2027! ✨❤️'); closeModal('modalStudio');">
+<i class="fa-solid fa-stamp"></i> Запечатать Капсулу Времени
+        </button>
+</div>
+</div>
+</div>
+<!-- JavaScript Logic & Interactivity -->
+<script>
+    // Modal Helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      if (id === 'modalOracle') {
+        resizeStardustCanvas('altarStardustCanvas');
+      }
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Floating Hearts Animation
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      heart.style.left = Math.random() * 95 + 'vw';
+      heart.style.fontSize = (Math.random() * 16 + 12) + 'px';
+      heart.style.color = Math.random() > 0.5 ? '#ff4b91' : '#ffd600';
+      heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createFloatingHeart, 1200);
+
+    // Countdown Timer Logic (to 18.11.2026)
+    const TARGET_DATE = new Date('2026-11-18T00:00:00').getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = TARGET_DATE - now;
+      if (diff > 0) {
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('tDays').innerText = String(d).padStart(2, '0');
+        document.getElementById('tHours').innerText = String(h).padStart(2, '0');
+        document.getElementById('tMins').innerText = String(m).padStart(2, '0');
+        document.getElementById('tSecs').innerText = String(s).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Nightclub Confetti Party Mode
+    function triggerPartyMode() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#ff4b91', '#ffd600', '#00f0ff', '#b388ff', '#ff0077']
+        });
+      }
+    }
+
+    // Friends Switching Logic
+    const friendsData = {
+      sonya: {
+        name: 'Соня Брат',
+        greeting: 'Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!'
+      },
+      polina: {
+        name: 'Полина Брат',
+        greeting: 'С днем рождения, блин! Пусть каждый день будет как любимая песня из нулевых, а бокал никогда не пустеет!'
+      },
+      kira: {
+        name: 'Кира Брат',
+        greeting: 'Викулек! Поздравляю с 21-летием! Желаю тебе быть самой счастливой, дерзкой и стильной! Люблю тебя!'
+      },
+      vilena: {
+        name: 'Вилена',
+        greeting: 'Викулек! Ты — лучшая подруга, которую только можно пожелать! Пусть исполняются все мечты и планы!'
+      },
+      nyutik: {
+        name: 'Нютик',
+        greeting: 'Викулек! С днём рождения, моё солнышко! Теплых улыбок, классных приключений и безграничного счастья!'
+      }
+    };
+    function selectFriend(id) {
+      document.querySelectorAll('.friend-box').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      const f = friendsData[id];
+      if (f) {
+        document.getElementById('friendNameHeader').innerText = f.name;
+        document.getElementById('friendGreetingMsg').innerText = `«${f.greeting}»`;
+      }
+    }
+
+    // Party Challenge Roulette
+    const challenges = [
+      '🥂 Тост: Сказать самый дерзкий комплимент имениннице!',
+      '💃 Челлендж: Станцевать синхронный танец из клипа нулевых!',
+      '📸 Фото: Сделать моментальное смешное селфи со строгим лицом!',
+      '🍹 Вызов: Придумать новый коктейль «Викулек-21»!'
+    ];
+    function spinChallengeWheel() {
+      const res = challenges[Math.floor(Math.random() * challenges.length)];
+      const el = document.getElementById('challengeResult');
+      el.innerText = 'Вращаем диск...';
+      setTimeout(() => {
+        el.innerText = res;
+        triggerPartyMode();
+      }, 500);
+    }
+
+    // =========================================================
+    // STARDUST & AURORA PARTICLES ENGINE
+    // =========================================================
+    function initStardustCanvas(canvasId, particleCount = 45) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = canvas.parentElement.offsetWidth;
+      let height = canvas.height = canvas.parentElement.offsetHeight;
+
+      const particles = [];
+      const colors = ['#ffffff', '#ffd6eb', '#fbcfe8', '#c4b5fd', '#bae6fd', '#fef08a'];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: -Math.random() * 0.9 - 0.2,
+          alpha: Math.random() * 0.8 + 0.2,
+          dAlpha: (Math.random() - 0.5) * 0.02
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha += p.dAlpha;
+          if (p.alpha <= 0.15 || p.alpha >= 0.95) p.dAlpha *= -1;
+          if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = p.color;
+          ctx.fill();
+          ctx.restore();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function resizeStardustCanvas(id) {
+      const canvas = document.getElementById(id);
+      if (canvas && canvas.parentElement) {
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+      }
+    }
+
+    window.addEventListener('load', () => {
+      initStardustCanvas('previewStardustCanvas', 24);
+      initStardustCanvas('altarStardustCanvas', 60);
+    });
+    window.addEventListener('resize', () => {
+      resizeStardustCanvas('previewStardustCanvas');
+      resizeStardustCanvas('altarStardustCanvas');
+    });
+
+    // Quick Pet Cast from Main Chapter Preview
+    function triggerQuickPetCast(petType) {
+      openModal('modalOracle');
+      setTimeout(() => {
+        if (petType === 'abadon') triggerAbadonOracle();
+        if (petType === 'vilzivul') triggerVilzivulRoar();
+        if (petType === 'york') triggerYorkToast();
+      }, 400);
+    }
+
+    // Typewriter effect utility
+    function updateDialogue(title, text, avatarSrc, borderColor = '#ffd600') {
+      const tEl = document.getElementById('revTitle');
+      const cEl = document.getElementById('revSpeech');
+      const aEl = document.getElementById('revAvatar');
+      if (tEl) tEl.innerText = title;
+      if (aEl) {
+        aEl.src = avatarSrc;
+        aEl.style.borderColor = borderColor;
+        aEl.style.boxShadow = `0 0 20px ${borderColor}`;
+      }
+      if (cEl) {
+        cEl.innerHTML = '';
+        let i = 0;
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            cEl.innerHTML += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(timer);
+          }
+        }, 18);
+      }
+    }
+
+    // 1. Abadon Oracle
+    const abadonWhispers = [
+      '«Прикоснись к сфере... Тёмный сфинкс видит: твои 21 будут годом абсолютного триумфа, красоты и исполнения всех желаний!»',
+      '«Кристалл пульсирует маджентой: все твои замыслы обречены на успех, а вокруг всегда будут верные сердца!»',
+      '«Хрустальный шар видит: отпусти любые сомнения, твоя харизма на пике! Сияй ярче всех звезд!»'
+    ];
+    function triggerAbadonOracle() {
+      const chosen = abadonWhispers[Math.floor(Math.random() * abadonWhispers.length)];
+      updateDialogue(
+        'Абадон • Сфинкс Тайн и Будущего',
+        chosen,
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaOj1BEaQFAltPMytcRZr4L8Gq5gu-ZzynMho8YRXxiOQiUDlsgXaySkWQ1KevNQ1GY5zk01G8MVYyIfWw_UwupnFwyDFiSaiyfvgWMFx0ChpcIj-kYDyWTINhNqnl-uk_ZXmxiHvseTynPVDndneQpwqVWruCE2cZq7nKldEBTH4hUHGaIKUKkVq_aXydymPRK3Nk8UWnfVqKRGGW2mG052FwhnEf_qj1tWxB7slqs-OPGHxDV8glAmG7',
+        '#ff0077'
+      );
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 110,
+          spread: 85,
+          origin: { y: 0.5 },
+          colors: ['#ff0077', '#ff70af', '#c084fc', '#ffffff']
+        });
+      }
+    }
+
+    // 2. Vilzivul Anti-stress Roar
+    const vilzivulDecrees = [
+      '«Р-Р-РЫК СТРАЖА НОЧИ! Любая тревога, стресс и усталость сожжены неоновым пламенем дотла! Ты под надежной защитой!»',
+      '«ДЕКРЕТ ВИЛЬЗИВУЛА: Сегодня и весь 21 год ты в полной безопасности! Периметр Русиново и праздника под охраной!»',
+      '«БОЕВОЕ НАПУТСТВИЕ: Ты королева этого мира! Вперед без страха, я прикрою тебя всегда!»'
+    ];
+    function triggerVilzivulRoar() {
+      const chosen = vilzivulDecrees[Math.floor(Math.random() * vilzivulDecrees.length)];
+      updateDialogue(
+        'Вильзивул • Страж Ночи & Антистресс',
+        chosen,
+        'https://lh3.googleusercontent.com/aida/AEtjO1WXEdyBzjAexytx6kyM9AmVWTGJPmDJ5_aDwB1kXWp_ORCU2Hvw2LovQcuBSlEB8tQ8Bjq3mILYBVHGGnfYvoJBn5XQZKUt3wy4JFTP64tfHeSJFBVliRWcxcKZQssIp5VkVsppQrILoKPJZYR1yMiCyVvBIWxeYMWx0X6pDD6BGgXDtPTwUw06FcoyGDp6BRUdDdl5HbhFQT5U6lv5jLI_BNRyTJ_Hr4tTr9YjIMnttBtoiCrMngLnG_UR',
+        '#8b5cf6'
+      );
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          origin: { y: 0.5 },
+          colors: ['#8b5cf6', '#a855f7', '#38bdf8', '#ffffff']
+        });
+      }
+    }
+
+    // 3. York Toast & Heart Shower
+    const yorkToasts = [
+      '«ТОСТ ОТ ЙОРКА: Викулек, с сияющими 21! Пусть жизнь пахнет вкусняшками, смехом и объятиями! Чмоки в носик!» ✨🐾',
+      '«ХРАНИТЕЛЬ КАЙФА: Хвостик виляет на 100%! Осыпаю тебя дождем золотых сердечек и вечного тепла!» 💖',
+      '«ПРАЗДНИЧНЫЙ ЗВЕНИТ БОКАЛ: За самую любимую девочку во Вселенной! Пусть твои глазки сияют счастьем!» 🥂'
+    ];
+    function triggerYorkToast() {
+      const chosen = yorkToasts[Math.floor(Math.random() * yorkToasts.length)];
+      updateDialogue(
+        'Йорк • Хранитель Кристалла & Кайфа',
+        chosen,
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaPcpVXdryZDtXDx-aiDbovos7jqGU4BmEYcLj-SNt7lmkMFxEK1Jmtm11addh4CkIMO7GNnYhXc0rYMCBvRo_qHixO4VWuAmLR24RzB0xJW-V-RbnOwKkkabMj0j8IZqoxd4OixYAeOkpk3VOEmm-WfkkRH7jEh2rFSAWJ8UJa-LYcASUPoG0PJlI0X6852XyV5DA3vXPAXRLxlOd-SsHaWnzpL9cyHS5sBFO8QF4icztNFvX8Mf6Ey8',
+        '#ffd600'
+      );
+      for (let k = 0; k < 14; k++) {
+        setTimeout(createFloatingHeart, k * 70);
+      }
+      triggerPartyMode();
+    }
+
+    // Collective Blessing All
+    function triggerAltarBlessingAll() {
+      updateDialogue(
+        'Триумвират Пушистых Сил',
+        '«Все три кристальные сферы сошлись в резонанс! Викулек, твои 21 год благословлены на безграничную радость, любовь и победы!»',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuD7hKG-cII58sTnQolQmZ0RGmMyT_BjuwuwojwA9JK3qdSZs0XWymPF22ZpW1pJ7yWPzpLHqMQaPXF53mo6GlvSltlhfSBen8wXhSIL6WYI7kH0RkUZ-rMpLE0SwKRjsHNWMbQ_H0VGBK3E5su3lwtbyubj-U23dFyK6gG4WYq83D9QopepmQlUIVZBUY5G2ZDu6FkQwwJHhkm1PYZjDyFzFLQJJaHzHxXK3IaSLYDGb68Ny0gSCtfI1AN1uyCQPWPSZRU',
+        '#ffd600'
+      );
+      triggerPartyMode();
+    }
+
+    // Milka PIN Code
+    function verifyMilkaPin() {
+      const pin = document.getElementById('pinMilkaInput').value.trim();
+      if (pin === '1605') {
+        document.getElementById('milkaDecodedLetter').style.display = 'block';
+        triggerPartyMode();
+      } else {
+        alert('Неверный код! Подсказка: день нашего знакомства (16.05)');
+      }
+    }
+
+    // Secret Safe Code
+    function verifySecretSafe() {
+      const code = document.getElementById('secretCodeWord').value.trim().toLowerCase();
+      if (code === 'черемшить') {
+        alert('🎉 СЕЙФ ВЗЛОМАН! Ты разблокировала тайный архив воспоминаний и главный подарок вечеринки!');
+        triggerPartyMode();
+      } else {
+        alert('Неверное кодовое слово! Попробуй еще раз (подсказка в карточке)');
+      }
+    }
+
+    // Shooting Stars
+    function triggerShootingStars() {
+      alert('🌠 Звезда упала! Загаданное желание на 21 год непременно сбудется!');
+      triggerPartyMode();
+    }
+  </script>
+<div class="floating-heart" style="left: 89.0648vw; font-size: 22.5506px; color: rgb(255, 75, 145); animation-duration: 7.42973s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 23.4724vw; font-size: 27.5395px; color: rgb(255, 214, 0); animation-duration: 6.43475s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 16.9701vw; font-size: 16.3311px; color: rgb(255, 214, 0); animation-duration: 5.87021s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 45.6989vw; font-size: 24.0563px; color: rgb(255, 214, 0); animation-duration: 7.50981s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 5.89133vw; font-size: 19.8149px; color: rgb(255, 214, 0); animation-duration: 7.01268s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 81.0282vw; font-size: 19.3473px; color: rgb(255, 75, 145); animation-duration: 4.52013s;"><i class="fa-solid fa-heart"></i></div><script id="oracleEnhancedLogic">
+  // Switch active tab and highlight guardian
+  function switchGuardianTab(guardian) {
+    const pV = document.getElementById('panelVilzivul');
+    const pM = document.getElementById('panelMax');
+    const pA = document.getElementById('panelAbadon');
+    const bV = document.getElementById('tabBtnVilzivul');
+    const bM = document.getElementById('tabBtnMax');
+    const bA = document.getElementById('tabBtnAbadon');
+
+    if (!pV || !pM || !pA) return;
+    pV.style.display = guardian === 'vilzivul' ? 'block' : 'none';
+    pM.style.display = guardian === 'max' ? 'block' : 'none';
+    pA.style.display = guardian === 'abadon' ? 'block' : 'none';
+
+    if (bV) bV.style.boxShadow = guardian === 'vilzivul' ? '0 0 20px #a855f7' : 'none';
+    if (bM) bM.style.boxShadow = guardian === 'max' ? '0 0 20px #ffd600' : 'none';
+    if (bA) bA.style.boxShadow = guardian === 'abadon' ? '0 0 20px #ff4b91' : 'none';
+
+    if (guardian === 'vilzivul') {
+      updateDialogue(
+        'Вильзивул • Страж Ночи',
+        '«Я на страже твоей безопасности, Викулек! Выбери заклинание для абсолютной защиты!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1WXEdyBzjAexytx6kyM9AmVWTGJPmDJ5_aDwB1kXWp_ORCU2Hvw2LovQcuBSlEB8tQ8Bjq3mILYBVHGGnfYvoJBn5XQZKUt3wy4JFTP64tfHeSJFBVliRWcxcKZQssIp5VkVsppQrILoKPJZYR1yMiCyVvBIWxeYMWx0X6pDD6BGgXDtPTwUw06FcoyGDp6BRUdDdl5HbhFQT5U6lv5jLI_BNRyTJ_Hr4tTr9YjIMnttBtoiCrMngLnG_UR',
+        '#a855f7'
+      );
+    } else if (guardian === 'abadon') {
+      updateDialogue(
+        'Абадон • Сфинкс Тайн',
+        '«Муррр... Время кайфовать, сладко поспать или заставить всех плясать под Y2K бэнгеры!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaOj1BEaQFAltPMytcRZr4L8Gq5gu-ZzynMho8YRXxiOQiUDlsgXaySkWQ1KevNQ1GY5zk01G8MVYyIfWw_UwupnFwyDFiSaiyfvgWMFx0ChpcIj-kYDyWTINhNqnl-uk_ZXmxiHvseTynPVDndneQpwqVWruCE2cZq7nKldEBTH4hUHGaIKUKkVq_aXydymPRK3Nk8UWnfVqKRGGW2mG052FwhnEf_qj1tWxB7slqs-OPGHxDV8glAmG7',
+        '#ff4b91'
+      );
+    } else {
+      updateDialogue(
+        'Макс • Хранитель Кристалла',
+        '«Я держу центральный шар в полной готовности! Погладь меня, угости или удержи шар 3 секунды!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaPcpVXdryZDtXDx-aiDbovos7jqGU4BmEYcLj-SNt7lmkMFxEK1Jmtm11addh4CkIMO7GNnYhXc0rYMCBvRo_qHixO4VWuAmLR24RzB0xJW-V-RbnOwKkkabMj0j8IZqoxd4OixYAeOkpk3VOEmm-WfkkRH7jEh2rFSAWJ8UJa-LYcASUPoG0PJlI0X6852XyV5DA3vXPAXRLxlOd-SsHaWnzpL9cyHS5sBFO8QF4icztNFvX8Mf6Ey8',
+        '#ffd600'
+      );
+    }
+  }
+
+  // 1. Vilzivul spells
+  function castVilzivulSpell(type) {
+    if (type === 'evil_eye') {
+      updateDialogue(
+        'Вильзивул • Защита от сглаза 🔥',
+        '«ФИОЛЕТОВЫЙ ЩИТ АКТИВИРОВАН! Весь завистливый взгляд и негатив отражен обратно в космос. Твой тотем-оберег 21 года сияет несокрушимой броней!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1WXEdyBzjAexytx6kyM9AmVWTGJPmDJ5_aDwB1kXWp_ORCU2Hvw2LovQcuBSlEB8tQ8Bjq3mILYBVHGGnfYvoJBn5XQZKUt3wy4JFTP64tfHeSJFBVliRWcxcKZQssIp5VkVsppQrILoKPJZYR1yMiCyVvBIWxeYMWx0X6pDD6BGgXDtPTwUw06FcoyGDp6BRUdDdl5HbhFQT5U6lv5jLI_BNRyTJ_Hr4tTr9YjIMnttBtoiCrMngLnG_UR',
+        '#a855f7'
+      );
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 }, colors: ['#a855f7', '#7c3aed', '#c084fc'] });
+      }
+    } else if (type === 'peace_guard') {
+      updateDialogue(
+        'Вильзивул • Охрана твоего спокойствия 🛡️',
+        '«РЕЖИМ АБСОЛЮТНОГО ДЗЕНА: Границы на замке, нервы в шёлке! Никакой суеты Русиново и внешнего мира — только твой комфорт, музыка и уют!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1WXEdyBzjAexytx6kyM9AmVWTGJPmDJ5_aDwB1kXWp_ORCU2Hvw2LovQcuBSlEB8tQ8Bjq3mILYBVHGGnfYvoJBn5XQZKUt3wy4JFTP64tfHeSJFBVliRWcxcKZQssIp5VkVsppQrILoKPJZYR1yMiCyVvBIWxeYMWx0X6pDD6BGgXDtPTwUw06FcoyGDp6BRUdDdl5HbhFQT5U6lv5jLI_BNRyTJ_Hr4tTr9YjIMnttBtoiCrMngLnG_UR',
+        '#60a5fa'
+      );
+    } else if (type === 'space_protect') {
+      updateDialogue(
+        'Вильзивул • Личное пространство ⚡',
+        '«ГАВВВ-КУСЬ ОБЪЯТИЯМИ! Все непрошеные гости вежливо катапультированы. Твое пространство заполнено теплом, любимыми подругами и преданным стражем!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1WXEdyBzjAexytx6kyM9AmVWTGJPmDJ5_aDwB1kXWp_ORCU2Hvw2LovQcuBSlEB8tQ8Bjq3mILYBVHGGnfYvoJBn5XQZKUt3wy4JFTP64tfHeSJFBVliRWcxcKZQssIp5VkVsppQrILoKPJZYR1yMiCyVvBIWxeYMWx0X6pDD6BGgXDtPTwUw06FcoyGDp6BRUdDdl5HbhFQT5U6lv5jLI_BNRyTJ_Hr4tTr9YjIMnttBtoiCrMngLnG_UR',
+        '#ec4899'
+      );
+    }
+  }
+
+  // 2. Abadon spells
+  function castAbadonSpell(type) {
+    if (type === 'hedonism') {
+      updateDialogue(
+        'Абадон • Кодекс Элитного Кайфа 🥂',
+        '«ИНСТРУКЦИЯ ГЕДОНИСТА: 1) Любить себя на 1000%, 2) Праздновать каждый миг 21 года, 3) Получать подарки и комплименты в режиме нон-стоп! Ты богиня!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaOj1BEaQFAltPMytcRZr4L8Gq5gu-ZzynMho8YRXxiOQiUDlsgXaySkWQ1KevNQ1GY5zk01G8MVYyIfWw_UwupnFwyDFiSaiyfvgWMFx0ChpcIj-kYDyWTINhNqnl-uk_ZXmxiHvseTynPVDndneQpwqVWruCE2cZq7nKldEBTH4hUHGaIKUKkVq_aXydymPRK3Nk8UWnfVqKRGGW2mG052FwhnEf_qj1tWxB7slqs-OPGHxDV8glAmG7',
+        '#ff4b91'
+      );
+      triggerPartyMode();
+    } else if (type === 'sleep') {
+      updateDialogue(
+        'Абадон • Магический Сонный Релакс 🌙',
+        '«Мррр-хррр... Сладкий сфинксовый мур-генератор активирован. Вся усталость растворяется, как сахар в капучино. Спи крепко, сияй ярко!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaOj1BEaQFAltPMytcRZr4L8Gq5gu-ZzynMho8YRXxiOQiUDlsgXaySkWQ1KevNQ1GY5zk01G8MVYyIfWw_UwupnFwyDFiSaiyfvgWMFx0ChpcIj-kYDyWTINhNqnl-uk_ZXmxiHvseTynPVDndneQpwqVWruCE2cZq7nKldEBTH4hUHGaIKUKkVq_aXydymPRK3Nk8UWnfVqKRGGW2mG052FwhnEf_qj1tWxB7slqs-OPGHxDV8glAmG7',
+        '#c084fc'
+      );
+    } else if (type === 'dance') {
+      updateDialogue(
+        'Абадон • Танцевальный Челлендж 2000-х 🪩',
+        '«ВКЛЮЧАЕМ Y2K БИТ! Руки вверх, танцуем под клубный ремикс вместе с подругами прямо сейчас! Никакого стеснения в 21 год!»',
+        'https://lh3.googleusercontent.com/aida/AEtjO1VaOj1BEaQFAltPMytcRZr4L8Gq5gu-ZzynMho8YRXxiOQiUDlsgXaySkWQ1KevNQ1GY5zk01G8MVYyIfWw_UwupnFwyDFiSaiyfvgWMFx0ChpcIj-kYDyWTINhNqnl-uk_ZXmxiHvseTynPVDndneQpwqVWruCE2cZq7nKldEBTH4hUHGaIKUKkVq_aXydymPRK3Nk8UWnfVqKRGGW2mG052FwhnEf_qj1tWxB7slqs-OPGHxDV8glAmG7',
+        '#ffd600'
+      );
+      triggerPartyMode();
+    }
+  }
+
+  // 3. Max Pet & Treat actions
+  function petMaxAction() {
+    const sphere = document.getElementById('maxCrystalSphere');
+    if (sphere) {
+      sphere.style.transform = 'scale(1.15) rotate(4deg)';
+      sphere.style.boxShadow = '0 0 70px #ffd600, 0 0 100px #ff4b91';
+      setTimeout(() => {
+        sphere.style.transform = '';
+        sphere.style.boxShadow = '';
+      }, 900);
+    }
+    for (let i = 0; i < 18; i++) {
+      setTimeout(createFloatingHeart, i * 60);
+    }
+    updateDialogue(
+      'Макс • Почесали за ушком! 🐾💖',
+      '«Ммм, как приятно! Ушки дрожат от счастья! Викулек, ты самое нежное и прекрасное сокровище! Я всегда буду любить и радовать тебя!»',
+      'https://lh3.googleusercontent.com/aida/AEtjO1VaPcpVXdryZDtXDx-aiDbovos7jqGU4BmEYcLj-SNt7lmkMFxEK1Jmtm11addh4CkIMO7GNnYhXc0rYMCBvRo_qHixO4VWuAmLR24RzB0xJW-V-RbnOwKkkabMj0j8IZqoxd4OixYAeOkpk3VOEmm-WfkkRH7jEh2rFSAWJ8UJa-LYcASUPoG0PJlI0X6852XyV5DA3vXPAXRLxlOd-SsHaWnzpL9cyHS5sBFO8QF4icztNFvX8Mf6Ey8',
+      '#ffd600'
+    );
+    triggerPartyMode();
+  }
+
+  function treatMaxAction() {
+    updateDialogue(
+      'Макс • Вкусняшка принята! 🦴🍖',
+      '«АМ-НЯМ! Хвостик крутится как пропеллер! За такое угощение делюсь супер-секретом: кодовое слово к сейфу Лиса-Жулика — «черемшить»! Беги открывать!»',
+      'https://lh3.googleusercontent.com/aida/AEtjO1VaPcpVXdryZDtXDx-aiDbovos7jqGU4BmEYcLj-SNt7lmkMFxEK1Jmtm11addh4CkIMO7GNnYhXc0rYMCBvRo_qHixO4VWuAmLR24RzB0xJW-V-RbnOwKkkabMj0j8IZqoxd4OixYAeOkpk3VOEmm-WfkkRH7jEh2rFSAWJ8UJa-LYcASUPoG0PJlI0X6852XyV5DA3vXPAXRLxlOd-SsHaWnzpL9cyHS5sBFO8QF4icztNFvX8Mf6Ey8',
+      '#ffd600'
+    );
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.55 }, colors: ['#ffd600', '#f59e0b', '#ffffff'] });
+    }
+  }
+
+  // 4. Charge Crystal with 3-second hold
+  let chargeTimer = null;
+  let chargeStart = 0;
+  const CHARGE_DURATION = 3000;
+
+  function startChargeCrystal() {
+    chargeStart = Date.now();
+    const ring = document.getElementById('chargeProgressRing');
+    const hint = document.getElementById('crystalChargeHint');
+    const sphere = document.getElementById('maxCrystalSphere');
+
+    if (sphere) {
+      sphere.style.transform = 'scale(1.08)';
+      sphere.style.boxShadow = '0 0 60px #00f0ff, 0 0 90px #ffd600';
+    }
+    if (hint) hint.innerText = 'Заряжаем кристалл... ⚡';
+
+    chargeTimer = setInterval(() => {
+      const elapsed = Date.now() - chargeStart;
+      const pct = Math.min(elapsed / CHARGE_DURATION, 1);
+      if (ring) {
+        const offset = 590 - (590 * pct);
+        ring.style.strokeDashoffset = offset;
+      }
+      if (pct >= 1) {
+        finishCrystalCharge();
+      }
+    }, 40);
+  }
+
+  function cancelChargeCrystal() {
+    if (chargeTimer) {
+      clearInterval(chargeTimer);
+      chargeTimer = null;
+    }
+    const ring = document.getElementById('chargeProgressRing');
+    const hint = document.getElementById('crystalChargeHint');
+    const sphere = document.getElementById('maxCrystalSphere');
+    if (ring) ring.style.strokeDashoffset = '590';
+    if (hint) hint.innerText = 'Удерживай 3 сек ⚡';
+    if (sphere) {
+      sphere.style.transform = '';
+      sphere.style.boxShadow = '';
+    }
+  }
+
+  function triggerCrystalChargeManual() {
+    startChargeCrystal();
+    setTimeout(finishCrystalCharge, 1200);
+  }
+
+  function finishCrystalCharge() {
+    cancelChargeCrystal();
+    const sphere = document.getElementById('maxCrystalSphere');
+    if (sphere) {
+      sphere.style.transform = 'scale(1.22)';
+      sphere.style.boxShadow = '0 0 100px #00f0ff, 0 0 140px #ffd600, 0 0 160px #ff4b91';
+      setTimeout(() => {
+        sphere.style.transform = '';
+        sphere.style.boxShadow = '';
+      }, 1500);
+    }
+    updateDialogue(
+      '⚡ КРИСТАЛЛ ЖЕЛАНИЙ 21 ГОДА ЗАРЯЖЕН! 🔮',
+      '«КОСМИЧЕСКИЙ ВСПЛЕСК! Кристалл видит: в 21 год тебя ждут головокружительные путешествия, верная поддержка лучших подруг, любовь, от которой поет сердце, и реализация самых смелых амбиций! Ты главная звезда этой вселенной!»',
+      'https://lh3.googleusercontent.com/aida/AEtjO1VaPcpVXdryZDtXDx-aiDbovos7jqGU4BmEYcLj-SNt7lmkMFxEK1Jmtm11addh4CkIMO7GNnYhXc0rYMCBvRo_qHixO4VWuAmLR24RzB0xJW-V-RbnOwKkkabMj0j8IZqoxd4OixYAeOkpk3VOEmm-WfkkRH7jEh2rFSAWJ8UJa-LYcASUPoG0PJlI0X6852XyV5DA3vXPAXRLxlOd-SsHaWnzpL9cyHS5sBFO8QF4icztNFvX8Mf6Ey8',
+      '#00f0ff'
+    );
+    triggerPartyMode();
+    for (let k = 0; k < 25; k++) {
+      setTimeout(createFloatingHeart, k * 45);
+    }
+  }
+</script>
+<div class="floating-heart" style="left: 80.0095vw; font-size: 24.3845px; color: rgb(255, 214, 0); animation-duration: 6.82191s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 60.241vw; font-size: 20.9179px; color: rgb(255, 214, 0); animation-duration: 5.09674s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 92.3255vw; font-size: 18.3214px; color: rgb(255, 214, 0); animation-duration: 6.52201s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 48.4309vw; font-size: 14.5599px; color: rgb(255, 214, 0); animation-duration: 5.37564s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 54.7873vw; font-size: 23.341px; color: rgb(255, 214, 0); animation-duration: 5.45174s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 50.1771vw; font-size: 27.9007px; color: rgb(255, 214, 0); animation-duration: 7.58978s;"><i class="fa-solid fa-heart"></i></div><div class="floating-heart" style="left: 69.0724vw; font-size: 22.022px; color: rgb(255, 214, 0); animation-duration: 4.65139s;"><i class="fa-solid fa-heart"></i></div>
+<script id="familyTreeLogic">
+  const familyMembers = {
+    mama: { name: 'Мама • Опора и Тепло', icon: 'fa-heart', text: '«Викулечка, радость моя! Ты выросла такой умницей и красавицей. Пусть жизнь балует тебя каждый день, а мамино сердце всегда согревает тебя любовью!»', color: '#ff4b91' },
+    papa: { name: 'Папа • Сила и Надежность', icon: 'fa-user-tie', text: '«Горжусь тобой, дочка! В 21 год весь мир открыт перед тобой. Иди смело вперед, я всегда прикрою и поддержу любое твое начинание!»', color: '#ffd600' },
+    serezha: { name: 'Дядя Серёжа • Брат мамы', icon: 'fa-shield-halved', text: '«Викулек, с днем рождения! Будь самой счастливой, заряжай всех своей улыбкой и помни: семья — это несокрушимая крепость!»', color: '#b388ff' },
+    masha: { name: 'Сестра Маша', icon: 'fa-venus', text: '«Любимая сестренка! С 21-летием! Пусть твоя жизнь искрится праздником, как бокал шампанского, а мы с Лерой всегда с тобой на одной волне!»', color: '#ff76ac' },
+    lera: { name: 'Сестра Лера', icon: 'fa-venus', text: '«Викуся, поздравляю! Ты самая яркая, стильная и веселая сестра во вселенной! Обнимаю до хруста косточек, зажигаем сегодня на 1000%!»', color: '#00f0ff' },
+    ded_vasya: { name: 'Дедушка Василий Егорович', icon: 'fa-star', text: '«Внученька, корни нашего рода сильны землей Русиново! Будь крепкой духом, честной, доброй и счастливой в каждом дне!»', color: '#ffd600' },
+    baba_natasha: { name: 'Бабушка Наталья Тихоновна', icon: 'fa-star', text: '«Милая наша Викулечка, золотое солнышко! Пусть здоровье и благополучие всегда будут с тобой, а ангел-хранитель оберегает на всех путях!»', color: '#ff76ac' },
+    ded_tolya: { name: 'Дедушка Анатолий Валентинович', icon: 'fa-star', text: '«С 21-летием, Вика! Мудрости тебе, уверенности в своих силах и верных друзей рядом! Мы гордимся тобой!»', color: '#ffd600' },
+    baba_nastya: { name: 'Бабушка Анастасия Егоровна', icon: 'fa-star', text: '«Родная внучка! Сияй, цвети как яблоневый сад в Русиново! Люби жизнь, а мы всей душой с тобой!»', color: '#ff76ac' }
+  };
+
+  function toggleFamilyView(mode) {
+    const tView = document.getElementById('familyTreeView');
+    const pView = document.getElementById('familyPaintingView');
+    const bT = document.getElementById('btnViewTree');
+    const bP = document.getElementById('btnViewPainting');
+    if (mode === 'tree') {
+      if (tView) tView.style.display = 'block';
+      if (pView) pView.style.display = 'none';
+      if (bT) { bT.style.background = 'linear-gradient(135deg, #ffd600, #ff4b91)'; bT.style.color = '#000'; }
+      if (bP) { bP.style.background = 'rgba(255,255,255,0.1)'; bP.style.color = '#fff'; }
+    } else {
+      if (tView) tView.style.display = 'none';
+      if (pView) pView.style.display = 'block';
+      if (bP) { bP.style.background = 'linear-gradient(135deg, #ffd600, #ff4b91)'; bP.style.color = '#000'; }
+      if (bT) { bT.style.background = 'rgba(255,255,255,0.1)'; bT.style.color = '#fff'; }
+    }
+  }
+
+  function pulseToVikulyok(id, startX, startY) {
+    const data = familyMembers[id];
+    if (data) {
+      const tH = document.getElementById('relTitleHeader');
+      const sT = document.getElementById('relSpeechText');
+      const iB = document.getElementById('relIconBox');
+      if (tH) tH.innerText = data.name;
+      if (sT) sT.innerText = data.text;
+      if (iB) {
+        iB.innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
+        iB.style.background = `linear-gradient(135deg, ${data.color}, #ffffff)`;
+      }
+    }
+    const ball = document.getElementById('energyPulseBall');
+    const viku = document.getElementById('vikuCenterNode');
+    if (ball) {
+      ball.setAttribute('cx', startX + '%');
+      ball.setAttribute('cy', startY);
+      ball.setAttribute('opacity', '1');
+      ball.setAttribute('fill', data ? data.color : '#ffd600');
+      let step = 0;
+      const anim = setInterval(() => {
+        step += 0.05;
+        const curX = startX + (50 - startX) * step;
+        const curY = startY + (95 - startY) * step;
+        ball.setAttribute('cx', curX + '%');
+        ball.setAttribute('cy', curY);
+        if (step >= 1) {
+          clearInterval(anim);
+          ball.setAttribute('opacity', '0');
+          if (viku) {
+            viku.style.transform = 'scale(1.22)';
+            viku.style.boxShadow = '0 0 60px #ffd600, 0 0 90px #ff4b91, 0 0 120px #00f0ff';
+            setTimeout(() => {
+              viku.style.transform = '';
+              viku.style.boxShadow = '0 0 35px #ffd600, 0 0 55px #ff4b91';
+            }, 700);
+          }
+          if (typeof confetti === 'function') {
+            confetti({
+              particleCount: 75,
+              spread: 60,
+              origin: { y: 0.35 },
+              colors: ['#ffd600', '#ff4b91', '#00f0ff', '#ffffff']
+            });
+          }
+        }
+      }, 20);
+    }
+  }
+
+  function pulseSelfVikulyok() {
+    const viku = document.getElementById('vikuCenterNode');
+    if (viku) {
+      viku.style.transform = 'scale(1.25) rotate(5deg)';
+      setTimeout(() => viku.style.transform = '', 600);
+    }
+    const tH = document.getElementById('relTitleHeader');
+    const sT = document.getElementById('relSpeechText');
+    if (tH) tH.innerText = 'Викулек ★ Сердце Семьи';
+    if (sT) sT.innerText = '«Спасибо моей любимой семье за силу, заботу и тепло! Русиново навсегда в моем сердце!»';
+    triggerPartyMode();
+  }
+
+  function cheerRusinovoToast() {
+    const sT = document.getElementById('relSpeechText');
+    if (sT) sT.innerText = '🥂 ЗВОН ХРУСТАЛЬНЫХ БОКАЛОВ ЗА РУСИНОВО! «За здоровье всей семьи, за крепкие корни и цветущее будущее Викулька в 21 год! УРА!»';
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 130,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ['#ffd600', '#ff76ac', '#b388ff', '#00f0ff', '#ffffff']
+      });
+    }
+    for (let k = 0; k < 15; k++) {
+      setTimeout(createFloatingHeart, k * 60);
+    }
+  }
+</script><div class="floating-heart" style="left: 88.6958vw; font-size: 26.8329px; color: rgb(255, 75, 145); animation-duration: 5.39596s;"><i class="fa-solid fa-heart"></i></div><div id="srStatus" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"></div>
+<script>
+
+/* ===== FIX 11: shared screen-reader announcement helper ============== */
+function announce(message) {
+  var el = document.getElementById('srStatus');
+  if (el) el.textContent = message;
+}
+
+/* ===== FIX 2: crystal arena interactions =============================
+   The original page had 4 buttons calling window.trigger3DAction() with
+   the actions walk / wag / cheer / idle. The function was never defined,
+   and every call sat inside `if (window.trigger3DAction)` guards, so all
+   four buttons silently did nothing at all. This implements the real
+   behaviour using CSS transforms on the elements already in the markup. */
+(function () {
+  var ACTIONS = {
+    walk:  { label: 'Кристаллы плывут по арене', cls: 'arena-walk',  ms: 3800 },
+    wag:   { label: 'Кристаллы виляют',          cls: 'arena-wag',   ms: 2200 },
+    cheer: { label: 'Кристаллы ликуют',          cls: 'arena-cheer', ms: 2600 },
+    idle:  { label: 'Сцена вернулась в покой',   cls: '',            ms: 800  }
+  };
+
+  window.trigger3DAction = function (action) {
+    var cfg = ACTIONS[action];
+    if (!cfg) return false;
+
+    var arena = document.querySelector('.crystal-orbs-arena')
+             || document.querySelector('.scene-3d-wrapper');
+    if (!arena) return false;
+
+    /* clear any previous state so animations can restart reliably */
+    Object.keys(ACTIONS).forEach(function (k) {
+      if (ACTIONS[k].cls) arena.classList.remove(ACTIONS[k].cls);
+    });
+    void arena.offsetWidth;
+    if (cfg.cls) arena.classList.add(cfg.cls);
+
+    /* per-orb treatment */
+    var orbs = arena.querySelectorAll(
+      '.float-orb-left, .float-orb-center, .float-orb-right, .crystal-orb-anchor');
+    orbs.forEach(function (orb, i) {
+      orb.style.animationDelay = (i * 110) + 'ms';
+    });
+
+    if (action === 'idle') {
+      arena.style.transform = '';
+      arena.style.filter = '';
+      orbs.forEach(function (orb) { orb.style.animationDelay = ''; });
+    }
+
+    setTimeout(function () {
+      if (cfg.cls) arena.classList.remove(cfg.cls);
+    }, cfg.ms);
+
+    announce(cfg.label);
+    return true;
+  };
+})();
+
+/* ===== FIX 7: keyboard access for clickable non-button elements =======
+   Elements such as the VHS cassettes are <div onclick=...> with no role
+   and no tabindex: unreachable by keyboard and invisible to screen
+   readers. This wires them up after the DOM is ready. */
+(function () {
+  function activate(el) {
+    var code = el.getAttribute('onclick');
+    if (code) {
+      try { new Function(code).call(el, window.event); } catch (e) {}
+    }
+  }
+  function wire() {
+    document.querySelectorAll('[onclick]').forEach(function (el) {
+      var tag = el.tagName.toLowerCase();
+      if (tag === 'button' || tag === 'a') return;   /* already focusable */
+      if (el.dataset.kbdWired === '1') return;
+      el.dataset.kbdWired = '1';
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+      if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+      if (!el.hasAttribute('aria-label') && !el.textContent.trim()) {
+        el.setAttribute('aria-label', 'интерактивный элемент');
+      }
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') {
+          ev.preventDefault();
+          activate(el);
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else { wire(); }
+})();
+
+/* ===== FIX 9: image error fallback ===================================
+   Some original images pointed at expired Google Stitch URLs that now
+   return HTTP 403. If any image still fails, swap in a styled
+   placeholder rather than showing a broken-image icon. */
+(function () {
+  var FALLBACK = '../assets/placeholders/ph_00.svg';
+  function wire() {
+    document.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('error', function () {
+        if (img.dataset.fallbackApplied === '1') return;
+        img.dataset.fallbackApplied = '1';
+        img.src = FALLBACK;
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else { wire(); }
+})();
+
+</script>
+<script>
+
+/* ===== AUDIT FIX 4 + 5: dialog and tab semantics =====================
+   The modals had no role/aria attributes and could not be closed with
+   Escape; the tab strip was not marked up as a tablist. This adds the
+   standard semantics and keyboard behaviour without touching the design. */
+(function () {
+  function enhance() {
+    /* --- modal dialogs --- */
+    document.querySelectorAll('.modal-overlay').forEach(function (m) {
+      if (m.dataset.a11yDone === '1') return;
+      m.dataset.a11yDone = '1';
+      m.setAttribute('role', 'dialog');
+      m.setAttribute('aria-modal', 'true');
+      var title = m.querySelector('h1, h2, h3, .modal-title');
+      if (title) {
+        if (!title.id) title.id = (m.id || 'modal') + '-title';
+        m.setAttribute('aria-labelledby', title.id);
+      } else {
+        m.setAttribute('aria-label', 'Диалоговое окно');
+      }
+      /* remember what to restore focus to */
+      m.addEventListener('click', function (ev) {
+        if (ev.target === m) {                 /* click on the backdrop */
+          var close = m.querySelector('[onclick*="closeModal"]');
+          if (close) close.click();
+        }
+      });
+    });
+
+    /* --- tab strip --- */
+    var nav = document.querySelector('.rusinovo-tab-nav');
+    if (nav && nav.dataset.a11yDone !== '1') {
+      nav.dataset.a11yDone = '1';
+      nav.setAttribute('role', 'tablist');
+      nav.setAttribute('aria-label', 'Разделы семейной страницы');
+      nav.querySelectorAll('.rus-tab-btn').forEach(function (btn, i) {
+        btn.setAttribute('role', 'tab');
+        var id = btn.id || ('tab-' + i);
+        if (!btn.id) btn.id = id;
+        btn.setAttribute('aria-controls', id.replace('btnFamilyTab', 'familyTab'));
+        btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
+        btn.setAttribute('tabindex', btn.classList.contains('active') ? '0' : '-1');
+        /* arrow-key navigation between tabs (WAI-ARIA authoring practice) */
+        btn.addEventListener('keydown', function (ev) {
+          var keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+          if (keys.indexOf(ev.key) === -1) return;
+          ev.preventDefault();
+          var tabs = [...nav.querySelectorAll('.rus-tab-btn')];
+          var idx = tabs.indexOf(btn);
+          if (ev.key === 'ArrowRight') idx = (idx + 1) % tabs.length;
+          else if (ev.key === 'ArrowLeft') idx = (idx - 1 + tabs.length) % tabs.length;
+          else if (ev.key === 'Home') idx = 0;
+          else idx = tabs.length - 1;
+          tabs[idx].focus();
+          tabs[idx].click();
+        });
+      });
+      document.querySelectorAll('[id^="familyTab"]').forEach(function (panel) {
+        panel.setAttribute('role', 'tabpanel');
+      });
+    }
+
+    /* --- video: avoid downloading 4.1MB up front --- */
+    document.querySelectorAll('video').forEach(function (v) {
+      if (!v.hasAttribute('preload')) v.setAttribute('preload', 'metadata');
+      v.setAttribute('playsinline', '');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enhance);
+  } else { enhance(); }
+})();
+
+/* ===== AUDIT FIX 4b: Escape closes any open dialog =================== */
+(function () {
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    var open = [...document.querySelectorAll('.modal-overlay')]
+      .filter(function (m) { return getComputedStyle(m).display !== 'none'; });
+    if (!open.length) return;
+    var top = open[open.length - 1];
+    var close = top.querySelector('[onclick*="closeModal"]');
+    if (close) { close.click(); ev.preventDefault(); }
+  });
+})();
+
+</script>
+</body></html>
