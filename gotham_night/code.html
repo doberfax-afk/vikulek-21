@@ -959,7 +959,31 @@ video.scene-art{animation:none;object-fit:cover}
 .scene[data-act="6"]{--thread:#00e5ff}
 .scene[data-act="7"]{--thread:#e8b54d}
 </style>
-</head>
+
+<style id="act2-radio-css">
+.info-cell.radio-cell{flex:1 1 220px;min-width:200px}
+.radio-tuner-btn{position:relative;display:block;width:100%;border:1px solid rgba(0,229,255,.35);
+  border-radius:10px;overflow:hidden;background:#04060a;cursor:pointer;padding:0;
+  transition:border-color .3s, box-shadow .3s}
+.radio-tuner-btn:hover{border-color:#00e5ff;box-shadow:0 0 18px rgba(0,229,255,.35)}
+.radio-tuner-btn img{display:block;width:100%;height:110px;object-fit:cover;object-position:center 30%;
+  filter:saturate(.9) contrast(1.05)}
+.radio-tuner-btn.playing{border-color:#00e5ff;animation:radioGlow 1.2s ease-in-out infinite}
+.radio-tuner-btn.playing img{filter:saturate(1.3) contrast(1.1)}
+@keyframes radioGlow{
+  0%,100%{box-shadow:0 0 8px rgba(0,229,255,.3)}
+  50%{box-shadow:0 0 26px rgba(0,229,255,.65)}
+}
+.radio-freq{position:absolute;left:10px;top:8px;font:800 15px/1 Syne,sans-serif;
+  color:#00e5ff;text-shadow:0 0 8px rgba(0,229,255,.9);letter-spacing:.06em}
+.radio-unit{font-size:.65em;opacity:.75;margin-left:3px}
+.radio-hint{display:block;padding:7px 10px;font:500 11px/1.4 Montserrat,sans-serif;
+  color:#7fd8e8;text-align:left;background:rgba(2,10,14,.85)}
+.radio-tuner-btn.playing .radio-hint{color:#00e5ff}
+@media(max-width:820px){
+  .radio-tuner-btn img{height:90px}
+}
+</style></head>
 <body>
 <div class="thread-rail" aria-hidden="true">
   <div class="thread-fill"></div>
@@ -1063,6 +1087,14 @@ video.scene-art{animation:none;object-fit:cover}
           <div class="lbl">Цель</div>
           <div class="val gold">КАПСУЛА</div>
           <div class="sub">не алмаз «Кошачий глаз»</div>
+        </div>
+        <div class="info-cell radio-cell">
+          <div class="lbl">Частота</div>
+          <button class="radio-tuner-btn" id="radioTunerBtn" type="button" aria-label="Включить сигнал 16.05 FM">
+            <img src="img/radio_tuner.jpg" alt="Радио-тюнер 16.05 FM">
+            <span class="radio-freq">16.05<span class="radio-unit">FM</span></span>
+            <span class="radio-hint">тапни — услышишь сигнал</span>
+          </button>
         </div>
       </div>
     </div>
