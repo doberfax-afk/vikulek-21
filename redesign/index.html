@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ВИКУЛЕК №21 — три варианта редизайна</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ВИБОР: три варианта редизайна номера. Один макет, разными осями.
+   Все три собраны на ОДНОМ контенте (7 глав, 5 подруг, кассета, оракул),
+   поэтому страница выбора показывает разницу между версиями, а не разницу
+   между текстами.
+   ========================================================================== */
+:root{
+  --ink:#0C0817; --ink-2:#151028; --line:#ffffff20; --dim:#A79Dc2;
+  --lime:#CCFF00; --pink:#FF4B91; --cyan:#38BDF8; --gold:#FFD600; --violet:#B388FF;
+  --display:'Syne',system-ui,sans-serif;
+  --body:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+    radial-gradient(1000px 560px at 10% -6%,#8B5CF62e,transparent 60%),
+    radial-gradient(900px 520px at 92% 4%,#FF4B9121,transparent 60%),
+    var(--ink);
+  color:#EFE9FF;font-family:var(--body);font-size:16.5px;line-height:1.62;
+  -webkit-font-smoothing:antialiased
+}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 20px 80px}
+
+.kick{
+  font-family:var(--display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--lime);margin:0 0 14px
+}
+h1{
+  font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.94;
+  font-size:clamp(34px,6.4vw,70px);margin:0 0 14px;
+  background:linear-gradient(168deg,#fff 0%,#fff 48%,var(--pink) 48%,var(--violet) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.sub{font-size:18px;color:#DCD4F0;max-width:64ch;margin:0 0 10px}
+.note{font-size:14.5px;color:var(--dim);max-width:70ch}
+
+/* ---------- cards ---------- */
+.cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin:44px 0}
+.card{
+  position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease
+}
+.card:hover{transform:translateY(-5px);border-color:#ffffff45;box-shadow:0 24px 50px #00000070}
+.card:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+/* each thumb previews its own variant's real visual language */
+.thumb{
+  aspect-ratio:16/10;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line)
+}
+.letter{
+  position:absolute;top:14px;left:16px;z-index:2;
+  font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.14em;
+  padding:5px 12px;border-radius:999px
+}
+.body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.card h2{font-family:var(--display);font-weight:800;font-size:22px;margin:0 0 6px;color:#fff}
+.card .axis{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:0 0 12px
+}
+.card p{margin:0 0 14px;font-size:15px;color:#D5CCEC}
+.card ul{margin:0 0 18px;padding-left:19px;color:#BEB3DA;font-size:14px;line-height:1.62}
+.card .go{
+  margin-top:auto;font-family:var(--display);font-weight:700;font-size:13.5px;
+  letter-spacing:.05em;display:inline-flex;align-items:center;gap:8px;color:var(--lime)
+}
+.card:hover .go{gap:12px}
+
+/* thumb A — light paper spread */
+.tA{background:#EDE6D8}
+.tA .sp{
+  position:absolute;inset:14px;background:#FFFDF8;border:2px solid #1A0F08;
+  box-shadow:7px 7px 0 #1A0F08;display:grid;grid-template-columns:1fr 1fr
+}
+.tA .sp::after{
+  content:"";position:absolute;top:0;bottom:0;left:50%;width:24px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,#1a0f0822 50%,transparent)
+}
+.tA .pg{padding:12px}
+.tA .ttl{font-family:var(--display);font-weight:800;color:#1A0F08;font-size:19px;line-height:1}
+.tA .bar{height:3px;background:#FF4B91;margin:7px 0;width:54%}
+.tA .ln{height:2px;background:#c9bfae;margin:4px 0}
+.tA .ln.s{width:70%}
+.tA .ph{background:#F6F1E7;border:1px solid #1A0F08;flex:1;margin-top:8px;min-height:44px}
+.tA .mid{display:flex;flex-direction:column;height:100%}
+.tA .letter{background:#1A0F08;color:#FFFDF8}
+
+/* thumb B — dark flip */
+.tB{background:radial-gradient(circle at 30% 20%,#8B5CF640,transparent 60%),#08060F}
+.tB .bk{
+  position:absolute;inset:18px 26px;perspective:900px
+}
+.tB .lf{
+  position:absolute;top:0;right:0;width:50%;height:100%;
+  transform-origin:left center;transform:rotateY(-24deg);
+  background:#100C1E;border:1px solid #ffffff2e;box-shadow:0 12px 30px #000c;
+  display:flex;flex-direction:column;justify-content:center;align-items:center
+}
+.tB .lf.l{
+  transform:rotateY(24deg);transform-origin:right center;left:0;right:auto
+}
+.tB .mega{
+  font-family:var(--display);font-weight:900;font-size:26px;line-height:.85;color:#fff;text-align:center
+}
+.tB .n21{
+  font-family:var(--display);font-weight:900;font-size:30px;color:#08060F;background:#CCFF00;
+  padding:0 8px;margin-top:5px;-webkit-text-stroke:1.5px #08060F
+}
+.tB .neon{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 55%,#FF4B9126,transparent 58%)}
+.tB .letter{background:#CCFF00;color:#08060F}
+
+/* thumb C — vertical site */
+.tC{background:#0F0A1E}
+.tC .bar{
+  position:absolute;top:0;left:0;right:0;height:22px;background:#0F0A1Eee;
+  border-bottom:1px solid #ffffff1f;display:flex;align-items:center;gap:6px;padding:0 10px
+}
+.tC .bar i{height:7px;border-radius:999px;background:#A99FC4;display:block;opacity:.55}
+.tC .bar i:first-child{background:#CCFF00;opacity:1;width:34px}
+.tC .prog{position:absolute;top:0;left:0;height:3px;width:46%;background:linear-gradient(90deg,#FF4B91,#CCFF00)}
+.tC .col{padding:34px 16px 0}
+.tC .h{font-family:var(--display);font-weight:800;font-size:23px;color:#fff;line-height:1;margin-bottom:5px}
+.tC .k{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#CCFF00;margin-bottom:6px}
+.tC .two{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;align-items:start}
+.tC .ln{height:2px;background:#ffffff26;margin:5px 0}
+.tC .ln.s{width:64%}
+.tC .fr{background:#191230;border:1px solid #ffffff1f;height:56px}
+.tC .letter{background:#FF4B91;color:#1b0410}
+
+/* ---------- comparison table ---------- */
+h3.sect{
+  font-family:var(--display);font-weight:800;font-size:26px;margin:54px 0 8px;color:#fff
+}
+.sect-note{color:var(--dim);font-size:14.5px;margin:0 0 20px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:14.5px}
+th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:#ffffff0a;white-space:nowrap
+}
+tbody th{font-weight:500;color:var(--dim);white-space:nowrap}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+td b{color:var(--lime)}
+.win{color:var(--cyan)}
+
+/* ---------- recommendation ---------- */
+.rec{
+  margin-top:44px;background:var(--ink-2);border:1px solid var(--line);
+  border-radius:12px;padding:30px 32px
+}
+.rec h3{font-family:var(--display);font-size:22px;margin:0 0 8px;color:#fff}
+.rec p{margin:0 0 12px;color:#D5CCEC}
+.rec ol{margin:0;padding-left:21px;color:#C6BBDF}
+.rec ol li{margin-bottom:9px}
+.rec li b{color:#fff}
+.rec a{color:var(--lime)}
+
+.foot{margin-top:50px;padding-top:24px;border-top:1px solid var(--line);
+      color:var(--dim);font-size:13.5px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kick">Редизайн · три варианта · один и тот же номер</p>
+  <h1>ВИКУЛЕК №21</h1>
+  <p class="sub">Три способа переиздать номер как 2YK-журнал. Это не три оттенка одного макета: каждый вариант проверяет свою <b>ось решения</b> — вид, взаимодействие и среду.</p>
+  <p class="note">Контент во всех трёх одинаковый: те же 7 глав, 5 подруг, кассета с ПИНом 1605, пушистый триумвират и Scorpio 2005. Меняется способ подачи, а не текст, — поэтому сравнивать честно.</p>
+
+  <div class="cards">
+
+    <a class="card" href="a-spread.html">
+      <div class="thumb tA">
+        <span class="letter">Вариант A</span>
+        <div class="sp">
+          <div class="pg"><div class="mid">
+            <div class="ttl">Викулек</div>
+            <div class="bar"></div>
+            <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+            <div class="ph"></div>
+          </div></div>
+          <div class="pg"><div class="mid">
+            <div class="ttl" style="font-size:12px">Содержание</div>
+            <div class="ln"></div><div class="ln s"></div><div class="ln"></div>
+            <div class="ln s"></div><div class="ln"></div><div class="ln s"></div>
+            <div class="ph"></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="body">
+        <h2>Глянцевый разворот</h2>
+        <p class="axis">Ось: <b>вид</b> · светлая бумага</p>
+        <p>Каждое полотно — разворот из двух полос с корешком по центру. Номер листается, как настоящий журнал на столе.</p>
+        <ul>
+          <li>Чернила по бумаге, золото, буквица</li>
+          <li>Содержание с нумерацией страниц</li>
+          <li>Колонтитулы, врезки-цитаты, штрихкод</li>
+          <li>Контраст 15.4:1 — самый читаемый</li>
+        </ul>
+        <span class="go">Открыть вариант A →</span>
+      </div>
+    </a>
+
+    <a class="card" href="b-flip.html">
+      <div class="thumb tB">
+        <span class="letter">Вариант B</span>
+        <span class="neon"></span>
+        <div class="bk">
+          <div class="lf l"><div class="mega" style="font-size:16px">Содержание</div>
+            <div style="font-size:7px;color:#A99FC4;letter-spacing:.15em;margin-top:6px">01 · 02 · 03 · 04</div></div>
+          <div class="lf"><div class="mega">Викулек</div><div class="n21">21</div></div>
+        </div>
+      </div>
+      <div class="body">
+        <h2>Перелистываемый номер</h2>
+        <p class="axis">Ось: <b>взаимодействие</b> · тёмный неон</p>
+        <p>Номер не скроллится, а физически перелистывается: лист поворачивается на 180° вокруг корешка. Скролла нет вообще.</p>
+        <ul>
+          <li>Настоящий 3D-переворот страниц</li>
+          <li>Ровно 8 полос — фиксированный объём</li>
+          <li>Стрелки, клик по половине, точки-переходы</li>
+          <li>Исходная клубная палитра проекта</li>
+        </ul>
+        <span class="go">Открыть вариант B →</span>
+      </div>
+    </a>
+
+    <a class="card" href="c-site.html">
+      <div class="thumb tC">
+        <span class="letter">Вариант C</span>
+        <span class="prog"></span>
+        <div class="bar">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="col">
+          <div class="k">Спецвыпуск · 21 год</div>
+          <div class="h">Викулек</div>
+          <div class="two">
+            <div>
+              <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+              <div class="ln"></div><div class="ln s"></div>
+            </div>
+            <div class="fr"></div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <h2>Номер как сайт</h2>
+        <p class="axis">Ось: <b>среда</b> · вертикальный веб</p>
+        <p>Тот же журнал, но свёрстанный как настоящий сайт: залипающая навигация, индикатор прочтения, якорные ссылки на каждую главу.</p>
+        <ul>
+          <li>Каждая глава имеет свой адрес и шерится</li>
+          <li>Список глав всегда на экране</li>
+          <li>Лучший вариант для телефона</li>
+          <li>Больше удобства, меньше «вау»</li>
+        </ul>
+        <span class="go">Открыть вариант C →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <h3 class="sect">Чем варианты отличаются на деле</h3>
+  <p class="sect-note">Одна таблица вместо трёх описаний — так видно, что именно вы выбираете.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>A · Разворот</th><th>B · Перелистывание</th><th>C · Сайт</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Ощущение</th><td>Сидя с журналом в руках</td><td class="win">Листаешь номер в киоске</td><td>Читаешь статью в телефоне</td></tr>
+        <tr><th>Способ чтения</th><td>Вертикальный скролл разворотов</td><td class="win">Листание, скролла нет</td><td>Вертикальный скролл глав</td></tr>
+        <tr><th>Тёмная / светлая</th><td>Светлая бумага</td><td>Тёмный неон</td><td>Тёмная, акценты неон</td></tr>
+        <tr><th>Основной шрифт</th><td>Syne + Space Grotesk</td><td>Orbitron + Space Grotesk</td><td>Syne + Space Grotesk</td></tr>
+        <tr><th>Телефон</th><td>Разворот складывается в колонку</td><td>Одна страница за раз</td><td class="win">Спроектирован первым</td></tr>
+        <tr><th>Ссылка на главу</th><td>Якорь по номеру главы</td><td>Нет — состояние только внутри</td><td class="win">Полноценный <code>#hash</code></td></tr>
+        <tr><th>Объём</th><td>7 разворотов</td><td>8 полос (жёстко)</td><td>7 глав, любая длина</td></tr>
+        <tr><th>Печать на бумаге</th><td class="win">Готов хоть сейчас</td><td>Нет (тёмный фон)</td><td>Нет (тёмный фон)</td></tr>
+        <tr><th>Контраст текста</th><td class="win">15.4:1</td><td>13.2:1</td><td>13.2:1</td></tr>
+        <tr><th>Сколько работы</th><td>Средне</td><td>Много (3D, тайминги)</td><td class="win">Мало</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rec">
+    <h3>Что я советую</h3>
+    <p>Выбор зависит от того, как номер попадёт к Викульку — а не от того, какой макет красивее на моём экране.</p>
+    <ol>
+      <li><b>Если подарите файлом или распечатаете</b> — берите <b>A</b>. Светлая бумага печатается без потерь, а разворот с корешком сразу читается как журнал.</li>
+      <li><b>Если покажете вживую на ноутбуке</b> — берите <b>B</b>. Настоящее перелистывание производит впечатление, которого скролл не даёт, и это самая «журнальная» механика из трёх.</li>
+      <li><b>Если отправите ссылкой в мессенджер</b> — берите <b>C</b>. Открывается на телефоне лучше остальных, и на каждую главу можно дать отдельную ссылку.</li>
+      <li><b>Мой личный выбор — A</b>, и вот почему: тема Y2K держится на печатной эстетике 2000-х (глянец, полароиды, вкладыши), а светлая бумага ещё и решает главную проблему исходного сайта — невидимый чёрный текст на тёмном фоне.</li>
+      <li><b>Сильнее всего — A и B вместе:</b> A как основной номер, а перелистывание из B как режим обложки. Такой гибрид я могу собрать следующим шагом.</li>
+    </ol>
+  </div>
+
+  <p class="foot">Три варианта, один контент · общий источник: <code>y2k_party_magazine_1 / _2</code> · изображения и палитра — из исходного макета Stitch</p>
+
+</div>
+</body>
+</html>
