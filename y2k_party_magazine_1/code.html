@@ -1510,6 +1510,18 @@ button:active, .btn-y2k:active {
       .hero-title { font-size: 32px; }
       .rus-tab-btn { font-size: 10.5px; padding: 7px 12px; }
     }
+    /* ===== МОБИЛЬНЫЕ КАРТИНКИ: ничего не срезаем ===== */
+    @media (max-width: 900px) {
+      /* превью в карточках: было height:130px + cover -> горизонтальные
+         снимки резались по центру. Теперь фото видно целиком */
+      .card-img-preview { height: auto; aspect-ratio: 4 / 3; }
+      .card-img-preview img { object-fit: contain; background: #000; }
+      /* обложка журнала: на узком экране не тянем на всю высоту */
+      .hero-cover-container { height: auto; aspect-ratio: 3 / 4; }
+      .hero-cover-img { object-fit: contain; background: #000; }
+      /* аватары друзей не искажаются */
+      .friend-avatar { object-fit: cover; }
+    }
   
 /* ===== FIX 6: honour the user's reduced-motion preference ============ */
 @media (prefers-reduced-motion: reduce) {
