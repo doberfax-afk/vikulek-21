@@ -1004,6 +1004,64 @@ video.scene-art{animation:none;object-fit:cover}
   .uv-btn img{height:90px}
   .uv-message{top:36%}
 }
+
+/* ============ МОБИЛЬНАЯ АДАПТАЦИЯ (портрет): арт не обрезается ============ */
+@media (orientation:portrait) and (max-width:900px){
+  /* сцена: арт целиком сверху во всю ширину, текст — под ним */
+  .scene{
+    display:block;
+    min-height:100vh;
+    min-height:100dvh;
+    /* арт 16:9 сверху + минимальный зазор до текста (было +84px,
+       из-за чего между артом и панелью зияла чёрная дыра) */
+    padding:calc(56.25vw + 14px) 3.5vw 40px;
+  }
+  /* текстовая панель вплотную под артом */
+  .scene .page{margin-top:0}
+  /* арт сцены: не cover на весь экран, а кадровое окно 16:9 сверху */
+  .scene-art{
+    top:0;bottom:auto;
+    height:auto;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    object-position:center;
+    animation:none!important;
+  }
+  /* УФ-слой акта 4: ровно поверх арта */
+  .scene-art-uv{
+    top:0;bottom:auto;
+    height:auto;
+    aspect-ratio:16/9;
+  }
+  /* луна акта 4: мелкая, в углу арта */
+  .moon-live{
+    width:72px;height:72px;
+    left:auto;right:7vw;
+    top:5vw;
+  }
+  /* панель плотнее — под артом, а не поверх него; reveal-класс .in
+     на мобиле не приходит от IO — показываем панели принудительно */
+  .panel{
+    background:rgba(8,10,14,.82)!important;
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    opacity:1!important;
+    transform:none!important;
+  }
+  /* scrub() ставит inline opacity на .page — на мобиле всегда показываем текст */
+  .page{max-width:100%;opacity:1!important;transform:none!important}
+  /* УФ-сообщение акта 4 — в зоне арта */
+  .uv-message{top:22%}
+  /* кнопка «Запустить плёнку» акта 7 зависит от класса .capsule-open,
+     который приходит из акта 6; на телефоне показываем её всегда,
+     иначе акт 7 нечем запустить */
+  .scene[data-act="7"] .act7-cta{visibility:visible}
+  /* затемнение акта 7 до запуска: на телефоне арт и без того мелкий,
+     поэтому 78% -> 45%, картинка остаётся читаемой */
+  .scene-rest{background:rgba(6,8,12,.45)}
+  /* фиксированный филмстрип справа жмётся к краю и не лезет на арт */
+  .filmstrip{right:2px;padding:5px 4px;gap:5px;transform:translateY(-50%) scale(.86);transform-origin:right center}
+  .thread-rail{width:4px}
+}
 </style></head>
 <body>
 <div class="thread-rail" aria-hidden="true">
@@ -1415,6 +1473,8 @@ const MOVES = [
 
 function clamp(v,a,b){ return Math.min(b, Math.max(a, v)); }
 
+/* мобильный портретный режим — общий флаг для рендер-логики */
+const MOBILE_VP = () => window.matchMedia('(orientation:portrait) and (max-width:900px)').matches;
 function scrub(){
   const vh = window.innerHeight;
   scenes.forEach((sc, i) => {
@@ -1430,11 +1490,19 @@ function scrub(){
     const e = 1 - Math.pow(1 - enter, 3);
     const fade = Math.min(enter, exit);
     const inv = 1 - e;
-    pages[i].style.transform =
-      `translateX(${m.x * inv}vw) translateY(${m.y * inv}vh) ` +
-      `scale(${m.sc + (1 - m.sc) * e}, ${m.sy + (1 - m.sy) * e}) ` +
-      `rotate(${m.rot * inv}deg) skewX(${m.skew * inv}deg)`;
-    pages[i].style.opacity = fade.toFixed(2);
+    if (MOBILE_VP()) {
+      /* мобильный портрет: арт сверху, текст под ним — режиссёрский
+         скролл-трансформ не нужен, тексты всегда видимы и не съезжают */
+      pages[i].style.transform = 'none';
+      pages[i].style.opacity = '1';
+      pages[i].style.zIndex = 2;
+    } else {
+      pages[i].style.transform =
+        `translateX(${m.x * inv}vw) translateY(${m.y * inv}vh) ` +
+        `scale(${m.sc + (1 - m.sc) * e}, ${m.sy + (1 - m.sy) * e}) ` +
+        `rotate(${m.rot * inv}deg) skewX(${m.skew * inv}deg)`;
+      pages[i].style.opacity = fade.toFixed(2);
+    }
     pages[i].style.zIndex  = fade > 0.05 ? 2 : 1;
     /* PAGE-FLIP на акте 7: лист поворачивается по мере въезда.
        Кривая easeOutBack, чтобы лист промахнулся и вернулся. */
@@ -2033,5 +2101,38 @@ if (capsuleToAlbumBtn) {
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && scene.classList.contains('uv-on')) toggle();
   });
+})();
+</script>
+
+<script>
+/* появление панелей актов по мере прокрутки (восстановлено: блок был
+   потерян при одной из правок, из-за чего .panel с opacity:0 не показывались) */
+(function(){
+  var panels = document.querySelectorAll('.scene .panel');
+  if (!('IntersectionObserver' in window)) {
+    panels.forEach(function(p){ p.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -2% 0px' });
+  panels.forEach(function(p){ io.observe(p); });
+  /* страховка: высокие панели (акт 6) больше вьюпорта по высоте и
+     порог пересечения не набирают — показываем их по факту попадания в экран */
+  function sweep(){
+    panels.forEach(function(p){
+      if (p.classList.contains('in')) return;
+      var r = p.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92 && r.bottom > 40) p.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', function(){
+    clearTimeout(window.__revealT);
+    window.__revealT = setTimeout(sweep, 220);
+  }, { passive: true });
+  window.addEventListener('load', sweep);
+  setTimeout(sweep, 900);
 })();
 </script>
