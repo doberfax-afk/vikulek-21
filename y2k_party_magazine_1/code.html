@@ -49,6 +49,58 @@
 
 
 
+
+<style id="family-greet-css" data-v="10">
+.poster-hot-layer { position: absolute; inset: 0; pointer-events: none; }
+.poster-hot {
+  position: absolute; border-radius: 50%; padding: 0; border: 0; cursor: pointer;
+  background: transparent; pointer-events: auto; transition: .18s;
+}
+.poster-hot:hover, .poster-hot:focus-visible {
+  background: rgba(255,214,0,.16);
+  box-shadow: 0 0 0 2px rgba(255,214,0,.75), inset 0 0 26px rgba(255,214,0,.35);
+  outline: none;
+}
+.greet-btn {
+  margin-top: 8px; padding: 5px 12px; border: 1px solid rgba(255,214,0,.55);
+  border-radius: 20px; background: rgba(255,214,0,.12); color: #ffd600;
+  font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 800;
+  letter-spacing: .6px; cursor: pointer; transition: .18s; white-space: nowrap;
+}
+.greet-btn:hover { background: rgba(255,214,0,.28); transform: translateY(-1px); }
+.greet-bar {
+  /* висит по центру карточки, не по её внутреннему блоку (иначе кнопка липнет к краю) */
+  position: absolute; left: 50%; transform: translate(-50%, 100%); bottom: -8px;
+  display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
+  width: max-content; max-width: 92vw; z-index: 5; pointer-events: none;
+}
+.greet-bar .greet-btn { pointer-events: auto; margin-top: 0; }
+.greet-btn--node {
+  position: relative; flex: 0 0 auto; width: max-content; white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .greet-btn { font-size: 9.5px; padding: 4px 9px; letter-spacing: .3px; }
+}
+
+
+.modal-window--greet { max-width: 460px; }
+.modal-window--greet .modal-header-y2k h2 { font-size: 24px; }
+.modal-window--greet .modal-header-y2k p { font-size: 12px; opacity: .75; margin-top: 4px; }
+.fg-stage { display: flex; align-items: center; justify-content: center;
+  background: #000; border: 1px solid rgba(255,214,0,.35); border-radius: 14px;
+  overflow: hidden; min-height: 180px; margin-top: 14px; }
+.fg-stage video { width: 100%; max-height: 62vh; display: block; border-radius: 12px; }
+.fg-none { padding: 30px 22px; text-align: center; }
+.fg-none .big { font-size: 40px; margin-bottom: 12px; }
+.fg-none .t { font-size: 13.5px; color: #fff; line-height: 1.6; }
+.fg-none .t b { color: #ffd600; }
+.fg-text { margin-top: 14px; font-size: 13.5px; font-style: italic;
+  color: rgba(255,255,255,.9); line-height: 1.65; }
+@media (max-width: 430px) {
+  .modal-window--greet { padding: 18px; }
+  .fg-stage video { max-height: 52vh; }
+}
+</style>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="apple-touch-icon" href="../assets/favicon.svg">
 <meta name="theme-color" content="#8B5CF6">
@@ -1045,59 +1097,7 @@ button:active, .btn-y2k:active {
   .milka-comic{padding:14px 12px 4px}
   .milka-comic iframe{height:60vh;min-height:440px}
 }
-</style>
-<style id="family-greet-css" data-v="10">
-.poster-hot-layer { position: absolute; inset: 0; pointer-events: none; }
-.poster-hot {
-  position: absolute; border-radius: 50%; padding: 0; border: 0; cursor: pointer;
-  background: transparent; pointer-events: auto; transition: .18s;
-}
-.poster-hot:hover, .poster-hot:focus-visible {
-  background: rgba(255,214,0,.16);
-  box-shadow: 0 0 0 2px rgba(255,214,0,.75), inset 0 0 26px rgba(255,214,0,.35);
-  outline: none;
-}
-.greet-btn {
-  margin-top: 8px; padding: 5px 12px; border: 1px solid rgba(255,214,0,.55);
-  border-radius: 20px; background: rgba(255,214,0,.12); color: #ffd600;
-  font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 800;
-  letter-spacing: .6px; cursor: pointer; transition: .18s; white-space: nowrap;
-}
-.greet-btn:hover { background: rgba(255,214,0,.28); transform: translateY(-1px); }
-.greet-bar {
-  /* висит по центру карточки, не по её внутреннему блоку (иначе кнопка липнет к краю) */
-  position: absolute; left: 50%; transform: translate(-50%, 100%); bottom: -8px;
-  display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
-  width: max-content; max-width: 92vw; z-index: 5; pointer-events: none;
-}
-.greet-bar .greet-btn { pointer-events: auto; margin-top: 0; }
-.greet-btn--node {
-  position: relative; flex: 0 0 auto; width: max-content; white-space: nowrap;
-}
-@media (max-width: 480px) {
-  .greet-btn { font-size: 9.5px; padding: 4px 9px; letter-spacing: .3px; }
-}
-
-
-.modal-window--greet { max-width: 460px; }
-.modal-window--greet .modal-header-y2k h2 { font-size: 24px; }
-.modal-window--greet .modal-header-y2k p { font-size: 12px; opacity: .75; margin-top: 4px; }
-.fg-stage { display: flex; align-items: center; justify-content: center;
-  background: #000; border: 1px solid rgba(255,214,0,.35); border-radius: 14px;
-  overflow: hidden; min-height: 180px; margin-top: 14px; }
-.fg-stage video { width: 100%; max-height: 62vh; display: block; border-radius: 12px; }
-.fg-none { padding: 30px 22px; text-align: center; }
-.fg-none .big { font-size: 40px; margin-bottom: 12px; }
-.fg-none .t { font-size: 13.5px; color: #fff; line-height: 1.6; }
-.fg-none .t b { color: #ffd600; }
-.fg-text { margin-top: 14px; font-size: 13.5px; font-style: italic;
-  color: rgba(255,255,255,.9); line-height: 1.65; }
-@media (max-width: 430px) {
-  .modal-window--greet { padding: 18px; }
-  .fg-stage video { max-height: 52vh; }
-}
-</style>
-</head><body class="issue-locked" data-issue-state="LOCKED"><section id="issueGate" data-target="2026-11-18T00:00:00+03:00" aria-labelledby="gateTitle">
+</style></head><body class="issue-locked" data-issue-state="LOCKED"><section id="issueGate" data-target="2026-11-18T00:00:00+03:00" aria-labelledby="gateTitle">
  <div class="gate-shell">
   <p class="gate-kicker">Закрытый спецвыпуск · капсула №21</p><h1 class="gate-title" id="gateTitle">ВИКУЛЕК <i>№21</i></h1>
   <p class="gate-copy">До публикации личного выпуска осталось:</p>
@@ -2227,7 +2227,7 @@ input, select, textarea {
             <div><h3>Сестра Маша</h3><p class="gs-role">Любовь &amp; Забота</p></div>
           </div>
           <p class="gs-text">«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»</p>
-          <div class="gs-media-row"><div class="gs-media"><strong>Видеопоздравление</strong><video controls preload="metadata" src="../assets/media/masha-congrats.mp4"></video></div></div>
+          <div class="gs-media-row"><div class="gs-media"><strong>Видеопоздравление</strong><video controls preload="metadata" src="../assets/media/masha-congrats-web.mp4"></video></div></div>
         </article>
         <article class="gs-card" id="gs-lera">
           <div class="gs-who">
@@ -3455,6 +3455,7 @@ Francesco Antonucci</em>
 
 
 
+
     // familyGreetButtons: клик по узлу древа -> видео-поздравление
     (function () {
       var MAP = [
@@ -3706,9 +3707,9 @@ function gotoAlbumPage(idx) {
     const vhsVideos = [
       { id: 1, title: "📼 Кассета 1: «Праздник, свечи, торт»", url: "../assets/media/vhs_tape.mp4", osd: "▶ PLAY • SP 00:00:11 • RUSINOVO",
         quote: "«Торт, свечи-фонтаны и руки, которые его держат. Тот самый вечер.»" },
-      { id: 2, title: "📼 Кассета 2: «Наш архив в кадрах»", url: "../assets/media/vhs_family.mp4", osd: "▶ PLAY • SP 00:00:30 • FAMILY ARCHIVE",
+      { id: 2, title: "📼 Кассета 2: «Наш архив в кадрах»", url: "../assets/media/vhs_family-web.mp4", osd: "▶ PLAY • SP 00:00:30 • FAMILY ARCHIVE",
         quote: "«18 кадров из архива: река в тумане, гирлянды, шары, колесо обозрения.»" },
-      { id: 3, title: "📼 Кассета 3: «Викулек — 21 год в любви»", url: "../assets/media/masha-congrats.mp4", osd: "▶ PLAY • SP 00:00:19 • VIKULEK BDAY",
+      { id: 3, title: "📼 Кассета 3: «Викулек — 21 год в любви»", url: "../assets/media/masha-congrats-web.mp4", osd: "▶ PLAY • SP 00:00:19 • VIKULEK BDAY",
         quote: "«Видеопоздравление от Маши — прямо с экрана телевизора.»" },
       { id: 4, title: "📼 Кассета 4: «Пушистые хранители»", url: "../assets/media/pets_bg.mp4", osd: "▶ PLAY • SP 00:00:04 • PETS",
         quote: "«Коты, собаки и прочая домашняя банда — те, кто хранит дом.»" }
@@ -3872,6 +3873,66 @@ function gotoAlbumPage(idx) {
 
 
 
+
+<script id="family-greet-js" data-v="10">
+(function () {
+  var GREET = {
+    mama: { name: 'Мама', epithet: 'Послание Сердца', video: null, text: '«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»' },
+    papa: { name: 'Папа', epithet: 'Крепкая Опора', video: null, text: '«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»' },
+    serezha: { name: 'Дядя Серёжа', epithet: 'Мудрость Рода', video: null, text: '«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»' },
+    masha: { name: 'Сестра Маша', epithet: 'Любовь & Забота', video: 'masha-congrats-web.mp4', text: '«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»' },
+    lera: { name: 'Сестра Лера', epithet: 'Драйв & Веселье', video: null, text: '«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»' },
+    ded_vasya: { name: 'Дед Василий Егорович', epithet: 'Благословение', video: null, text: '«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»' },
+    baba_natasha: { name: 'Баба Наталья Тихоновна', epithet: 'Тепло & Пироги', video: null, text: '«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»' },
+    ded_tolya: { name: 'Дед Анатолий Валентинович', epithet: 'Сила Духа', video: null, text: '«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»' },
+    baba_nastya: { name: 'Баба Анастасия Егоровна', epithet: 'Сердечный Покой', video: null, text: '«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»' },
+    vikulek: { name: 'Викулек', epithet: 'Главная звезда рода', video: null, text: 'Это ты. Весь этот журнал, все эти голоса и все эти лица — ради тебя. С днём рождения, солнце.' }
+  };
+
+  window.openFamilyGreet = function (pid) {
+    var d = GREET[pid];
+    if (!d) return;
+    var nameEl = document.getElementById('fgName');
+    var roleEl = document.getElementById('fgRole');
+    var stage = document.getElementById('fgStage');
+    var textEl = document.getElementById('fgText');
+    if (!stage) return;
+
+    nameEl.innerText = d.name;
+    roleEl.innerText = (d.epithet ? d.epithet + ' • ' : '') + 'род Русиново';
+    textEl.innerText = d.text || '';
+
+    if (d.video) {
+      stage.innerHTML = '<video id="fgVideo" src="../assets/media/' + d.video +
+        '" controls autoplay playsinline preload="metadata"></video>';
+      var v = document.getElementById('fgVideo');
+      if (v) v.play().catch(function () {});
+    } else {
+      stage.innerHTML = '<div class="fg-none"><div class="big">🎬</div><div class="t">' +
+        'Видео-поздравление от <b>' + d.name + '</b> пока не снято.<br>' +
+        'Но тёплые слова уже написаны — ниже.</div></div>';
+    }
+    document.getElementById('familyGreetModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeFamilyGreet = function () {
+    var v = document.getElementById('fgVideo');
+    if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
+    var ov = document.getElementById('familyGreetModal');
+    if (ov) ov.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') window.closeFamilyGreet();
+  });
+  document.addEventListener('click', function (ev) {
+    var ov = document.getElementById('familyGreetModal');
+    if (ov && ev.target === ov) window.closeFamilyGreet();
+  });
+})();
+</script>
 <div id="srStatus" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"></div>
 <script>
 
@@ -5099,66 +5160,6 @@ function playMashaVideo() {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wrap);
   else wrap();
   setTimeout(wrap, 1200);
-})();
-</script>
-
-<script id="family-greet-js" data-v="10">
-(function () {
-  var GREET = {
-    mama: { name: 'Мама', epithet: 'Послание Сердца', video: null, text: '«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»' },
-    papa: { name: 'Папа', epithet: 'Крепкая Опора', video: null, text: '«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»' },
-    serezha: { name: 'Дядя Серёжа', epithet: 'Мудрость Рода', video: null, text: '«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»' },
-    masha: { name: 'Сестра Маша', epithet: 'Любовь & Забота', video: 'masha-congrats-web.mp4', text: '«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»' },
-    lera: { name: 'Сестра Лера', epithet: 'Драйв & Веселье', video: null, text: '«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»' },
-    ded_vasya: { name: 'Дед Василий Егорович', epithet: 'Благословение', video: null, text: '«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»' },
-    baba_natasha: { name: 'Баба Наталья Тихоновна', epithet: 'Тепло & Пироги', video: null, text: '«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»' },
-    ded_tolya: { name: 'Дед Анатолий Валентинович', epithet: 'Сила Духа', video: null, text: '«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»' },
-    baba_nastya: { name: 'Баба Анастасия Егоровна', epithet: 'Сердечный Покой', video: null, text: '«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»' },
-    vikulek: { name: 'Викулек', epithet: 'Главная звезда рода', video: null, text: 'Это ты. Весь этот журнал, все эти голоса и все эти лица — ради тебя. С днём рождения, солнце.' }
-  };
-
-  window.openFamilyGreet = function (pid) {
-    var d = GREET[pid];
-    if (!d) return;
-    var nameEl = document.getElementById('fgName');
-    var roleEl = document.getElementById('fgRole');
-    var stage = document.getElementById('fgStage');
-    var textEl = document.getElementById('fgText');
-    if (!stage) return;
-
-    nameEl.innerText = d.name;
-    roleEl.innerText = (d.epithet ? d.epithet + ' • ' : '') + 'род Русиново';
-    textEl.innerText = d.text || '';
-
-    if (d.video) {
-      stage.innerHTML = '<video id="fgVideo" src="../assets/media/' + d.video +
-        '" controls autoplay playsinline preload="metadata"></video>';
-      var v = document.getElementById('fgVideo');
-      if (v) v.play().catch(function () {});
-    } else {
-      stage.innerHTML = '<div class="fg-none"><div class="big">🎬</div><div class="t">' +
-        'Видео-поздравление от <b>' + d.name + '</b> пока не снято.<br>' +
-        'Но тёплые слова уже написаны — ниже.</div></div>';
-    }
-    document.getElementById('familyGreetModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  };
-
-  window.closeFamilyGreet = function () {
-    var v = document.getElementById('fgVideo');
-    if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
-    var ov = document.getElementById('familyGreetModal');
-    if (ov) ov.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') window.closeFamilyGreet();
-  });
-  document.addEventListener('click', function (ev) {
-    var ov = document.getElementById('familyGreetModal');
-    if (ov && ev.target === ov) window.closeFamilyGreet();
-  });
 })();
 </script>
 </body></html>
