@@ -804,6 +804,8 @@ html{
       a6.classList.add('unlocked');
       var f6 = document.getElementById('f6');
       f6.querySelector('img').src = 'img/web/07_box_open_a.webp';
+      // единственный замок на весь подарок: сообщаем журналу, что шкатулка открыта
+      try{ parent.postMessage({type:'milkaBoxOpen'}, '*'); }catch(e){}
       setTimeout(function(){
         document.getElementById('a7').scrollIntoView({behavior:'smooth', block:'start'});
       }, 2600);
@@ -818,6 +820,14 @@ html{
     }
   }
   check();
+
+  /* кнопка из журнала: подвести к акту со шкатулкой */
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if (d && d.type === 'scrollToBox'){
+      document.getElementById('a6').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
 
   /* ---------- 7. СВАЙП МАСКИ ---------- */
   var a7 = document.getElementById('a7');
