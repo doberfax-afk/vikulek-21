@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ВИКУЛЕК №21 — Перелистываемый номер</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ВАРИАНТ B — «ПЕРЕЛИСТЫВАЕМЫЙ НОМЕР»
+   Ось: ВЗАИМОДЕЙСТВИЕ. Номер не скроллится, а перелистывается — настоящий
+   переворот страниц в 3D вокруг корешка. Тёмный неон: аутентичная
+   эстетика рейва Y2K (клубный выпуск).
+   Palette: night #08060F · neon #FF4B91 · cyan #00F0FF · lime #CCFF00 · gold #FFD600
+   ========================================================================== */
+:root{
+  --night:#08060F; --night-2:#100C1E; --paper:#F4EEFF;
+  --neon:#FF4B91; --cyan:#00F0FF; --lime:#CCFF00; --gold:#FFD600;
+  --violet:#B388FF; --dim:#9A8FB8;
+  --display:'Orbitron',system-ui,sans-serif;
+  --body:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:
+    radial-gradient(1100px 620px at 12% -8%,#8B5CF640,transparent 60%),
+    radial-gradient(900px 560px at 92% 6%,#FF4B9129,transparent 60%),
+    var(--night);
+  color:#EDE6FF; font-family:var(--body); font-size:15.5px; line-height:1.58;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.stage{min-height:100%;display:flex;flex-direction:column;align-items:center;
+       justify-content:center;gap:18px;padding:22px 16px 30px}
+
+/* ---------- top bar ---------- */
+.bar{
+  width:100%;max-width:1120px;display:flex;align-items:center;gap:12px;flex-wrap:wrap
+}
+.bar .brand{
+  font-family:var(--display);font-weight:900;letter-spacing:.06em;font-size:19px;
+  color:#fff;text-shadow:0 0 14px #FF4B9199
+}
+.bar .brand i{color:var(--lime);font-style:normal}
+.bar .issue{
+  font-family:var(--display);font-size:11px;letter-spacing:.2em;color:var(--night);
+  background:var(--lime);padding:4px 11px;border-radius:3px
+}
+.bar .spacer{flex:1}
+.bar .hintbar{font-size:12.5px;color:var(--dim);letter-spacing:.04em}
+
+/* ---------- the book ---------- */
+.bookwrap{perspective:2400px;width:100%;max-width:1120px}
+.book{
+  position:relative;width:100%;aspect-ratio:1.44/1;
+  transform-style:preserve-3d;
+  /* the closed book sits slightly angled so the 3D reads immediately */
+  transform:rotateX(3deg);
+}
+.leaf{
+  position:absolute;top:0;right:0;width:50%;height:100%;
+  transform-origin:left center;transform-style:preserve-3d;
+  transition:transform .85s cubic-bezier(.42,.05,.25,1);
+  will-change:transform;
+}
+.leaf.flipped{transform:rotateY(-180deg)}
+.face{
+  position:absolute;inset:0;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--night-2);
+  border:1px solid #ffffff1f;
+  box-shadow:0 18px 44px #000000aa;
+}
+.face.f-front{border-radius:0 10px 10px 0}
+.face.f-back{transform:rotateY(180deg);border-radius:10px 0 0 10px}
+/* spine shading: keeps the fold reading as a fold */
+.face.f-front::after{
+  content:"";position:absolute;top:0;bottom:0;left:0;width:34px;pointer-events:none;
+  background:linear-gradient(90deg,#000000b8,transparent)
+}
+.face.f-back::after{
+  content:"";position:absolute;top:0;bottom:0;right:0;width:34px;pointer-events:none;
+  background:linear-gradient(270deg,#000000b8,transparent)
+}
+/* neon sheet edge */
+.page{
+  position:absolute;inset:0;padding:26px 30px 30px;display:flex;flex-direction:column;
+  overflow:hidden
+}
+
+/* ---------- page furniture ---------- */
+.eyebrow{
+  font-family:var(--display);font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--cyan);margin:0 0 9px
+}
+.pg-title{
+  font-family:var(--display);font-weight:900;font-size:clamp(20px,2.5vw,31px);
+  line-height:1.06;margin:0 0 4px;letter-spacing:-.01em;color:#fff
+}
+.pg-title em{font-style:normal;color:var(--neon);text-shadow:0 0 18px #FF4B9188}
+.pg-sub{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  border-bottom:1px solid #ffffff1c;padding-bottom:9px;margin:0 0 13px
+}
+.pg-body{flex:1;min-height:0;overflow:hidden}
+.pg-body p{margin:0 0 10px}
+.pg-body p.lead{font-size:16.5px;color:#F5F0FF}
+.pg-foot{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  font-family:var(--display);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim);border-top:1px solid #ffffff1c;padding-top:8px;margin-top:11px
+}
+.pg-foot b{color:var(--lime)}
+
+/* cover page */
+.cover{text-align:center;justify-content:center;align-items:center}
+.cover .mega{
+  font-family:var(--display);font-weight:900;line-height:.84;letter-spacing:-.03em;
+  font-size:clamp(38px,7.4vw,88px);margin:0;
+  background:linear-gradient(174deg,#fff 0%,#fff 45%,var(--neon) 45%,var(--violet) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.cover .num{
+  font-family:var(--display);font-weight:900;font-size:clamp(60px,13vw,150px);
+  line-height:.8;color:var(--night);background:var(--lime);
+  -webkit-text-stroke:2px var(--night);padding:2px 16px;margin:10px 0;
+  box-shadow:8px 8px 0 var(--neon)
+}
+.cover .tag{font-family:var(--display);font-size:11px;letter-spacing:.3em;color:var(--cyan);margin-top:12px}
+.cover .who{font-size:14px;color:var(--dim);margin-top:6px}
+.cover .glow{
+  position:absolute;inset:-30%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle at 50% 40%,#FF4B9140,transparent 62%)
+}
+
+/* photo */
+.shot{border:1px solid #ffffff24;background:#000;overflow:hidden;margin:0 0 11px}
+.shot img{display:block;width:100%;height:auto}
+.cap{font-size:11.5px;color:var(--dim);letter-spacing:.03em;margin:0}
+.cap b{color:var(--cyan)}
+
+/* pull quote */
+.pq{
+  margin:12px 0;padding:12px 0 12px 14px;border-left:3px solid var(--lime);
+  font-family:var(--display);font-weight:700;font-size:15.5px;line-height:1.34;color:#fff
+}
+.pq cite{display:block;margin-top:6px;font-family:var(--body);font-style:normal;
+         font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+
+/* contents */
+.toc{list-style:none;margin:0;padding:0}
+.toc li{display:flex;gap:9px;align-items:baseline;padding:7px 0;border-bottom:1px dashed #ffffff1f}
+.toc .n{font-family:var(--display);font-size:11px;color:var(--neon);min-width:24px}
+.toc .t{font-weight:500}
+.toc .t small{display:block;font-size:11.5px;color:var(--dim);font-weight:400}
+.toc .p{margin-left:auto;font-family:var(--display);font-size:11px;color:var(--lime)}
+
+/* stats row */
+.stats{display:flex;gap:8px;margin:12px 0}
+.stats div{flex:1;text-align:center;border:1px solid #ffffff24;padding:9px 4px;background:#ffffff08}
+.stats b{display:block;font-family:var(--display);font-size:19px;color:var(--cyan)}
+.stats span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- controls ---------- */
+.controls{
+  width:100%;max-width:1120px;display:flex;align-items:center;justify-content:center;
+  gap:11px;flex-wrap:wrap
+}
+.btn{
+  font:inherit;font-family:var(--display);font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  background:#ffffff0f;color:#fff;border:1px solid #ffffff30;
+  padding:11px 19px;border-radius:5px;transition:.16s
+}
+.btn:hover:not(:disabled){background:var(--neon);border-color:var(--neon);color:#12030a;
+  box-shadow:0 0 22px #FF4B9166}
+.btn:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.btn:disabled{opacity:.32;cursor:not-allowed}
+.btn.primary{background:var(--lime);border-color:var(--lime);color:var(--night)}
+.btn.primary:hover{background:var(--gold);border-color:var(--gold);color:var(--night)}
+.pager{
+  font-family:var(--display);font-size:12px;letter-spacing:.14em;color:var(--lime);
+  min-width:104px;text-align:center
+}
+.dots{display:flex;gap:6px}
+.dots i{
+  width:8px;height:8px;border-radius:50%;background:#ffffff30;display:block;cursor:pointer;
+  transition:.16s
+}
+.dots i.on{background:var(--lime);box-shadow:0 0 10px var(--lime)}
+.dots i:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.hint{
+  max-width:1120px;font-size:12.5px;color:var(--dim);text-align:center;line-height:1.6
+}
+.hint kbd{
+  background:#ffffff14;border:1px solid #ffffff26;border-radius:4px;padding:1px 6px;
+  font-family:var(--body);font-size:11.5px;color:#EDE6FF
+}
+
+/* notes */
+.notes{
+  width:100%;max-width:1120px;margin-top:30px;background:#0E0A1C;
+  border:1px solid #ffffff20;padding:28px 30px;border-radius:10px
+}
+.notes h3{font-family:var(--display);font-size:19px;margin:0 0 6px;color:#fff}
+.notes .kicker{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+               color:var(--cyan);margin:0 0 17px}
+.notes li{margin-bottom:10px;color:#CDC3E4}
+.notes li b{color:#fff}
+.notes code{background:#ffffff12;padding:2px 7px;border-radius:4px;font-size:12.5px;color:var(--lime)}
+
+@media (max-width:760px){
+  .book{aspect-ratio:1/1.28}
+  .leaf{width:100%;right:0}
+  .page{padding:20px 20px 22px}
+  .cover .num{font-size:76px}
+  .stats b{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .leaf{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="bar">
+    <span class="brand">ВИКУЛЕК <i>№21</i></span>
+    <span class="issue">КЛУБНЫЙ ВЫПУСК</span>
+    <span class="spacer"></span>
+    <span class="hintbar">Перелистывается · 8 страниц</span>
+  </div>
+
+  <div class="bookwrap">
+    <div class="book" id="book" role="region" aria-label="Журнал: 8 страниц, перелистывается">
+
+      <!-- ===== ЛИСТ 1: обложка + содержание ===== -->
+      <div class="leaf" data-leaf="0">
+        <div class="face f-front"><div class="page cover">
+          <span class="glow" aria-hidden="true"></span>
+          <p class="eyebrow">Спецвыпуск · 21 год</p>
+          <h1 class="mega">Викулек</h1>
+          <div class="num">21</div>
+          <p class="tag">Клубный выпуск</p>
+          <p class="who">18 ноября 2026 · село Русиново</p>
+        </div></div>
+        <div class="face f-back"><div class="page">
+          <p class="eyebrow">Содержание</p>
+          <h2 class="pg-title">Восемь <em>полос</em></h2>
+          <p class="pg-sub">Что внутри номера</p>
+          <div class="pg-body">
+            <ol class="toc">
+              <li><span class="n">01</span><span class="t">Клуб любимых подруг<small>Соня, Полина, Кира, Вилена, Нютик</small></span><span class="p">03</span></li>
+              <li><span class="n">02</span><span class="t">Послание «Милка»<small>Кассета Side A / Side B · ПИН 1605</small></span><span class="p">04</span></li>
+              <li><span class="n">03</span><span class="t">Древо семьи · Русиново<small>Скрапбук, портрет маслом, ретро-ТВ</small></span><span class="p">05</span></li>
+              <li><span class="n">04</span><span class="t">Оракул пушистых сил<small>Вильзивул · Макс · Абадон</small></span><span class="p">06</span></li>
+              <li><span class="n">05</span><span class="t">Космос NASA, 2005<small>Созвездие Скорпиона</small></span><span class="p">07</span></li>
+              <li><span class="n">06</span><span class="t">Секретики и студия<small>Сейф Жулика · письмо в 22 года</small></span><span class="p">08</span></li>
+            </ol>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Содержание</span><b>02</b></p>
+        </div></div>
+      </div>
+
+      <!-- ===== ЛИСТ 2: подруги + кассета ===== -->
+      <div class="leaf" data-leaf="1">
+        <div class="face f-front"><div class="page">
+          <p class="eyebrow">Глава 01 · стр. 03</p>
+          <h2 class="pg-title">Клуб любимых <em>подруг</em></h2>
+          <p class="pg-sub">Пять человек, которые всегда рядом</p>
+          <div class="pg-body">
+            <div class="shot"><img src="../assets/img_16d89e8513f4.jpg" alt="Подруги вместе" width="900" height="675"></div>
+            <p class="lead">Соня, Полина, Кира, Вилена и Нютик — клуб со своими тостами, CD-микстейпами и сценарием вечеринки «Party Mode 4».</p>
+            <blockquote class="pq">
+              «Викулек! С днём рождения, моя дорогая! Желаю океан счастья, горы смеха и море любви!»
+              <cite>— Соня</cite>
+            </blockquote>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Клуб подруг</span><b>03</b></p>
+        </div></div>
+        <div class="face f-back"><div class="page">
+          <p class="eyebrow">Глава 02 · стр. 04</p>
+          <h2 class="pg-title">Послание <em>«Милка»</em></h2>
+          <p class="pg-sub">Кассета · сторона A и B</p>
+          <div class="pg-body">
+            <p class="lead">Кассета вложена в номер целиком.</p>
+            <div class="stats">
+              <div><b>SIDE A</b><span>голос</span></div>
+              <div><b>1605</b><span>пин-код</span></div>
+              <div><b>16.05</b><span>подсказка</span></div>
+            </div>
+            <p>Сторона A открывается сразу. Чтобы услышать сторону B, нужен четырёхзначный код — день вашего знакомства.</p>
+            <p>Введите <b>1605</b>, и полоса развернётся в расшифрованное письмо.</p>
+            <blockquote class="pq">
+              «Моя самая любимая девочка, Викулек!»
+              <cite>— расшифрованный текст стороны B</cite>
+            </blockquote>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Послание «Милка»</span><b>04</b></p>
+        </div></div>
+      </div>
+
+      <!-- ===== ЛИСТ 3: русиново + оракул ===== -->
+      <div class="leaf" data-leaf="2">
+        <div class="face f-front"><div class="page">
+          <p class="eyebrow">Глава 03 · стр. 05</p>
+          <h2 class="pg-title">Древо семьи · <em>Русиново</em></h2>
+          <p class="pg-sub">Откуда всё началось</p>
+          <div class="pg-body">
+            <div class="shot"><img src="../assets/img_f7616f682098.jpg" alt="Семейный архив и портрет маслом" width="900" height="675"></div>
+            <p>Село Русиново встречало каждое лето запахом свежескошенной травы, сладкой малиной прямо с куста и горячими бабушкиными пирожками.</p>
+            <p>Здесь Викулек делала первые шаги и училась любить этот мир всем сердцем.</p>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Русиново</span><b>05</b></p>
+        </div></div>
+        <div class="face f-back"><div class="page">
+          <p class="eyebrow">Глава 04 · стр. 06</p>
+          <h2 class="pg-title">Оракул пушистых <em>сил</em></h2>
+          <p class="pg-sub">Тёмный пушистый триумвират</p>
+          <div class="pg-body">
+            <div class="shot"><img src="../assets/img_ceb330461efc.jpg" alt="Триумвират хранителей" width="900" height="675"></div>
+            <p><b>Вильзивул</b> — границы. <b>Макс</b> — кайф. <b>Абадон</b> — тайны и сладкий сон.</p>
+            <blockquote class="pq">
+              «Вселенский кристалл заряжен на 100%! В твои 21 год ожидается море вкусностей, радости и безграничной любви!»
+              <cite>— Макс · Хранитель Кайфа</cite>
+            </blockquote>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Оракул</span><b>06</b></p>
+        </div></div>
+      </div>
+
+      <!-- ===== ЛИСТ 4: космос + финал ===== -->
+      <div class="leaf" data-leaf="3">
+        <div class="face f-front"><div class="page">
+          <p class="eyebrow">Глава 05 · стр. 07</p>
+          <h2 class="pg-title">Космос <em>NASA</em>, 2005</h2>
+          <p class="pg-sub">Архивы Hubble · созвездие Скорпиона</p>
+          <div class="pg-body">
+            <div class="shot"><img src="../assets/img_daad730c6486.jpg" alt="Созвездие Скорпиона" width="900" height="675"></div>
+            <p>18 ноября 2005 года телескопы Hubble запечатлели глубины космических сияний. Вселенная сияла ярче обычного, встречая рождение Викулька.</p>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Космос</span><b>07</b></p>
+        </div></div>
+        <div class="face f-back"><div class="page">
+          <p class="eyebrow">Глава 06–07 · стр. 08</p>
+          <h2 class="pg-title">Секретики и <em>студия</em></h2>
+          <p class="pg-sub">Сейф Жулика · письмо в 22 года</p>
+          <div class="pg-body">
+            <p>Лис-Жулик спрятал архив за кодовым словом <b>«черемшить»</b>.</p>
+            <blockquote class="pq">
+              «Пусть твои 21 будут самыми яркими, дерзкими и незабываемыми. Безумно люблю тебя!»
+              <cite>— письмо, которое откроется через год</cite>
+            </blockquote>
+            <p style="color:var(--dim);font-size:13px">Сделай полароид, напиши себе в 22 года и сохрани этот момент.</p>
+          </div>
+          <p class="pg-foot"><span>ВИКУЛЕК №21</span><span>Финал</span><b>08</b></p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prev" type="button" aria-label="Предыдущая страница">‹ Назад</button>
+    <span class="pager" id="pager" role="status" aria-live="polite">Страница 1 из 8</span>
+    <button class="btn primary" id="next" type="button" aria-label="Следующая страница">Вперёд ›</button>
+    <span class="dots" id="dots" role="tablist" aria-label="Переход к развороту"></span>
+  </div>
+
+  <p class="hint">
+    Клик по правой половине — вперёд, по левой — назад.
+    Клавиши <kbd>←</kbd> <kbd>→</kbd>, <kbd>Home</kbd> и <kbd>End</kbd> тоже листают номер.
+  </p>
+
+  <!-- ============ ЗАМЕТКИ О МАКЕТЕ ============ -->
+  <section class="notes" id="notes">
+    <p class="kicker">Вариант B · что здесь сделано</p>
+    <h3>Перелистываемый номер</h3>
+    <ol>
+      <li><b>Ось — взаимодействие, а не вид.</b> Номер физически перелистывается: каждый лист поворачивается на 180° вокруг корешка. Скролла нет вообще.</li>
+      <li><b>Обложка снова обложка.</b> Первая полоса — крупный номер выпуска, как на журнале в киоске, а не блок «герой» с кнопкой.</li>
+      <li><b>Фиксированный объём.</b> Ровно 8 полос: каждая глава сжата до одной страницы. Это заставляет выбирать, что действительно важно, — и номер читается целиком.</li>
+      <li><b>Тёмный неон сохранён.</b> Это исходная палитра проекта (клубный Y2K), поэтому вариант ощущается «своим», а не перекрашенным.</li>
+      <li><b>Доступность по умолчанию.</b> Кнопки, статус страницы в <code>role="status"</code>, стрелки и Home/End, точки-переходы с фокусом, отключение анимации при <code>prefers-reduced-motion</code>.</li>
+    </ol>
+  </section>
+
+</div>
+
+<script>
+/* ==========================================================================
+   Перелистывание. Одна функция-состояние + рендер, поэтому «расхождения»
+   между тем, что видно, и тем, что в счётчике, быть не может.
+   ========================================================================== */
+(function () {
+  var book  = document.getElementById('book');
+  var leaves = Array.prototype.slice.call(book.querySelectorAll('.leaf'));
+  var prev  = document.getElementById('prev');
+  var next  = document.getElementById('next');
+  var pager = document.getElementById('pager');
+  var dots  = document.getElementById('dots');
+  var PAGES = leaves.length * 2;
+  var cur = 0;                   /* number of flipped leaves */
+
+  /* build one dot per spread (a spread = one leaf) */
+  leaves.forEach(function (_, i) {
+    var d = document.createElement('i');
+    d.setAttribute('role', 'tab');
+    d.setAttribute('tabindex', '0');
+    d.setAttribute('aria-label', 'Разворот ' + (i + 1));
+    d.addEventListener('click', function () { cur = i; render(); });
+    d.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cur = i; render(); }
+    });
+    dots.appendChild(d);
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function render() {
+    leaves.forEach(function (leaf, i) {
+      var flipped = i < cur;
+      leaf.classList.toggle('flipped', flipped);
+      /* stacking: unflipped leaves stack downward, flipped ones upward */
+      leaf.style.zIndex = flipped ? i + 1 : leaves.length - i;
+      leaf.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+    });
+    dotEls.forEach(function (d, i) { d.classList.toggle('on', i === cur); });
+    var shown = cur === 0 ? 1 : (cur * 2 + 1);
+    pager.textContent = 'Страница ' + Math.min(shown, PAGES) + ' из ' + PAGES;
+    prev.disabled = cur === 0;
+    next.disabled = cur >= leaves.length;
+  }
+
+  function forward() { if (cur < leaves.length) { cur++; render(); } }
+  function back()    { if (cur > 0)            { cur--; render(); } }
+
+  next.addEventListener('click', forward);
+  prev.addEventListener('click', back);
+
+  /* click the right half to advance, the left half to go back */
+  book.addEventListener('click', function (e) {
+    var r = book.getBoundingClientRect();
+    if ((e.clientX - r.left) / r.width > 0.5) forward(); else back();
+  });
+  book.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); forward(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); back(); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (e.key === 'ArrowRight') forward();
+    else if (e.key === 'ArrowLeft') back();
+    else if (e.key === 'Home') { cur = 0; render(); }
+    else if (e.key === 'End') { cur = leaves.length; render(); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
