@@ -64,6 +64,44 @@ html{
   pointer-events:none;
 }
 
+/* ============ ПАРНЫЕ КАДРЫ (тап = второй слой) ============ */
+.frame.duo{overflow:hidden}
+.act .frame.duo .duo-a,
+.act .frame.duo .duo-b{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:contain;object-position:center center;
+  opacity:0;transform:scale(1.045);
+  transition:opacity 1.2s ease, transform 2.2s ease;
+}
+.act .frame.duo .duo-b{opacity:0;transform:scale(1.12);filter:blur(6px) brightness(.75)}
+.act.live .frame.duo .duo-a{opacity:1;transform:scale(1)}
+.act.live .frame.duo .duo-b{opacity:0}
+.act.peek .frame.duo .duo-a{opacity:0;transform:scale(1.06)}
+.act.peek .frame.duo .duo-b{
+  opacity:1;transform:scale(1);filter:none;
+  transition:opacity .9s ease, transform 6s cubic-bezier(.2,.7,.3,1), filter 1s ease;
+}
+.tapzone{position:absolute;inset:0;z-index:4;cursor:pointer;
+  background:transparent;border:0;padding:0;-webkit-appearance:none;
+  touch-action:pan-y}
+.tapzone:focus-visible{outline:2px solid var(--amber);outline-offset:-6px}
+.tap-hint{
+  position:absolute;left:50%;top:calc(50% - min(30vh,190px));
+  transform:translateX(-50%);z-index:6;
+  font:600 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,225,190,.85);text-shadow:0 2px 10px #000;
+  padding:7px 14px;border:1px solid rgba(255,200,150,.32);border-radius:999px;
+  background:rgba(10,8,14,.5);backdrop-filter:blur(4px);
+  pointer-events:none;white-space:nowrap;
+  animation:hintPulse 2.4s ease-in-out infinite;
+}
+.act.peek .tap-hint{opacity:0;transition:opacity .4s ease;animation:none}
+@media (prefers-reduced-motion:reduce){
+  .tap-hint{animation:none}
+  .frame.duo .duo-a,.frame.duo .duo-b{transition:opacity .3s ease}
+}
+
 /* ============ ТЕКСТ ============ */
 .cap{
   position:relative;z-index:5;
@@ -468,7 +506,12 @@ html{
 
 <!-- ============ 2. ДОМ ============ -->
 <section class="act" id="a2" data-act="2">
-  <div class="frame" id="f2"><img src="img/web/02_house_a.webp" alt=""></div>
+  <div class="frame duo" id="f2">
+    <img class="duo-a" src="img/web/02_house_a.webp" alt="">
+    <img class="duo-b" src="img/web/02_house_b.webp" alt="">
+  </div>
+  <div class="tapzone" id="t2" role="button" tabindex="0" aria-label="Приблизить фигуру"></div>
+  <div class="tap-hint" id="h2">коснись — он подойдёт ближе</div>
   <div class="cap bottom">
     <p class="line">Дом на другой стороне улицы.</p>
     <p class="line">Внизу, на мокром асфальте — он. Лицом к её окну.</p>
@@ -478,7 +521,12 @@ html{
 
 <!-- ============ 3. БЛИЖЕ ============ -->
 <section class="act shaky" id="a4" data-act="3">
-  <div class="frame" id="f4"><img src="img/web/04_call_a.webp" alt=""></div>
+  <div class="frame duo" id="f4">
+    <img class="duo-a" src="img/web/04_call_a.webp" alt="">
+    <img class="duo-b" src="img/web/04_call_b.webp" alt="">
+  </div>
+  <div class="tapzone" id="t4" role="button" tabindex="0" aria-label="Посмотреть, что на экране"></div>
+  <div class="tap-hint" id="h4">коснись — глянь, что он прислал</div>
   <div class="cap bottom">
     <p class="line">Экран показал то, чего не было за спиной.</p>
     <p class="line">Она не обернулась.</p>
@@ -659,6 +707,30 @@ html{
     setTimeout(function(){
       document.getElementById('a2').scrollIntoView({behavior:'smooth', block:'start'});
     }, 620);
+  });
+
+  /* ---------- парные кадры: тап переключает слой ---------- */
+  [['a2','t2'],['a4','t4']].forEach(function(pair){
+    var sec = document.getElementById(pair[0]);
+    var zone = document.getElementById(pair[1]);
+    if (!sec || !zone) return;
+    var peeked = false;
+    function peek(){
+      if (peeked) return;
+      peeked = true;
+      sec.classList.add('peek');
+    }
+    zone.addEventListener('click', peek);
+    zone.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); peek(); }
+    });
+    /* уводим зону с дороги, когда секция ушла из виду —
+       иначе она перехватывает тапы у соседних актов */
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){
+        zone.style.pointerEvents = en[0].isIntersecting ? 'auto' : 'none';
+      }, {threshold: 0.3}).observe(sec);
+    }
   });
 
   /* ---------- 3. УФ-РЕЖИМ (тап) ---------- */
