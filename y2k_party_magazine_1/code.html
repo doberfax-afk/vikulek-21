@@ -1135,6 +1135,50 @@ button:active, .btn-y2k:active {
 @media (prefers-reduced-motion:reduce){
   .fz-track{scroll-behavior:auto}
 }
+
+/* --- фотоальбом Вилены: лента миниатюр + полноэкранный просмотр --- */
+.fz-album{margin:14px 0 0;padding:14px 0 0;border-top:1px solid var(--fz-line)}
+.fz-album-h{display:flex;align-items:baseline;gap:8px;margin:0 0 10px;
+  font:700 10px/1 Oswald,sans-serif;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,202,153,.72)}
+.fz-album-h b{font:700 11px/1 Oswald,sans-serif;color:var(--fz-warm);letter-spacing:.06em}
+.fz-strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:0 0 6px;margin:0;list-style:none;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:rgba(230,149,92,.45) transparent}
+.fz-strip::-webkit-scrollbar{height:4px}
+.fz-strip::-webkit-scrollbar-thumb{background:rgba(230,149,92,.45);border-radius:2px}
+.fz-strip li{flex:0 0 auto;scroll-snap-align:start}
+.fz-thumb{display:block;padding:0;border:1px solid var(--fz-line);border-radius:9px;
+  overflow:hidden;background:#120c08;cursor:pointer;line-height:0;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.fz-thumb img{display:block;width:88px;height:88px;object-fit:cover}
+.fz-thumb:hover,.fz-thumb:focus-visible{transform:translateY(-2px);border-color:rgba(230,149,92,.75);
+  box-shadow:0 8px 20px rgba(0,0,0,.5);outline:none}
+@media (prefers-reduced-motion:reduce){.fz-thumb{transition:none}}
+
+/* просмотрщик */
+#fzLb{position:fixed;inset:0;z-index:9999;display:none;
+  --fz-cream:#fff6ec;--fz-line:rgba(255,198,133,.24);
+  background:rgba(8,5,3,.96);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:16px;touch-action:none}
+#fzLb.on{display:flex}
+#fzLb img{max-width:100%;max-height:calc(100% - 74px);object-fit:contain;
+  border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+#fzLb .fz-lb-n{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  font:700 11px/1 Oswald,sans-serif;letter-spacing:.18em;color:rgba(255,246,236,.8)}
+#fzLb .fz-lb-x,#fzLb .fz-lb-p{position:absolute;border:1px solid rgba(255,198,133,.24);
+  background:rgba(30,21,15,.85);color:#fff6ec;cursor:pointer;
+  border-radius:999px;display:flex;align-items:center;justify-content:center;
+  font:400 20px/1 Montserrat,sans-serif;-webkit-appearance:none}
+#fzLb .fz-lb-x{top:10px;right:10px;width:42px;height:42px}
+#fzLb .fz-lb-p{top:50%;transform:translateY(-50%);width:44px;height:64px;font-size:24px}
+#fzLb .fz-lb-prev{left:10px}
+#fzLb .fz-lb-next{right:10px}
+#fzLb .fz-lb-x:hover,#fzLb .fz-lb-p:hover{border-color:rgba(230,149,92,.8);background:rgba(52,36,26,.95)}
+@media (max-width:640px){
+  .fz-thumb img{width:76px;height:76px}
+  #fzLb .fz-lb-p{width:38px;height:54px;font-size:20px}
+}
 </style>
 <style id="local-fonts-css">
 /* локальные копии Google Fonts — без внешних запросов */
@@ -2353,7 +2397,7 @@ input, select, textarea {
 </div>
 </div>
 <!-- 6 Primary Chapters Grid -->
-<main id="issueMain" aria-label="Разделы спецвыпуска"><nav id="issueTabs" class="issue-tabs" role="tablist" aria-label="Разделы спецвыпуска"><button class="issue-tab" type="button" role="tab" aria-selected="true" aria-controls="issue-panel-friends" data-panel="friends" tabindex="0">Подруги</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-me" data-panel="me" tabindex="-1">Милка</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-family" data-panel="family" tabindex="-1">Семья</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-pets" data-panel="pets" tabindex="-1">Пушистые</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-space" data-panel="space" tabindex="-1">Космос</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-interactive" data-panel="interactive" tabindex="-1">Интерактив</button></nav><section id="issue-panel-friends" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-friends" tabindex="-1" hidden><div class="wrap"><div class="fz-head"><div><p class="fz-kicker">журнал · личный архив · подруги</p><h2>Те, кто <em>рядом</em></h2></div><span class="fz-count">7 историй</span></div><div class="fz-index" role="tablist" aria-label="Подруги"><button type="button" class="fz-ix" data-go="0" aria-current="true"><i>01</i>Соня</button><button type="button" class="fz-ix" data-go="1" aria-current="false"><i>02</i>Полина</button><button type="button" class="fz-ix" data-go="2" aria-current="false"><i>03</i>Кира</button><button type="button" class="fz-ix" data-go="3" aria-current="false"><i>04</i>Вилена</button><button type="button" class="fz-ix" data-go="4" aria-current="false"><i>05</i>Нютик</button><button type="button" class="fz-ix" data-go="5" aria-current="false"><i>06</i>Софа</button><button type="button" class="fz-ix" data-go="6" aria-current="false"><i>07</i>Катя</button></div><div class="fz-track" id="fzTrack"><article class="fz-spread" data-person="sonya" data-i="0"><div class="fz-shot"><span class="fz-num">№ 01</span><img src="../assets/people/sonya_card.webp" alt="Портрет: Соня" decoding="async" fetchpriority="high"></div><div class="fz-body"><h3 class="fz-name">Соня</h3><blockquote class="fz-quote"><p>Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="polina" data-i="1"><div class="fz-shot"><span class="fz-num">№ 02</span><img src="../assets/people/polina_card.webp" alt="Портрет: Полина" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Полина</h3><blockquote class="fz-quote"><p>С днем рождения, блин! Пусть каждый день будет как любимая песня из нулевых, а бокал никогда не пустеет!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="kira" data-i="2"><div class="fz-shot"><span class="fz-num">№ 03</span><img src="../assets/people/kira_card.webp" alt="Портрет: Кира" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Кира</h3><blockquote class="fz-quote"><p>Викулик, с днём рождения, моя родная! Пусть в твоей жизни всё будет так, как должно быть! Люби и будь любима! Я тебя очень люблю! ❤️</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="vilena" data-i="3"><div class="fz-shot"><span class="fz-num">№ 04</span><img src="../assets/people/vilena_card.webp" alt="Портрет: Вилена" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Вилена</h3><blockquote class="fz-quote"><p>Викуша, моя маля, краля, сестрица, поздравляю тебя с твоим днём! Будь самой счастливой! Оставайся такой же яркой, нежной, доброй, весёлой звёздочкой, никогда в себе не сомневайся и ни за что себя не ругай. Все цели обязательно сбудутся, а в это время рядом будем мы — твои близкие. Очень люблю ❤️</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="nyutik" data-i="4"><div class="fz-shot"><span class="fz-num">№ 05</span><img src="../assets/people/nyutik_card.webp" alt="Портрет: Нютик" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Нютик</h3><blockquote class="fz-quote"><p>Викулек! С днём рождения, моё солнышко! Теплых улыбок, классных приключений и безграничного счастья!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="sofa" data-i="5"><div class="fz-shot"><span class="fz-num">№ 06</span><img src="../assets/people/sofa_card.webp" alt="Портрет: Софа" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Софа</h3><div class="fz-empty"><b>Слово ещё не записано</b><span>Поздравление появится здесь, когда Софа его пришлёт.</span></div></div></article><article class="fz-spread" data-person="katya" data-i="6"><div class="fz-shot"><span class="fz-num">№ 07</span><img src="../assets/people/katya_card.webp" alt="Портрет: Катя" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Катя</h3><div class="fz-empty"><b>Слово ещё не записано</b><span>Поздравление появится здесь, когда Катя его пришлёт.</span></div></div></article></div><div class="fz-nav"><button type="button" id="fzPrev" aria-label="Предыдущая подруга">← Назад</button><button type="button" id="fzNext" aria-label="Следующая подруга">Дальше →</button><span class="fz-prog" id="fzProg">01 / 07</span></div></div></section><section id="issue-panel-me" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-me" tabindex="-1" hidden><section class="greet-block" id="greet-me" data-b="me">
+<main id="issueMain" aria-label="Разделы спецвыпуска"><nav id="issueTabs" class="issue-tabs" role="tablist" aria-label="Разделы спецвыпуска"><button class="issue-tab" type="button" role="tab" aria-selected="true" aria-controls="issue-panel-friends" data-panel="friends" tabindex="0">Подруги</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-me" data-panel="me" tabindex="-1">Милка</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-family" data-panel="family" tabindex="-1">Семья</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-pets" data-panel="pets" tabindex="-1">Пушистые</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-space" data-panel="space" tabindex="-1">Космос</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-interactive" data-panel="interactive" tabindex="-1">Интерактив</button></nav><section id="issue-panel-friends" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-friends" tabindex="-1" hidden><div class="wrap"><div class="fz-head"><div><p class="fz-kicker">журнал · личный архив · подруги</p><h2>Те, кто <em>рядом</em></h2></div><span class="fz-count">7 историй</span></div><div class="fz-index" role="tablist" aria-label="Подруги"><button type="button" class="fz-ix" data-go="0" aria-current="true"><i>01</i>Соня</button><button type="button" class="fz-ix" data-go="1" aria-current="false"><i>02</i>Полина</button><button type="button" class="fz-ix" data-go="2" aria-current="false"><i>03</i>Кира</button><button type="button" class="fz-ix" data-go="3" aria-current="false"><i>04</i>Вилена</button><button type="button" class="fz-ix" data-go="4" aria-current="false"><i>05</i>Нютик</button><button type="button" class="fz-ix" data-go="5" aria-current="false"><i>06</i>Софа</button><button type="button" class="fz-ix" data-go="6" aria-current="false"><i>07</i>Катя</button></div><div class="fz-track" id="fzTrack"><article class="fz-spread" data-person="sonya" data-i="0"><div class="fz-shot"><span class="fz-num">№ 01</span><img src="../assets/people/sonya_card.webp" alt="Портрет: Соня" decoding="async" fetchpriority="high"></div><div class="fz-body"><h3 class="fz-name">Соня</h3><blockquote class="fz-quote"><p>Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="polina" data-i="1"><div class="fz-shot"><span class="fz-num">№ 02</span><img src="../assets/people/polina_card.webp" alt="Портрет: Полина" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Полина</h3><blockquote class="fz-quote"><p>С днем рождения, блин! Пусть каждый день будет как любимая песня из нулевых, а бокал никогда не пустеет!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="kira" data-i="2"><div class="fz-shot"><span class="fz-num">№ 03</span><img src="../assets/people/kira_card.webp" alt="Портрет: Кира" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Кира</h3><blockquote class="fz-quote"><p>Викулик, с днём рождения, моя родная! Пусть в твоей жизни всё будет так, как должно быть! Люби и будь любима! Я тебя очень люблю! ❤️</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="vilena" data-i="3"><div class="fz-shot"><span class="fz-num">№ 04</span><img src="../assets/people/vilena_card.webp" alt="Портрет: Вилена" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Вилена</h3><blockquote class="fz-quote"><p>Викуша, моя маля, краля, сестрица, поздравляю тебя с твоим днём! Будь самой счастливой! Оставайся такой же яркой, нежной, доброй, весёлой звёздочкой, никогда в себе не сомневайся и ни за что себя не ругай. Все цели обязательно сбудутся, а в это время рядом будем мы — твои близкие. Очень люблю ❤️</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>11</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 11"><img src="../assets/vilena/web/vil01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 11"><img src="../assets/vilena/web/vil02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 11"><img src="../assets/vilena/web/vil03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 11"><img src="../assets/vilena/web/vil04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 11"><img src="../assets/vilena/web/vil05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 11"><img src="../assets/vilena/web/vil06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 11"><img src="../assets/vilena/web/vil07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 11"><img src="../assets/vilena/web/vil08-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="8" aria-label="Открыть фото 9 из 11"><img src="../assets/vilena/web/vil09-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="9" aria-label="Открыть фото 10 из 11"><img src="../assets/vilena/web/vil10-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="10" aria-label="Открыть фото 11 из 11"><img src="../assets/vilena/web/vil11-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="nyutik" data-i="4"><div class="fz-shot"><span class="fz-num">№ 05</span><img src="../assets/people/nyutik_card.webp" alt="Портрет: Нютик" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Нютик</h3><blockquote class="fz-quote"><p>Викулек! С днём рождения, моё солнышко! Теплых улыбок, классных приключений и безграничного счастья!</p></blockquote><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="sofa" data-i="5"><div class="fz-shot"><span class="fz-num">№ 06</span><img src="../assets/people/sofa_card.webp" alt="Портрет: Софа" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Софа</h3><div class="fz-empty"><b>Слово ещё не записано</b><span>Поздравление появится здесь, когда Софа его пришлёт.</span></div></div></article><article class="fz-spread" data-person="katya" data-i="6"><div class="fz-shot"><span class="fz-num">№ 07</span><img src="../assets/people/katya_card.webp" alt="Портрет: Катя" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Катя</h3><div class="fz-empty"><b>Слово ещё не записано</b><span>Поздравление появится здесь, когда Катя его пришлёт.</span></div></div></article></div><div class="fz-nav"><button type="button" id="fzPrev" aria-label="Предыдущая подруга">← Назад</button><button type="button" id="fzNext" aria-label="Следующая подруга">Дальше →</button><span class="fz-prog" id="fzProg">01 / 07</span></div></div></section><section id="issue-panel-me" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-me" tabindex="-1" hidden><section class="greet-block" id="greet-me" data-b="me">
     <div class="wrap">
       <div class="greet-head">
         <span class="greet-bar" aria-hidden="true"></span>
@@ -3600,6 +3644,7 @@ Francesco Antonucci</em>
 
 
 
+
     // familyGreetButtons: клик по узлу древа -> видео-поздравление
     (function () {
       var MAP = [
@@ -3978,6 +4023,7 @@ function gotoAlbumPage(idx) {
 <div class="floating-heart" style="left: 77.7634vw; font-size: 28.1563px; animation-duration: 6.97136s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 63.982vw; font-size: 22.4577px; animation-duration: 6.3266s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 30.266vw; font-size: 23.9817px; animation-duration: 5.33915s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 99.6428vw; font-size: 15.4687px; animation-duration: 6.23637s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 44.3251vw; font-size: 15.1627px; animation-duration: 4.18776s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 9.48485vw; font-size: 21.7745px; animation-duration: 4.93796s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 99.9503vw; font-size: 14.2407px; animation-duration: 5.64198s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 78.912vw; font-size: 15.0101px; animation-duration: 4.1195s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
 
 <div class="floating-heart" style="left: 62.7869vw; font-size: 29.9571px; animation-duration: 6.23875s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 91.4658vw; font-size: 28.1888px; animation-duration: 7.8222s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 95.4547vw; font-size: 25.1264px; animation-duration: 6.86433s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 69.9525vw; font-size: 24.0671px; animation-duration: 7.65319s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 65.0125vw; font-size: 24.9298px; animation-duration: 7.69761s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 22.1247vw; font-size: 22.8482px; animation-duration: 4.64322s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 48.9457vw; font-size: 22.801px; animation-duration: 7.42298s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
+
 
 
 
@@ -5536,6 +5582,85 @@ function playMashaVideo() {
     else if (e.key === 'ArrowLeft') { go(cur - 1, true); }
   });
   paint();
+})();
+
+/* ---------- фотоальбом Вилены: полноэкранный просмотр ---------- */
+(function(){
+  var panel = document.getElementById('issue-panel-friends');
+  if (!panel) return;
+  var lb = document.getElementById('fzLb');
+  if (!lb){
+    lb = document.createElement('div');
+    lb.id = 'fzLb';
+    lb.setAttribute('role','dialog');
+    lb.setAttribute('aria-modal','true');
+    lb.setAttribute('aria-label','Просмотр фото');
+    lb.innerHTML = '<span class="fz-lb-n"></span>'
+      + '<button type="button" class="fz-lb-x" aria-label="Закрыть">&times;</button>'
+      + '<button type="button" class="fz-lb-p fz-lb-prev" aria-label="Предыдущее">&lsaquo;</button>'
+      + '<img alt="">'
+      + '<button type="button" class="fz-lb-p fz-lb-next" aria-label="Следующее">&rsaquo;</button>';
+    document.body.appendChild(lb);
+  }
+  var big = lb.querySelector('img');
+  var num = lb.querySelector('.fz-lb-n');
+  var list = [], at = 0, lastFocus = null;
+
+  function show(n){
+    if (!list.length) return;
+    at = (n + list.length) % list.length;
+    big.src = list[at];
+    num.textContent = (at + 1) + ' / ' + list.length;
+  }
+  function open(card, n){
+    list = [];
+    card.querySelectorAll('.fz-thumb img').forEach(function(im){
+      var t = im.getAttribute('src') || '';
+      list.push(t.replace(/-t\.webp$/, '.webp'));
+    });
+    lastFocus = document.activeElement;
+    show(n);
+    lb.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.fz-lb-x').focus();
+  }
+  function close(){
+    lb.classList.remove('on');
+    document.body.style.overflow = '';
+    big.removeAttribute('src');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  panel.addEventListener('click', function(e){
+    var b = e.target.closest('.fz-thumb');
+    if (!b) return;
+    e.preventDefault();
+    open(b.closest('.fz-spread'), +b.getAttribute('data-alb') || 0);
+  });
+  lb.querySelector('.fz-lb-x').addEventListener('click', close);
+  lb.querySelector('.fz-lb-prev').addEventListener('click', function(){ show(at - 1); });
+  lb.querySelector('.fz-lb-next').addEventListener('click', function(){ show(at + 1); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') show(at + 1);
+    else if (e.key === 'ArrowLeft') show(at - 1);
+  });
+  // свайп по просмотрщику
+  var x0 = null, y0 = null;
+  lb.addEventListener('touchstart', function(e){
+    if (e.touches.length !== 1) return;
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive: true});
+  lb.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - x0, dy = t.clientY - y0;
+    x0 = y0 = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) show(at + (dx < 0 ? 1 : -1));
+    else if (dy > 90) close();
+  }, {passive: true});
 })();
 </script>
 </body></html>
