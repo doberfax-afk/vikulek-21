@@ -1693,13 +1693,7 @@ button:active, .btn-y2k:active {
 
     /* Tape Cassette — старые правила удалены: новый разворот milka_cassette.py
        задаёт свои, а эти перекрывали их (шли позже в CSS). */
-
-    /* Secret Vault Terminal */
-    .vault-terminal {
-      background: #000; border: 1px solid #00f0ff; border-radius: 12px; padding: 20px;
-      font-family: 'Orbitron', monospace; color: #00f0ff; text-align: center; margin-bottom: 20px;
-    }
-    .vault-input {
+.vault-input {
       background: transparent; border: 1px solid #00f0ff; color: #00f0ff; font-family: 'Orbitron', monospace;
       font-size: 18px; padding: 10px 15px; text-align: center; border-radius: 8px; width: 220px;
       margin: 15px 0; outline: none; letter-spacing: 4px;
@@ -2348,24 +2342,41 @@ input, select, textarea {
 </div>
 </div>
 </header>
-<!-- Quest Progress Banner -->
-<div class="quest-banner">
-<div class="quest-info">
-<div class="quest-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-<div class="quest-text">
-<h4>Квест: «Секретики-Пистолетики»</h4>
-<p>Изучи все 5 глав журнала для открытия супер-бункера с подарками!</p>
-</div>
-</div>
-<div class="quest-status">
-<span class="badge-completed">Пройдено: 5 / 5 глав</span>
-<button class="btn-y2k txt-dark" onclick="goToTab('interactive');setTimeout(()=>{var el=document.getElementById('safeBlock');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('pulse-once');setTimeout(()=>el.classList.remove('pulse-once'),1400);}},420);" style="background: #ff4b91; color: #fff; padding: 6px 16px; font-size: 11px;">
-<i class="fa-solid fa-lock-open"></i> Бункер
-        </button>
-</div>
-</div>
 <!-- 6 Primary Chapters Grid -->
-<main id="issueMain" aria-label="Разделы спецвыпуска"><nav id="issueTabs" class="issue-tabs" role="tablist" aria-label="Разделы спецвыпуска"><button class="issue-tab" type="button" role="tab" aria-selected="true" aria-controls="issue-panel-friends" data-panel="friends" tabindex="0">Подруги</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-me" data-panel="me" tabindex="-1">Милка</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-family" data-panel="family" tabindex="-1">Семья</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-pets" data-panel="pets" tabindex="-1">Пушистые</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-space" data-panel="space" tabindex="-1">Космос</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-interactive" data-panel="interactive" tabindex="-1">Интерактив</button></nav><section id="issue-panel-friends" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-friends" tabindex="-1" hidden>
+<main id="issueMain" aria-label="Разделы спецвыпуска"><nav id="issueTabs" class="issue-tabs" role="tablist" aria-label="Разделы спецвыпуска"><button class="issue-tab" type="button" role="tab" aria-selected="true" aria-controls="issue-panel-friends" data-panel="friends" tabindex="0">Подруги</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-me" data-panel="me" tabindex="-1">Милка</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-family" data-panel="family" tabindex="-1">Семья</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-pets" data-panel="pets" tabindex="-1">Пушистые</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-space" data-panel="space" tabindex="-1">Космос</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-interactive" data-panel="interactive" tabindex="-1">Интерактив</button><button class="issue-tab" type="button" role="tab" aria-selected="false" aria-controls="issue-panel-future" data-panel="future" tabindex="-1">✦ Будущее</button></nav><section id="issue-panel-future" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-future" tabindex="-1" hidden>
+<header class="iss-head" data-issue="future"><span class="iss-no">Выпуск 07 · финал</span><h1 class="iss-title">Письмо в будущее</h1><p class="iss-tag">Запечатлей момент и оставь себе послание — вскроем 18 ноября 2027-го.</p><div class="iss-meta"><span>1 послание</span><span>до 18.11.2027</span></div></header>
+<div class="fc-wrap">
+  <div class="fc-intro">
+    <div class="fc-kicker">Капсула времени · №21</div>
+    <h2>Останови этот миг</h2>
+    <p>Ты посмотрела все рубрики. Теперь твоя очередь: сделай снимок и оставь себе послание. Запечатаем до следующего дня рождения.</p>
+  </div>
+  <div class="fc-box">
+    <div class="fc-photo">
+      <video class="fc-video" playsinline muted autoplay></video>
+      <canvas class="fc-canvas"></canvas>
+      <div class="fc-ph-empty">Включи камеру и запечатлей момент</div>
+    </div>
+    <div class="fc-actions">
+      <button class="fc-btn fc-shot" type="button">Сделать снимок</button>
+      <button class="fc-btn ghost fc-again" type="button" hidden>Ещё раз</button>
+    </div>
+    <textarea class="fc-textarea" placeholder="Дорогая я в 22 года... Желаю себе не бояться нового, сиять ещё ярче и помнить, как сильно меня любят!"></textarea>
+    <div class="fc-seal">
+      <button class="fc-btn fc-seal-btn" type="button"><i class="fa-solid fa-stamp"></i> Запечатать капсулу</button>
+      <div class="fc-seal-note"></div>
+    </div>
+  </div>
+  <div class="fc-done fc-sealed" hidden>
+    <div class="fc-stamp">✉️</div>
+    <h3>Капсула запечатана</h3>
+    <p>Вскроется 18 ноября 2027 года. До встречи, Викулек ❤️</p>
+    <img alt="Твой снимок" hidden>
+    <blockquote></blockquote>
+  </div>
+</div>
+</section>
+<section id="issue-panel-friends" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-friends" tabindex="-1" hidden>
 <header class="iss-head" data-issue="friends"><span class="iss-no">Выпуск 01</span><h1 class="iss-title">Подруги</h1><p class="iss-tag">Семь голосов, шестьдесят кадров. Каждая принесла свой архив.</p><div class="iss-meta"><span>7 подруг</span><span>60 фото</span><span>2 видео</span></div></header><div class="wrap"><div class="fz-head"><div><p class="fz-kicker">журнал · личный архив · подруги</p><h2>Те, кто <em>рядом</em></h2></div><span class="fz-count">7 историй</span></div><div class="fz-index" role="tablist" aria-label="Подруги"><button type="button" class="fz-ix" data-go="0" aria-current="true"><i>01</i>Соня</button><button type="button" class="fz-ix" data-go="1" aria-current="false"><i>02</i>Полина</button><button type="button" class="fz-ix" data-go="2" aria-current="false"><i>03</i>Кира</button><button type="button" class="fz-ix" data-go="3" aria-current="false"><i>04</i>Вилена</button><button type="button" class="fz-ix" data-go="4" aria-current="false"><i>05</i>Нютик</button><button type="button" class="fz-ix" data-go="5" aria-current="false"><i>06</i>Софа</button><button type="button" class="fz-ix" data-go="6" aria-current="false"><i>07</i>Катя</button></div><div class="fz-track" id="fzTrack"><article class="fz-spread" data-person="sonya" data-i="0"><div class="fz-shot"><span class="fz-num">№ 01</span><img src="../assets/people/sonya_card.webp" alt="Портрет: Соня" decoding="async" fetchpriority="high"></div><div class="fz-body"><h3 class="fz-name">Соня</h3><video class="fz-video" controls playsinline preload="metadata" poster="../assets/media/sonya-poster.jpg" src="../assets/media/sonya-congrats-web.mp4"></video><blockquote class="fz-quote"><p>Викулек! С днём рождения, моя дорогая! Желаю тебе океан счастья, горы смеха и море любви! Ты — самая лучшая! Целую!</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>3</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 3"><img src="../assets/sonya/web/son01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 3"><img src="../assets/sonya/web/son02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 3"><img src="../assets/sonya/web/son03-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="polina" data-i="1"><div class="fz-shot"><span class="fz-num">№ 02</span><img src="../assets/people/polina_card.webp" alt="Портрет: Полина" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Полина</h3><video class="fz-video" controls playsinline preload="metadata" poster="../assets/media/polina-poster.jpg" src="../assets/media/polina-congrats-web.mp4"></video><blockquote class="fz-quote"><p>С днем рождения, блин! Пусть каждый день будет как любимая песня из нулевых, а бокал никогда не пустеет!</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>3</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 3"><img src="../assets/polina/web/pol01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 3"><img src="../assets/polina/web/pol02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 3"><img src="../assets/polina/web/pol03-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="kira" data-i="2"><div class="fz-shot"><span class="fz-num">№ 03</span><img src="../assets/people/kira_card.webp" alt="Портрет: Кира" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Кира</h3><video class="fz-video" controls playsinline preload="metadata" poster="../assets/media/kira-poster.jpg" src="../assets/media/kira-congrats-web.mp4"></video><blockquote class="fz-quote"><p>Викулик, с днём рождения, моя родная! Пусть в твоей жизни всё будет так, как должно быть! Люби и будь любима! Я тебя очень люблю! ❤️</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>15</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 15"><img src="../assets/kira/web/kir01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 15"><img src="../assets/kira/web/kir02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 15"><img src="../assets/kira/web/kir03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 15"><img src="../assets/kira/web/kir04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 15"><img src="../assets/kira/web/kir05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 15"><img src="../assets/kira/web/kir06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 15"><img src="../assets/kira/web/kir07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 15"><img src="../assets/kira/web/kir08-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="8" aria-label="Открыть фото 9 из 15"><img src="../assets/kira/web/kir09-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="9" aria-label="Открыть фото 10 из 15"><img src="../assets/kira/web/kir10-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="10" aria-label="Открыть фото 11 из 15"><img src="../assets/kira/web/kir11-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="11" aria-label="Открыть фото 12 из 15"><img src="../assets/kira/web/kir12-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="12" aria-label="Открыть фото 13 из 15"><img src="../assets/kira/web/kir13-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="13" aria-label="Открыть фото 14 из 15"><img src="../assets/kira/web/kir14-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="14" aria-label="Открыть фото 15 из 15"><img src="../assets/kira/web/kir15-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="vilena" data-i="3"><div class="fz-shot"><span class="fz-num">№ 04</span><img src="../assets/people/vilena_card.webp" alt="Портрет: Вилена" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Вилена</h3><blockquote class="fz-quote"><p>Викуша, моя маля, краля, сестрица, поздравляю тебя с твоим днём! Будь самой счастливой! Оставайся такой же яркой, нежной, доброй, весёлой звёздочкой, никогда в себе не сомневайся и ни за что себя не ругай. Все цели обязательно сбудутся, а в это время рядом будем мы — твои близкие. Очень люблю ❤️</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>11</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 11"><img src="../assets/vilena/web/vil01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 11"><img src="../assets/vilena/web/vil02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 11"><img src="../assets/vilena/web/vil03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 11"><img src="../assets/vilena/web/vil04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 11"><img src="../assets/vilena/web/vil05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 11"><img src="../assets/vilena/web/vil06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 11"><img src="../assets/vilena/web/vil07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 11"><img src="../assets/vilena/web/vil08-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="8" aria-label="Открыть фото 9 из 11"><img src="../assets/vilena/web/vil09-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="9" aria-label="Открыть фото 10 из 11"><img src="../assets/vilena/web/vil10-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="10" aria-label="Открыть фото 11 из 11"><img src="../assets/vilena/web/vil11-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="nyutik" data-i="4"><div class="fz-shot"><span class="fz-num">№ 05</span><img src="../assets/people/nyutik_card.webp" alt="Портрет: Нютик" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Нютик</h3><blockquote class="fz-quote"><p>Виктория, моя победа, рыба и сИкрет, с днём рождения, родная!❤️❤️❤️❤️<br><br>мой соулмейт по всем аспектам жизни, люблю тебя до луны и обратно, не перестану говорить спасибо судьбе, что подарила мне такого светлого, невероятно доброго и зажигательного человечка!<br><br>желаю тебе никогда не сомневаться в себе, ведь ты можешь всё, если захочешь!!<br>давай себе иногда вздыхать полной грудью, и встречай любые неприятности со спокойствием на душе!🙏🏼<br><br>пусть этот год жизни станет для тебя ещё одной не менее интересной главой, которую захочется перечитывать снова и снова, а рядом будут такие же прекрасные люди, как и ты! 🫂<br><br>продолжай также заряжать своей безумно яркой энергией других и самой никогда не потухать! ты звёздочка, каких только поискать, поэтому сияй, моя красотка, бери от этой жизни максимум и кайфуй от процесса, не бойся пробовать что-то новое!<br><br>с твоим днём, <br>скорпиончик моего сердца!💘💘💘</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>10</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 10"><img src="../assets/nyutik/web/nyu01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 10"><img src="../assets/nyutik/web/nyu02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 10"><img src="../assets/nyutik/web/nyu03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 10"><img src="../assets/nyutik/web/nyu04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 10"><img src="../assets/nyutik/web/nyu05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 10"><img src="../assets/nyutik/web/nyu06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 10"><img src="../assets/nyutik/web/nyu07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 10"><img src="../assets/nyutik/web/nyu08-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="8" aria-label="Открыть фото 9 из 10"><img src="../assets/nyutik/web/nyu09-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="9" aria-label="Открыть фото 10 из 10"><img src="../assets/nyutik/web/nyu10-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="sofa" data-i="5"><div class="fz-shot"><span class="fz-num">№ 06</span><img src="../assets/people/sofa_card.webp" alt="Портрет: Софа" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Софа</h3><blockquote class="fz-quote"><p>любимик, с твоим днём! спасибо тебе за твою поддержку, твой смех, твои шутки, за то, какая ты настоящая. желаю тебе крепкого здоровья! ты заслуживаешь всего самого лучшего! пусть твоя жизнь сложится так, как ты это представляешь! пусть мечты станут целями и будут достигнуты! пусть каждый день приносит счастье! я всегда рядом! будь любима и счастлива, дорогая!</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>8</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 8"><img src="../assets/sofa/web/sof01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 8"><img src="../assets/sofa/web/sof02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 8"><img src="../assets/sofa/web/sof03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 8"><img src="../assets/sofa/web/sof04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 8"><img src="../assets/sofa/web/sof05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 8"><img src="../assets/sofa/web/sof06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 8"><img src="../assets/sofa/web/sof07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 8"><img src="../assets/sofa/web/sof08-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article><article class="fz-spread" data-person="katya" data-i="6"><div class="fz-shot"><span class="fz-num">№ 07</span><img src="../assets/people/katya_card.webp" alt="Портрет: Катя" decoding="async"></div><div class="fz-body"><h3 class="fz-name">Катя</h3><blockquote class="fz-quote"><p>Викуля, моя ты лпешечка❤️‍🔥, хочу тебя поздравить с днем рождения 🎇🍾<br>Я тебя очень ценю и люблю, не знаю как так сошлись звезды когда наши жизни пересеклись. 🫶🏼Ты лучший человечек, с тобой всегда есть о чем поговорить, не важно на какую тему мы общаемся. Ты всегда сможешь выслушать и помочь словом. ❤️‍🩹<br>Пересматривала свою галерею и поняла, что большую часть фотографий с кем то занимаешь ты 🫶🏼<br>За прошедшее время столько всего прошло, мы были и в жопе (как всегда) и в лучших днях, но не важно какой это был день, главное с кем я этот день проводила❤️‍🩹<br>Я тебе желаю всего-всего только самого лучшего, достижения всех своих целей, уверенности в завтрашнем дне и главное конечно здоровья🫀<br>Главное в жизни тебе спокойствия 🧘🏽‍♀️, остальное само прийдет.<br>С твоим днем, целую💋</p></blockquote><div class="fz-album"><p class="fz-album-h">Наш архив <b>10</b></p><ul class="fz-strip"><li><button type="button" class="fz-thumb" data-alb="0" aria-label="Открыть фото 1 из 10"><img src="../assets/katya/web/kat01-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="1" aria-label="Открыть фото 2 из 10"><img src="../assets/katya/web/kat02-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="2" aria-label="Открыть фото 3 из 10"><img src="../assets/katya/web/kat03-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="3" aria-label="Открыть фото 4 из 10"><img src="../assets/katya/web/kat04-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="4" aria-label="Открыть фото 5 из 10"><img src="../assets/katya/web/kat05-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="5" aria-label="Открыть фото 6 из 10"><img src="../assets/katya/web/kat06-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="6" aria-label="Открыть фото 7 из 10"><img src="../assets/katya/web/kat07-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="7" aria-label="Открыть фото 8 из 10"><img src="../assets/katya/web/kat08-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="8" aria-label="Открыть фото 9 из 10"><img src="../assets/katya/web/kat09-t.webp" alt="" loading="lazy" decoding="async"></button></li><li><button type="button" class="fz-thumb" data-alb="9" aria-label="Открыть фото 10 из 10"><img src="../assets/katya/web/kat10-t.webp" alt="" loading="lazy" decoding="async"></button></li></ul></div><p class="fz-hand">твоя подруга</p></div></article></div><div class="fz-nav"><button type="button" id="fzPrev" aria-label="Предыдущая подруга">← Назад</button><button type="button" id="fzNext" aria-label="Следующая подруга">Дальше →</button><span class="fz-prog" id="fzProg">01 / 07</span></div></div></section><section id="issue-panel-me" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-me" tabindex="-1" hidden>
 <header class="iss-head" data-issue="me"><span class="iss-no">Выпуск 02</span><h1 class="iss-title">Милка</h1><p class="iss-tag">Личный архив с секретным кодом. Кассета, альбом и история в трёх актах.</p><div class="iss-meta"><span>18 кадров</span><span>кассета</span><span>РАЗРЕЗ</span></div></header><section class="greet-block" id="greet-me" data-b="me">
     <div class="wrap">
@@ -3248,7 +3259,7 @@ Francesco Antonucci</em>
 <div class="space-wish" style="text-align:center;margin:22px 0"><button class="btn-y2k btn-primary" type="button" onclick="triggerShootingStars()"><i class="fa-solid fa-meteor"></i> Загадать желание</button></div>
 </div>
   </section></section><section id="issue-panel-interactive" class="issue-panel" role="tabpanel" aria-labelledby="issue-tab-interactive" tabindex="-1" hidden>
-<header class="iss-head" data-issue="interactive"><span class="iss-no">Выпуск 06</span><h1 class="iss-title">Интерактив</h1><p class="iss-tag">Шесть глав, сейф с кодом и маска, которую надо снять.</p><div class="iss-meta"><span>6 глав</span><span>код 2111</span></div></header><div class="chapters-grid">
+<header class="iss-head" data-issue="interactive"><span class="iss-no">Выпуск 06</span><h1 class="iss-title">Интерактив</h1><p class="iss-tag">Шесть глав, таймер и маска, которую надо снять.</p><div class="iss-meta"><span>6 глав</span></div></header><div class="chapters-grid">
 <!-- Chapter 1: Friends -->
 <article class="chapter-card">
 <div class="card-head">
@@ -3336,40 +3347,6 @@ Francesco Antonucci</em>
           Смотреть 22 года ➔
         </button>
 </article>
-<!-- Chapter 6: Secrets & Safe -->
-<article class="chapter-card">
-<div class="card-head">
-<div class="card-icon-pill" style="color: #ff9900; border-color: #ff9900;"><i class="fa-solid fa-box-archive"></i></div>
-<span class="card-chapter-num">Глава 6 • Бункер 21</span>
-</div>
-<h3 class="card-title">Секретики-Пистолетики</h3>
-<p class="card-desc">Лис-Жулик и секретный архив закрытых видео-воспоминаний! Кодовое слово знает только Викулек.</p>
-<div class="card-img-preview">
-<img alt="Лис-Жулик взламывает сейф • DC Noir Graphic Novel" src="../assets/img_b89d3e4b55cc.jpg" style="width: 100%; height: 100%; object-fit: cover; filter: contrast(108%) brightness(95%);" decoding="async" width="512" height="286">
-</div>
-<button class="card-btn" onclick="goToTab('interactive');setTimeout(()=>{var el=document.getElementById('safeBlock');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('pulse-once');setTimeout(()=>el.classList.remove('pulse-once'),1400);}},420);">
-          Открыть Сейф ➔
-        </button>
-</article>
-<!-- Сейф Жулика — перенесён из модального окна на вкладку «Интерактив» -->
-<section class="safe-block" id="safeBlock" aria-label="Секретики-Пистолетики: сейф">
-
-
-<div class="modal-header-y2k">
-<h2>Секретики-Пистолетики: Сейф Жулика</h2>
-<p>Введи секретное кодовое слово для открытия тайного архива</p>
-</div>
-<div style="text-align: center; margin-bottom: 20px;">
-<img alt="Лис Жулик" src="../assets/img_b89d3e4b55cc.jpg" style="max-width: 320px; width: 100%; border-radius: 14px; border: 2px solid rgb(255, 214, 0); box-shadow: rgba(255, 75, 145, 0.4) 0px 8px 25px; object-fit: cover;" decoding="async" width="512" height="286">
-</div>
-<div class="vault-terminal">
-<p>ВВЕДИТЕ КОДОВОЕ СЛОВО (ПОДСКАЗКА: «ДЛЯ НАРКОМАНОВ...»):</p>
-<input class="vault-input" id="secretCodeWord" placeholder="КОДОВОЕ СЛОВО" type="text">
-<br>
-<button class="btn-y2k btn-primary" onclick="verifySecretSafe()">
-<i class="fa-solid fa-unlock-keyhole"></i> Взломать Сейф
-        </button>
-
 <!-- Таймер до дня рождения — перенесён из модального окна на вкладку «Интерактив» -->
 <section class="timer-block" id="timerBlock" aria-label="Таймер до дня рождения">
 
@@ -3399,7 +3376,6 @@ Francesco Antonucci</em>
 <button class="btn-y2k btn-primary" onclick="closeModal('modalTimer')">Вернуться к празднику</button>
 
 \n\n</section>
-</div>
 
 </section>
 </div></section></main><div class="gs-lightbox" id="gsLightbox" role="dialog" aria-modal="true"
@@ -3545,6 +3521,13 @@ Francesco Antonucci</em>
       baba_nastya: { title: "Баба Анастасия Егоровна • Сердечный Покой", text: "«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»", icon: "fa-heart" }
     };
     
+
+
+
+
+
+
+
 
 
 
@@ -4023,14 +4006,6 @@ function gotoAlbumPage(idx) {
       
       alert('✨ Звезда упала! Загаданное желание Викулька непременно исполнится в этот 21-й год!');
     }
-    function verifySecretSafe() {
-      const word = document.getElementById('secretCodeWord').value.trim().toLowerCase();
-      if (word === 'черемшить') {
-        alert('🎉 СЕЙФ ВЗЛОМАН! Бункер подарков открыт! Вся семья и друзья поздравляют Викулька!');
-        
-      } else {
-        alert('Неверный пароль! Подсказка: у кого-то оно для наркоманов...');
-      }
     }
 
     /* ===== переход из Gotham (iframe) в журнал ===== */
@@ -4071,6 +4046,13 @@ function gotoAlbumPage(idx) {
 <div class="floating-heart" style="left: 77.7634vw; font-size: 28.1563px; animation-duration: 6.97136s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 63.982vw; font-size: 22.4577px; animation-duration: 6.3266s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 30.266vw; font-size: 23.9817px; animation-duration: 5.33915s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 99.6428vw; font-size: 15.4687px; animation-duration: 6.23637s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 44.3251vw; font-size: 15.1627px; animation-duration: 4.18776s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 9.48485vw; font-size: 21.7745px; animation-duration: 4.93796s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 99.9503vw; font-size: 14.2407px; animation-duration: 5.64198s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 78.912vw; font-size: 15.0101px; animation-duration: 4.1195s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
 
 <div class="floating-heart" style="left: 62.7869vw; font-size: 29.9571px; animation-duration: 6.23875s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 91.4658vw; font-size: 28.1888px; animation-duration: 7.8222s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 95.4547vw; font-size: 25.1264px; animation-duration: 6.86433s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 69.9525vw; font-size: 24.0671px; animation-duration: 7.65319s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 65.0125vw; font-size: 24.9298px; animation-duration: 7.69761s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 22.1247vw; font-size: 22.8482px; animation-duration: 4.64322s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 48.9457vw; font-size: 22.801px; animation-duration: 7.42298s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
+
+
+
+
+
+
+
 
 
 
@@ -5751,8 +5733,6 @@ function playMashaVideo() {
 #issue-panel-family .tree-grid>div,#issue-panel-family .tree-grid>div *,
 #issue-panel-family .museum-gold-frame>div,
 #issue-panel-interactive .timer-block,#issue-panel-interactive .timer-block *,
-#issue-panel-interactive .vault-terminal,#issue-panel-interactive .vault-terminal *
-{font-family:'Montserrat',system-ui,-apple-system,sans-serif!important}
 
 /* --- шапка выпуска заменяет старый заголовок раздела --- */
 #issueMain .greet-head{display:none!important}
@@ -5923,4 +5903,142 @@ function playMashaVideo() {
   mark();
 })();
 </script>
+<script id="future-capsule-js">(function(){if(document.getElementById('future-capsule-css'))return;var s=document.createElement('style');s.id='future-capsule-css';s.textContent="#issueTabs [data-panel=\"future\"]{display:none}\n#issueTabs [data-panel=\"future\"].is-unlocked{display:inline-flex;align-items:center;gap:6px;\n  background:linear-gradient(120deg,#ffd600,#ff4b91);color:#160b18;\n  box-shadow:0 0 0 2px rgba(255,214,0,.35),0 8px 26px rgba(255,75,145,.35);\n  animation:capPulse 1.6s ease-in-out 3}\n@keyframes capPulse{50%{box-shadow:0 0 0 6px rgba(255,214,0,.14),0 8px 32px rgba(255,75,145,.55)}}\n#issue-panel-future .fc-wrap{max-width:760px;margin:0 auto;padding:8px 4px 40px}\n.fc-intro{text-align:center;margin-bottom:24px}\n.fc-intro .fc-kicker{font:700 11px/1 \"Montserrat\",sans-serif;letter-spacing:.28em;\n  text-transform:uppercase;color:#ffd600}\n.fc-intro h2{font:800 clamp(26px,4vw,44px)/1.08 \"Syne\",sans-serif;color:#fff;margin:10px 0}\n.fc-intro p{color:#cbbcd8;font:500 14px/1.7 \"Montserrat\",sans-serif;margin:0 auto;max-width:560px}\n.fc-photo{position:relative;display:grid;place-items:center;min-height:240px;margin:18px 0;\n  border:1px dashed rgba(255,214,0,.4);border-radius:16px;overflow:hidden;\n  background:radial-gradient(circle at 50% 30%,rgba(255,75,145,.12),rgba(8,6,14,.9))}\n.fc-photo video,.fc-photo canvas{max-width:100%;max-height:340px;width:auto;height:auto;\n  border-radius:12px;transform:scaleX(-1)}\n.fc-photo canvas{display:none}\n.fc-photo.is-shot video{display:none}\n.fc-photo.is-shot canvas{display:block}\n.fc-photo .fc-ph-empty{color:#8f86a4;font:500 13px/1.6 \"Montserrat\",sans-serif;text-align:center;padding:30px}\n.fc-photo.is-shot .fc-ph-empty{display:none}\n.fc-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 22px}\n.fc-btn{cursor:pointer;border:1px solid rgba(255,214,0,.5);border-radius:999px;\n  padding:11px 22px;font:700 13px/1 \"Montserrat\",sans-serif;letter-spacing:.04em;\n  color:#0b0b10;background:#ffd600;transition:filter .2s,transform .2s}\n.fc-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}\n.fc-btn.ghost{background:transparent;color:#ffd600}\n.fc-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}\n.fc-textarea{width:100%;min-height:130px;box-sizing:border-box;resize:vertical;\n  background:rgba(0,0,0,.5);border:1px solid #ff4b91;border-radius:12px;color:#fff;\n  padding:15px;font:500 14px/1.6 \"Montserrat\",sans-serif;outline:none}\n.fc-textarea:focus{border-color:#ffd600;box-shadow:0 0 0 3px rgba(255,214,0,.12)}\n.fc-seal{text-align:center;margin-top:16px}\n.fc-seal-note{color:#9d94b0;font:500 12px/1.6 \"Montserrat\",sans-serif;margin-top:12px;min-height:18px}\n.fc-sealed{padding:34px 22px;border:1px solid rgba(255,214,0,.45);border-radius:18px;\n  text-align:center;background:linear-gradient(160deg,rgba(30,20,42,.9),rgba(10,8,18,.95))}\n.fc-sealed .fc-stamp{font-size:54px;line-height:1;filter:drop-shadow(0 6px 18px rgba(255,214,0,.4))}\n.fc-sealed h3{font:800 24px/1.2 \"Syne\",sans-serif;color:#ffd600;margin:14px 0 8px}\n.fc-sealed p{color:#d6cbdf;font:500 14px/1.7 \"Montserrat\",sans-serif;margin:0}\n.fc-sealed img{max-width:220px;border-radius:12px;margin:16px auto 0;display:block;transform:scaleX(-1)}\n.fc-sealed blockquote{color:#fff;font:italic 500 14px/1.7 Georgia,serif;\n  margin:16px auto 0;max-width:480px;border-left:2px solid #ff4b91;padding-left:16px;text-align:left}\n@media(max-width:640px){#issue-panel-future .fc-wrap{padding:4px 2px 30px}.fc-photo{min-height:180px}}";document.head.appendChild(s);})();
+(function(){
+  if(window.__futureCapsule) return; window.__futureCapsule = true;
+
+  var KEY='y2k-visited-rubrics', SEAL='y2k-capsule-sealed';
+  var RUBRICS=['friends','me','family','pets','space','interactive'];
+  var nav=document.getElementById('issueTabs');
+  var panel=document.getElementById('issue-panel-future');
+  if(!nav || !panel) return;
+
+  var seen={};
+  try{ seen=JSON.parse(sessionStorage.getItem(KEY)||'{}')||{}; }catch(e){ seen={}; }
+
+  function persist(){ try{ sessionStorage.setItem(KEY, JSON.stringify(seen)); }catch(e){} }
+  function allSeen(){ return RUBRICS.every(function(k){ return !!seen[k]; }); }
+
+  function openSelf(){
+    var b=nav.querySelector('[data-panel="future"]');
+    if(b){ b.setAttribute('aria-selected','true'); b.tabIndex=0; }
+    [].slice.call(nav.querySelectorAll('[data-panel]')).forEach(function(x){
+      if(x!==b) x.setAttribute('aria-selected','false');
+    });
+    panel.hidden=false; panel.classList.add('is-active');
+    try{ document.dispatchEvent(new CustomEvent('y2k:future-open')); }catch(e){ start(); }
+  }
+  function unlock(auto){
+    var tab=nav.querySelector('[data-panel="future"]');
+    if(!tab) return;
+    var fresh=!tab.classList.contains('is-unlocked');
+    tab.classList.add('is-unlocked');
+    if(fresh && auto){
+      setTimeout(function(){
+        if(typeof window.goToTab==='function') window.goToTab('future');
+        if(panel.hidden) openSelf();
+        // чужой обработчик (прокрутка/фокус вкладки «Интерактив») может
+        // вернуть выбор назад — закрепляем результат.
+        setTimeout(function(){
+          if(panel.hidden) openSelf();
+        }, 450);
+      }, 260);
+    }
+  }
+
+  nav.addEventListener('click', function(e){
+    var b=e.target.closest('[data-panel]');
+    if(!b) return;
+    var k=b.dataset.panel;
+    if(k==='future'){
+      try{ document.dispatchEvent(new CustomEvent('y2k:future-open')); }catch(err){ start(); }
+      return;
+    }
+    if(!k) return;
+    seen[k]=1; persist();
+    if(allSeen()) unlock(true);
+  }, true);
+  nav.addEventListener('click', function(e){
+    var b=e.target.closest('[data-panel]');
+    if(b && b.dataset.panel!=='future')
+      try{ document.dispatchEvent(new CustomEvent('y2k:future-close')); }catch(err){ stop(); }
+  }, true);
+
+  var act=nav.querySelector('[role="tab"][aria-selected="true"]');
+  if(act && act.dataset.panel && act.dataset.panel!=='future'){
+    seen[act.dataset.panel]=1; persist();
+  }
+  if(allSeen()) unlock(false);
+
+  // ---- камера / снимок ----
+  var video=panel.querySelector('.fc-video'),
+      canvas=panel.querySelector('.fc-canvas'),
+      shotBtn=panel.querySelector('.fc-shot'),
+      againBtn=panel.querySelector('.fc-again'),
+      photo=panel.querySelector('.fc-photo'),
+      stream=null;
+
+  function stop(){
+    if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream=null; }
+  }
+  function start(){
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false})
+      .then(function(s){
+        stream=s;
+        if(video){ video.srcObject=s; var p=video.play(); if(p&&p.catch) p.catch(function(){}); }
+      })
+      .catch(function(){});
+  }
+  document.addEventListener('y2k:future-open', start);
+  document.addEventListener('y2k:future-close', stop);
+
+  if(shotBtn) shotBtn.addEventListener('click', function(){
+    if(!video || !canvas || !video.videoWidth) return;
+    canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+    canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+    photo.classList.add('is-shot');
+    shotBtn.disabled=true; if(againBtn) againBtn.hidden=false;
+    stop();
+  });
+  if(againBtn) againBtn.addEventListener('click', function(){
+    photo.classList.remove('is-shot');
+    shotBtn.disabled=false; againBtn.hidden=true;
+    canvas.width=0; canvas.height=0;
+    start();
+  });
+
+  // ---- печать капсулы ----
+  var seal=panel.querySelector('.fc-seal-btn'),
+      note=panel.querySelector('.fc-seal-note'),
+      area=panel.querySelector('.fc-textarea');
+
+  function showSealed(d){
+    var box=panel.querySelector('.fc-box'); if(box) box.hidden=true;
+    var done=panel.querySelector('.fc-done'); if(!done) return;
+    done.hidden=false;
+    var q=done.querySelector('blockquote'); if(q) q.textContent=d.text||'';
+    var img=done.querySelector('img');
+    if(img){ if(d.photo){ img.src=d.photo; img.hidden=false; } else { img.hidden=true; } }
+  }
+  try{
+    var raw=localStorage.getItem(SEAL);
+    if(raw) showSealed(JSON.parse(raw));
+  }catch(e){}
+
+  if(seal) seal.addEventListener('click', function(){
+    var text=(area&&area.value||'').trim();
+    if(!text){
+      if(note) note.textContent='Напиши пару строк — даже коротких хватит';
+      if(area) area.focus();
+      return;
+    }
+    var pic='';
+    try{ if(canvas && canvas.width) pic=canvas.toDataURL('image/jpeg',0.7); }catch(e){}
+    var payload={text:text, photo:pic, at:Date.now()};
+    try{ localStorage.setItem(SEAL, JSON.stringify(payload)); }catch(e){}
+    showSealed(payload);
+    if(note) note.textContent='';
+  });
+})();</script>
 </body></html>
