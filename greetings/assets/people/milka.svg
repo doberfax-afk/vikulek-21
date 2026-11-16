@@ -12,7 +12,7 @@
   </defs>
   <rect width="400" height="400" fill="#2A2000"/>
   <rect width="400" height="400" fill="url(#glow)"/>
-  <g transform="rotate(232 200 200)" opacity=".30" fill="none" stroke="#FFD600" stroke-width="2">
+  <g transform="rotate(269 200 200)" opacity=".30" fill="none" stroke="#FFD600" stroke-width="2">
     <circle cx="200" cy="200" r="150"/>
     <circle cx="200" cy="200" r="124" stroke-dasharray="6 10"/>
   </g>

@@ -50,7 +50,9 @@
 
 
 
-<style id="family-greet-css" data-v="10">
+
+
+<style id="family-greet-css" data-v="12">
 .poster-hot-layer { position: absolute; inset: 0; pointer-events: none; }
 .poster-hot {
   position: absolute; border-radius: 50%; padding: 0; border: 0; cursor: pointer;
@@ -96,6 +98,35 @@
 .fg-none .t b { color: #ffd600; }
 .fg-text { margin-top: 14px; font-size: 13.5px; font-style: italic;
   color: rgba(255,255,255,.9); line-height: 1.65; }
+
+/* --- общий ролик на двоих: два портрета + одно видео --- */
+.fg-couple { width: 100%; padding: 14px; }
+.fg-couple-faces { display: flex; gap: 14px; justify-content: center; margin-bottom: 12px; }
+.fg-couple-face { margin: 0; text-align: center; }
+.fg-couple-face img {
+  width: 74px; height: 74px; border-radius: 50%; display: block;
+  border: 2px solid rgba(255,214,0,.75); object-fit: cover;
+  box-shadow: 0 0 18px rgba(255,214,0,.25);
+}
+.fg-couple-face figcaption {
+  margin-top: 6px; font-family: 'Space Grotesk', sans-serif;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .4px; color: #ffd600;
+}
+.fg-couple-video video { width: 100%; max-height: 54vh; display: block; border-radius: 12px; }
+.fg-couple-text { margin: 0 0 10px; font-size: 13.5px; font-style: italic;
+  color: rgba(255,255,255,.92); line-height: 1.6; }
+.fg-couple-who {
+  display: block; font-style: normal; font-weight: 800; color: #ffd600;
+  font-size: 11px; letter-spacing: .6px; text-transform: uppercase; margin-bottom: 2px;
+}
+@media (max-width: 430px) {
+  .fg-couple-face img { width: 62px; height: 62px; }
+  .fg-couple-video video { max-height: 46vh; }
+  /* длинные имена пар («Дед Василий & Баба Наталья») не должны лезть под крестик */
+  .modal-window--greet .modal-header-y2k h2 { font-size: 18px; line-height: 1.25; padding-right: 34px; }
+  .modal-window--greet .modal-header-y2k p { font-size: 11px; }
+  .fg-couple { padding: 6px 4px; }
+}
 @media (max-width: 430px) {
   .modal-window--greet { padding: 18px; }
   .fg-stage video { max-height: 52vh; }
@@ -2518,7 +2549,7 @@ input, select, textarea {
           <h2>Семья</h2>
           <p class="greet-note">Род Русиново</p>
         </div>
-        <span class="greet-count">9</span>
+        <span class="greet-count">10</span>
       </div>
       <div class="greet-grid">
         <article class="gs-card" id="gs-mama">
@@ -2546,6 +2577,15 @@ input, select, textarea {
             <div><h3>Дядя Серёжа</h3><p class="gs-role">Мудрость Рода</p></div>
           </div>
           <p class="gs-text">«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»</p>
+          <div class="gs-media-row"><div class="gs-media"><strong>Видеопоздравление</strong><video controls preload="metadata" src="../assets/media/serezha-congrats.mp4"></video></div></div>
+        </article>
+        <article class="gs-card" id="gs-pavel">
+          <div class="gs-who">
+            <img src="../assets/people/pavel.svg" alt="Павел"
+                 width="400" height="400" decoding="async">
+            <div><h3>Павел</h3><p class="gs-role">Молодое Поколение</p></div>
+          </div>
+          <p class="gs-text gs-text--pending">«Поздравление скоро появится — текст готовится.»</p>
           
         </article>
         <article class="gs-card" id="gs-masha">
@@ -2573,7 +2613,7 @@ input, select, textarea {
             <div><h3>Дед Василий Егорович</h3><p class="gs-role">Благословение</p></div>
           </div>
           <p class="gs-text">«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»</p>
-          
+          <div class="gs-media-row"><div class="gs-media"><strong>Общее видеопоздравление</strong><video controls preload="metadata" src="../assets/media/ded_vasya-baba_natasha-congrats.mp4"></video></div></div>
         </article>
         <article class="gs-card" id="gs-baba_natasha">
           <div class="gs-who">
@@ -2582,7 +2622,7 @@ input, select, textarea {
             <div><h3>Баба Наталья Тихоновна</h3><p class="gs-role">Тепло &amp; Пироги</p></div>
           </div>
           <p class="gs-text">«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»</p>
-          
+          <div class="gs-media-row"><div class="gs-media"><strong>Общее видеопоздравление</strong><video controls preload="metadata" src="../assets/media/ded_vasya-baba_natasha-congrats.mp4"></video></div></div>
         </article>
         <article class="gs-card" id="gs-ded_tolya">
           <div class="gs-who">
@@ -2591,7 +2631,7 @@ input, select, textarea {
             <div><h3>Дед Анатолий Валентинович</h3><p class="gs-role">Сила Духа</p></div>
           </div>
           <p class="gs-text">«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»</p>
-          
+          <div class="gs-media-row"><div class="gs-media"><strong>Видеопоздравление</strong><video controls preload="metadata" src="../assets/media/ded_tolya-congrats.mp4"></video></div></div>
         </article>
         <article class="gs-card" id="gs-baba_nastya">
           <div class="gs-who">
@@ -2600,7 +2640,7 @@ input, select, textarea {
             <div><h3>Баба Анастасия Егоровна</h3><p class="gs-role">Сердечный Покой</p></div>
           </div>
           <p class="gs-text">«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»</p>
-          
+          <div class="gs-media-row"><div class="gs-media"><strong>Видеопоздравление</strong><video controls preload="metadata" src="../assets/media/baba_nastya-congrats.mp4"></video></div></div>
         </article>
       </div>
       <button class="gs-btn gs-btn--more" type="button" onclick="openModal('modalFamily')">
@@ -2649,11 +2689,11 @@ input, select, textarea {
      style="display:inline-block; position:relative; border-radius:14px; overflow:hidden;
             border:2px solid rgba(201,162,39,.55); box-shadow:0 18px 44px rgba(0,0,0,.6);
             max-width:100%; line-height:0;">
-    <img src="../assets/family/tree_poster_web.webp" alt="Генеалогическое древо рода Русиново: три поколения, десять человек"
+    <img src="../assets/family/tree_poster_web.webp" alt="Генеалогическое древо рода Русиново: три поколения, одиннадцать человек"
          loading="lazy" decoding="async"
          style="display:block; width:100%; max-width:640px; height:auto;">
   </a>
-  <div class="poster-hot-layer"><button class="poster-hot" data-pid="masha" title="Сестра Маша: смотреть поздравление" aria-label="Сестра Маша: смотреть поздравление" style="left:19.778%;top:17.583%;width:11.556%;height:8.667%" onclick="openFamilyGreet('masha');return false;"></button><button class="poster-hot" data-pid="vikulek" title="Викулек: поздравление ещё не снято" aria-label="Викулек: поздравление ещё не снято" style="left:43.111%;top:16.667%;width:13.778%;height:10.333%" onclick="openFamilyGreet('vikulek');return false;"></button><button class="poster-hot" data-pid="lera" title="Сестра Лера: смотреть поздравление" aria-label="Сестра Лера: смотреть поздравление" style="left:68.667%;top:17.583%;width:11.556%;height:8.667%" onclick="openFamilyGreet('lera');return false;"></button><button class="poster-hot" data-pid="papa" title="Папа: смотреть поздравление" aria-label="Папа: смотреть поздравление" style="left:19.778%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('papa');return false;"></button><button class="poster-hot" data-pid="mama" title="Мама: смотреть поздравление" aria-label="Мама: смотреть поздравление" style="left:46.444%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('mama');return false;"></button><button class="poster-hot" data-pid="serezha" title="Дядя Серёжа: поздравление ещё не снято" aria-label="Дядя Серёжа: поздравление ещё не снято" style="left:73.111%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('serezha');return false;"></button><button class="poster-hot" data-pid="ded_vasya" title="Дед Василий Егорович: поздравление ещё не снято" aria-label="Дед Василий Егорович: поздравление ещё не снято" style="left:6.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('ded_vasya');return false;"></button><button class="poster-hot" data-pid="baba_natasha" title="Баба Наталья Тихоновна: поздравление ещё не снято" aria-label="Баба Наталья Тихоновна: поздравление ещё не снято" style="left:31.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('baba_natasha');return false;"></button><button class="poster-hot" data-pid="ded_tolya" title="Дед Анатолий Валентинович: поздравление ещё не снято" aria-label="Дед Анатолий Валентинович: поздравление ещё не снято" style="left:56.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('ded_tolya');return false;"></button><button class="poster-hot" data-pid="baba_nastya" title="Баба Анастасия Егоровна: поздравление ещё не снято" aria-label="Баба Анастасия Егоровна: поздравление ещё не снято" style="left:81.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('baba_nastya');return false;"></button></div></div><!-- HOT_ZONES_END -->
+  <div class="poster-hot-layer"><button class="poster-hot" data-pid="masha" title="Сестра Маша: смотреть поздравление" aria-label="Сестра Маша: смотреть поздравление" style="left:19.778%;top:17.583%;width:11.556%;height:8.667%" onclick="openFamilyGreet('masha');return false;"></button><button class="poster-hot" data-pid="vikulek" title="Викулек: поздравление ещё не снято" aria-label="Викулек: поздравление ещё не снято" style="left:43.111%;top:16.667%;width:13.778%;height:10.333%" onclick="openFamilyGreet('vikulek');return false;"></button><button class="poster-hot" data-pid="lera" title="Сестра Лера: смотреть поздравление" aria-label="Сестра Лера: смотреть поздравление" style="left:68.667%;top:17.583%;width:11.556%;height:8.667%" onclick="openFamilyGreet('lera');return false;"></button><button class="poster-hot" data-pid="papa" title="Папа: смотреть поздравление" aria-label="Папа: смотреть поздравление" style="left:19.778%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('papa');return false;"></button><button class="poster-hot" data-pid="mama" title="Мама: смотреть поздравление" aria-label="Мама: смотреть поздравление" style="left:46.444%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('mama');return false;"></button><button class="poster-hot" data-pid="serezha" title="Дядя Серёжа: смотреть поздравление" aria-label="Дядя Серёжа: смотреть поздравление" style="left:73.111%;top:38.417%;width:11.556%;height:8.667%" onclick="openFamilyGreet('serezha');return false;"></button><button class="poster-hot" data-pid="pavel" title="Павел: поздравление ещё не снято" aria-label="Павел: поздравление ещё не снято" style="left:74.556%;top:55.083%;width:8.667%;height:6.500%" onclick="openFamilyGreet('pavel');return false;"></button><button class="poster-hot" data-pid="ded_vasya" title="Дед Василий Егорович: смотреть поздравление" aria-label="Дед Василий Егорович: смотреть поздравление" style="left:6.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('ded_vasya');return false;"></button><button class="poster-hot" data-pid="baba_natasha" title="Баба Наталья Тихоновна: смотреть поздравление" aria-label="Баба Наталья Тихоновна: смотреть поздравление" style="left:31.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('baba_natasha');return false;"></button><button class="poster-hot" data-pid="ded_tolya" title="Дед Анатолий Валентинович: смотреть поздравление" aria-label="Дед Анатолий Валентинович: смотреть поздравление" style="left:56.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('ded_tolya');return false;"></button><button class="poster-hot" data-pid="baba_nastya" title="Баба Анастасия Егоровна: смотреть поздравление" aria-label="Баба Анастасия Егоровна: смотреть поздравление" style="left:81.722%;top:69.667%;width:11.556%;height:8.667%" onclick="openFamilyGreet('baba_nastya');return false;"></button></div></div><!-- HOT_ZONES_END -->
   <div style="font-family:'Space Grotesk',sans-serif; font-size:11px; color:rgba(255,255,255,.55);
               margin-top:10px;">
     Нажми на лицо — откроется его поздравление; на свободное место — постер целиком
@@ -3555,6 +3595,7 @@ Francesco Antonucci</em>
       mama: { title: "Мама • Послание Сердца", text: "«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»", icon: "fa-heart" },
       papa: { title: "Папа • Крепкая Опора", text: "«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»", icon: "fa-user-tie" },
       serezha: { title: "Дядя Серёжа • Мудрость Рода", text: "«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»", icon: "fa-shield-halved" },
+      pavel: { title: "Павел • Молодое Поколение", text: "«Поздравление от Павла ещё готовится — скоро будет здесь.»", icon: "fa-bolt" },
       masha: { title: "Сестра Маша • Любовь & Забота", text: "«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»", icon: "fa-venus" },
       lera: { title: "Сестра Лера • Драйв & Веселье", text: "«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»", icon: "fa-sparkles" },
       ded_vasya: { title: "Дед Василий Егорович • Благословение", text: "«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»", icon: "fa-star" },
@@ -3672,11 +3713,36 @@ Francesco Antonucci</em>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // familyGreetButtons: клик по узлу древа -> видео-поздравление
     (function () {
       var MAP = [
         ['vikulek', ['викул']], ['masha', ['маша', 'машенька']],
         ['lera', ['лера', 'лерочка']], ['serezha', ['серёж', 'сереж']],
+        ['pavel', ['павел']],
         ['papa', ['папа', 'отец']], ['mama', ['мама', 'мать']],
         ['ded_vasya', ['васил']], ['baba_natasha', ['натал']],
         ['ded_tolya', ['анатол']], ['baba_nastya', ['наст']]
@@ -4050,6 +4116,30 @@ function gotoAlbumPage(idx) {
 <div class="floating-heart" style="left: 77.7634vw; font-size: 28.1563px; animation-duration: 6.97136s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 63.982vw; font-size: 22.4577px; animation-duration: 6.3266s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 30.266vw; font-size: 23.9817px; animation-duration: 5.33915s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 99.6428vw; font-size: 15.4687px; animation-duration: 6.23637s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 44.3251vw; font-size: 15.1627px; animation-duration: 4.18776s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 9.48485vw; font-size: 21.7745px; animation-duration: 4.93796s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 99.9503vw; font-size: 14.2407px; animation-duration: 5.64198s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 78.912vw; font-size: 15.0101px; animation-duration: 4.1195s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
 
 <div class="floating-heart" style="left: 62.7869vw; font-size: 29.9571px; animation-duration: 6.23875s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 91.4658vw; font-size: 28.1888px; animation-duration: 7.8222s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 95.4547vw; font-size: 25.1264px; animation-duration: 6.86433s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 69.9525vw; font-size: 24.0671px; animation-duration: 7.65319s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 65.0125vw; font-size: 24.9298px; animation-duration: 7.69761s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 22.1247vw; font-size: 22.8482px; animation-duration: 4.64322s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 48.9457vw; font-size: 22.801px; animation-duration: 7.42298s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4896,7 +4986,7 @@ function switchRusinovoTab(idx) {
     if(Math.abs(dx)>60)show(idx+(dx<0?1:-1));
   },{passive:true});
 })();
-</script><script>window.__FAMILY_TREE_V2={"members": {"mama": {"name": "Мама", "kicker": "Послание Сердца", "text": "«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»"}, "papa": {"name": "Папа", "kicker": "Крепкая Опора", "text": "«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»"}, "serezha": {"name": "Дядя Серёжа", "kicker": "Мудрость Рода", "text": "«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»"}, "masha": {"name": "Сестра Маша", "kicker": "Любовь & Забота", "text": "«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»"}, "lera": {"name": "Сестра Лера", "kicker": "Драйв & Веселье", "text": "«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»"}, "ded_vasya": {"name": "Дед Василий Егорович", "kicker": "Благословение", "text": "«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»"}, "baba_natasha": {"name": "Баба Наталья Тихоновна", "kicker": "Тепло & Пироги", "text": "«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»"}, "ded_tolya": {"name": "Дед Анатолий Валентинович", "kicker": "Сила Духа", "text": "«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»"}, "baba_nastya": {"name": "Баба Анастасия Егоровна", "kicker": "Сердечный Покой", "text": "«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»"}, "cheer": {"name": "🥝 Тост за Русиново", "kicker": "Общий тост", "text": "За силу рода, за село Русиново и за прекрасную именинницу Викулька! Ура!"}}, "photos": {"mama": "../assets/people/mama.jpg", "papa": "../assets/people/papa.jpg", "serezha": "../assets/people/serezha.svg", "masha": "../assets/people/masha.svg", "lera": "../assets/people/lera.svg", "ded_vasya": "../assets/people/ded_vasya.svg", "baba_natasha": "../assets/people/baba_natasha.svg", "ded_tolya": "../assets/people/ded_tolya.svg", "baba_nastya": "../assets/people/baba_nastya.svg"}};</script><script id="family-tree-v2-js">
+</script><script>window.__FAMILY_TREE_V2={"members": {"mama": {"name": "Мама", "kicker": "Послание Сердца", "text": "«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»"}, "papa": {"name": "Папа", "kicker": "Крепкая Опора", "text": "«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»"}, "serezha": {"name": "Дядя Серёжа", "kicker": "Мудрость Рода", "text": "«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»"}, "pavel": {"name": "Павел", "kicker": "Молодое Поколение", "text": "«Поздравление от Павла ещё готовится — скоро будет здесь.»"}, "masha": {"name": "Сестра Маша", "kicker": "Любовь & Забота", "text": "«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»"}, "lera": {"name": "Сестра Лера", "kicker": "Драйв & Веселье", "text": "«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»"}, "ded_vasya": {"name": "Дед Василий Егорович", "kicker": "Благословение", "text": "«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»"}, "baba_natasha": {"name": "Баба Наталья Тихоновна", "kicker": "Тепло & Пироги", "text": "«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»"}, "ded_tolya": {"name": "Дед Анатолий Валентинович", "kicker": "Сила Духа", "text": "«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»"}, "baba_nastya": {"name": "Баба Анастасия Егоровна", "kicker": "Сердечный Покой", "text": "«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»"}, "cheer": {"name": "🥝 Тост за Русиново", "kicker": "Общий тост", "text": "За силу рода, за село Русиново и за прекрасную именинницу Викулька! Ура!"}}, "photos": {"mama": "../assets/people/mama.jpg", "papa": "../assets/people/papa.jpg", "serezha": "../assets/people/serezha.svg", "pavel": "../assets/people/pavel.svg", "masha": "../assets/people/masha.svg", "lera": "../assets/people/lera.svg", "ded_vasya": "../assets/people/ded_vasya.svg", "baba_natasha": "../assets/people/baba_natasha.svg", "ded_tolya": "../assets/people/ded_tolya.svg", "baba_nastya": "../assets/people/baba_nastya.svg"}};</script><script id="family-tree-v2-js">
 (function(){
   if(window.__familyTreeV2)return;window.__familyTreeV2=1;
   var data=window.__FAMILY_TREE_V2||{};
@@ -5232,19 +5322,21 @@ function playMashaVideo() {
 })();
 </script>
 
-<script id="family-greet-js" data-v="10">
+<script id="family-greet-js" data-v="12">
 (function () {
   var GREET = {
-    mama: { name: 'Мама', epithet: 'Послание Сердца', video: 'mama-congrats-web.mp4', text: '«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»' },
-    papa: { name: 'Папа', epithet: 'Крепкая Опора', video: 'papa-congrats-web.mp4', text: '«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»' },
-    serezha: { name: 'Дядя Серёжа', epithet: 'Мудрость Рода', video: null, text: '«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»' },
-    masha: { name: 'Сестра Маша', epithet: 'Любовь & Забота', video: 'masha-congrats-web.mp4', text: '«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»' },
-    lera: { name: 'Сестра Лера', epithet: 'Драйв & Веселье', video: 'lera-congrats-web.mp4', text: '«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»' },
-    ded_vasya: { name: 'Дед Василий Егорович', epithet: 'Благословение', video: null, text: '«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»' },
-    baba_natasha: { name: 'Баба Наталья Тихоновна', epithet: 'Тепло & Пироги', video: null, text: '«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»' },
-    ded_tolya: { name: 'Дед Анатолий Валентинович', epithet: 'Сила Духа', video: null, text: '«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»' },
-    baba_nastya: { name: 'Баба Анастасия Егоровна', epithet: 'Сердечный Покой', video: null, text: '«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»' },
-    vikulek: { name: 'Викулек', epithet: 'Главная звезда рода', video: null, text: 'Это ты. Весь этот журнал, все эти голоса и все эти лица — ради тебя. С днём рождения, солнце.' }
+    mama: { name: 'Мама', gen: 'Мама', epithet: 'Послание Сердца', video: 'mama-congrats-web.mp4', text: '«Викулек, моя ненаглядная доченька! Ты самое светлое, что есть в моей жизни. Сияй ярко, цвети и будь безмерно счастлива!»' },
+    papa: { name: 'Папа', gen: 'Папа', epithet: 'Крепкая Опора', video: 'papa-congrats-web.mp4', text: '«Доченька, горжусь тобой каждый день! Смело шагай к своим целям, за твоей спиной всегда стоит сильная семья и род Русиново!»' },
+    serezha: { name: 'Дядя Серёжа', gen: 'Дядя Серёжа', epithet: 'Мудрость Рода', video: 'serezha-congrats-web.mp4', text: '«Викуля, с 21-летием! Желаю отличного настроения, верных друзей и лёгкости во всех делах! Русиново с тобой!»' },
+    pavel: { name: 'Павел', gen: 'Павла', epithet: 'Молодое Поколение', video: null, text: '' },
+    masha: { name: 'Сестра Маша', gen: 'Сестра Маша', epithet: 'Любовь & Забота', video: 'masha-congrats-web.mp4', text: '«Любимая сестренка! С твоим днем! Ты моя радость и вдохновение, пусть каждый день дарит улыбки и кайф!»' },
+    lera: { name: 'Сестра Лера', gen: 'Сестра Лера', epithet: 'Драйв & Веселье', video: 'lera-congrats-web.mp4', text: '«Викулек, с 21-летием! Зажигай на полную, мы с тобой всегда на одной волне! Обнимаю крепко!»' },
+    ded_vasya: { name: 'Дед Василий Егорович', gen: 'Дед Василий Егорович', epithet: 'Благословение', video: 'ded_vasya-baba_natasha-congrats-web.mp4', text: '«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»', couple: 'ded_vasya-baba_natasha' },
+    baba_natasha: { name: 'Баба Наталья Тихоновна', gen: 'Баба Наталья Тихоновна', epithet: 'Тепло & Пироги', video: 'ded_vasya-baba_natasha-congrats-web.mp4', text: '«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»', couple: 'ded_vasya-baba_natasha' },
+    ded_tolya: { name: 'Дед Анатолий Валентинович', gen: 'Дед Анатолий Валентинович', epithet: 'Сила Духа', video: 'ded_tolya-congrats-web.mp4', text: '«Викулек, взрослая красавица стала! Будь стойкой, мудрой и любимой, род наш крепкий!»' },
+    baba_nastya: { name: 'Баба Анастасия Егоровна', gen: 'Баба Анастасия Егоровна', epithet: 'Сердечный Покой', video: 'baba_nastya-congrats-web.mp4', text: '«Золотце моё ясное! Счастья тебе женского, мира и радости каждый Божий денек!»' },
+    'ded_vasya-baba_natasha': { title: 'Дед Василий & Баба Наталья', subtitle: 'Общее поздравление · Благословение и Тепло', faces: ['ded_vasya', 'baba_natasha'], names: {'ded_vasya': 'Дед Василий Егорович', 'baba_natasha': 'Баба Наталья Тихоновна'}, texts: [{ name: 'Дед Василий Егорович', text: '«Внученька, радость наша! Пусть здоровье будет богатырским, а жизнь сладкой, как яблоки в нашем русиновском саду!»' }, { name: 'Баба Наталья Тихоновна', text: '«Моя ласточка Викулька! Храню тебя в молитвах и сердце, пусть в душе всегда цветет май!»' }], video: 'ded_vasya-baba_natasha-congrats-web.mp4' },
+    vikulek: { name: 'Викулек', gen: 'Викулек', epithet: 'Главная звезда рода', video: null, text: 'Это ты. Весь этот журнал, все эти голоса и все эти лица — ради тебя. С днём рождения, солнце.' }
   };
 
   window.openFamilyGreet = function (pid) {
@@ -5255,6 +5347,43 @@ function playMashaVideo() {
     var stage = document.getElementById('fgStage');
     var textEl = document.getElementById('fgText');
     if (!stage) return;
+
+    // общий ролик на двоих (дед Василий + баба Наталья): одна сцена, два портрета
+    var cp = d.couple && GREET[d.couple] ? GREET[d.couple] : null;
+
+    if (cp) {
+      nameEl.innerText = cp.title;
+      roleEl.innerText = cp.subtitle || 'Общее поздравление • род Русиново';
+      textEl.innerHTML = '';
+      (cp.texts || []).forEach(function (t) {
+        if (!t || !t.text) return;
+        var p = document.createElement('p');
+        p.className = 'fg-couple-text';
+        var who = document.createElement('span');
+        who.className = 'fg-couple-who';
+        who.innerText = t.name;
+        p.appendChild(who);
+        p.appendChild(document.createTextNode(t.text));
+        textEl.appendChild(p);
+      });
+      var faces = (cp.faces || []).map(function (f) {
+        return '<figure class="fg-couple-face"><img src="../assets/people/' + f + '.svg" alt="">' +
+               '<figcaption>' + (cp.names && cp.names[f] ? cp.names[f] : '') + '</figcaption></figure>';
+      }).join('');
+      var vidsrc = cp.video ? '<video id="fgVideo" src="../assets/media/' + cp.video +
+        '" controls autoplay playsinline preload="metadata"></video>' : null;
+      stage.innerHTML = '<div class="fg-couple">' +
+        '<div class="fg-couple-faces">' + faces + '</div>' +
+        '<div class="fg-couple-video">' + (vidsrc || '<div class="fg-none"><div class="big">🎬</div>' +
+          '<div class="t">Общее видео-поздравление от деда Василия и бабы Натальи пока не снято.<br>' +
+          'Но тёплые слова уже написаны — ниже.</div></div>') + '</div>' +
+        '</div>';
+      var v2 = document.getElementById('fgVideo');
+      if (v2) v2.play().catch(function () {});
+      document.getElementById('familyGreetModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
 
     nameEl.innerText = d.name;
     roleEl.innerText = (d.epithet ? d.epithet + ' • ' : '') + 'род Русиново';
@@ -5267,7 +5396,7 @@ function playMashaVideo() {
       if (v) v.play().catch(function () {});
     } else {
       stage.innerHTML = '<div class="fg-none"><div class="big">🎬</div><div class="t">' +
-        'Видео-поздравление от <b>' + d.name + '</b> пока не снято.<br>' +
+        'Видео-поздравление от ' + (d.gen || d.name) + ' пока не снято.<br>' +
         'Но тёплые слова уже написаны — ниже.</div></div>';
     }
     document.getElementById('familyGreetModal').classList.add('active');
