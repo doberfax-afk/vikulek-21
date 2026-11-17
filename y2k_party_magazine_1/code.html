@@ -2660,6 +2660,7 @@ input, select, textarea {
 
 
 
+
     // familyGreetButtons: клик по узлу древа -> видео-поздравление
     (function () {
       var MAP = [
@@ -2903,6 +2904,7 @@ function gotoAlbumPage(idx) {
 <div class="floating-heart" style="left: 77.7634vw; font-size: 28.1563px; animation-duration: 6.97136s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 63.982vw; font-size: 22.4577px; animation-duration: 6.3266s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 30.266vw; font-size: 23.9817px; animation-duration: 5.33915s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 99.6428vw; font-size: 15.4687px; animation-duration: 6.23637s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 44.3251vw; font-size: 15.1627px; animation-duration: 4.18776s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 9.48485vw; font-size: 21.7745px; animation-duration: 4.93796s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 99.9503vw; font-size: 14.2407px; animation-duration: 5.64198s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 78.912vw; font-size: 15.0101px; animation-duration: 4.1195s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
 
 <div class="floating-heart" style="left: 62.7869vw; font-size: 29.9571px; animation-duration: 6.23875s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 91.4658vw; font-size: 28.1888px; animation-duration: 7.8222s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 95.4547vw; font-size: 25.1264px; animation-duration: 6.86433s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 69.9525vw; font-size: 24.0671px; animation-duration: 7.65319s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 65.0125vw; font-size: 24.9298px; animation-duration: 7.69761s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div><div class="floating-heart" style="left: 22.1247vw; font-size: 22.8482px; animation-duration: 4.64322s;"><i class="fa-solid fa-heart" style="color: #b388ff"></i></div><div class="floating-heart" style="left: 48.9457vw; font-size: 22.801px; animation-duration: 7.42298s;"><i class="fa-solid fa-heart" style="color: #ffd600"></i></div>
+
 
 
 
@@ -3979,7 +3981,7 @@ function playMashaVideo() {
     if(document.getElementById('introVideo')) { host = document.getElementById('introVideo'); return; }
     var st = document.createElement('style');
     st.id = 'intro-video-css';
-    st.textContent = "\n#introVideo{position:fixed;inset:0;z-index:99999;display:none;align-items:center;\n  justify-content:center;background:#050508;opacity:0;transition:opacity .35s ease}\n#introVideo.on{display:flex;opacity:1}\n#introVideo .iv-frame{position:relative;width:min(92vw,560px);max-height:92vh;\n  display:flex;align-items:center;justify-content:center}\n#introVideo video{width:100%;max-height:88vh;border-radius:18px;object-fit:contain;\n  box-shadow:0 24px 70px rgba(0,0,0,.75)}\n#introVideo .iv-skip{position:absolute;right:12px;bottom:12px;padding:10px 18px;\n  border:0;border-radius:999px;font:600 15px/1 \"Montserrat\",system-ui,sans-serif;\n  cursor:pointer;color:#0b0b10;background:#ffd600;\n  box-shadow:0 6px 22px rgba(255,214,0,.35)}\n#introVideo .iv-skip:hover{filter:brightness(1.08)}\nbody.intro-open{overflow:hidden}\n";
+    st.textContent = "\n#introVideo{position:fixed;inset:0;z-index:99999;display:none;align-items:center;\n  justify-content:center;background:#050508;opacity:0;transition:opacity .35s ease}\n#introVideo.on{display:flex;opacity:1}\n#introVideo .iv-frame{position:relative;width:min(92vw,560px);max-height:92vh;\n  display:flex;align-items:center;justify-content:center}\n#introVideo video{width:100%;max-height:88vh;border-radius:18px;object-fit:contain;\n  box-shadow:0 24px 70px rgba(0,0,0,.75)}\n#introVideo .iv-skip{position:absolute;right:12px;bottom:12px;padding:10px 18px;\n  border:0;border-radius:999px;font:600 15px/1 \"Montserrat\",system-ui,sans-serif;\n  cursor:pointer;color:#0b0b10;background:#ffd600;\n  box-shadow:0 6px 22px rgba(255,214,0,.35)}\n#introVideo .iv-skip:hover{filter:brightness(1.08)}\n#introVideo .iv-sound{position:absolute;left:12px;bottom:12px;width:44px;height:44px;\n  padding:0;border:0;border-radius:999px;font:600 19px/1 system-ui,sans-serif;\n  cursor:pointer;color:#fff;background:rgba(10,10,18,.72);\n  box-shadow:0 6px 22px rgba(0,0,0,.5);backdrop-filter:blur(6px)}\n#introVideo .iv-sound:hover{background:rgba(20,20,34,.9)}\nbody.intro-open{overflow:hidden}\n";
     document.head.appendChild(st);
 
     host = document.createElement('div');
@@ -3991,12 +3993,23 @@ function playMashaVideo() {
         '<video src="../assets/media/intro-congrats-web.mp4" ' +
                'poster="../assets/media/intro-poster.jpg" ' +
                'muted autoplay playsinline preload="auto"></video>' +
+        '<button class="iv-sound" type="button" aria-label="Включить звук">🔇</button>' +
         '<button class="iv-skip" type="button">Дальше ➤</button>' +
       '</div>';
     document.body.appendChild(host);
 
     vid = host.querySelector('video');
     var skip = host.querySelector('.iv-skip');
+    var snd = host.querySelector('.iv-sound');
+    // звук включается первым же касанием где угодно: браузер разрешает
+    // снять mute только в ответ на жест пользователя
+    function unmute(){
+      try { vid.muted = false; vid.volume = 1; } catch(e){}
+      if(snd){ snd.textContent = '🔊'; snd.setAttribute('aria-label','Звук включён'); }
+    }
+    if(snd) snd.addEventListener('click', function(ev){ ev.stopPropagation(); unmute(); });
+    host.addEventListener('pointerdown', unmute, {once:true});
+    host.addEventListener('touchstart', unmute, {once:true, passive:true});
     skip.addEventListener('click', close);
     vid.addEventListener('ended', close);
     vid.addEventListener('error', close);
@@ -4517,14 +4530,17 @@ function playMashaVideo() {
 </script>
 <script id="friends-v2-js">
 (function(){
+  function init(){
   var panel = document.getElementById('issue-panel-friends');
-  if(!panel) return;
+  if(!panel) return false;
+  if(panel.getAttribute('data-fz-ready')==='1') return true;
   var track = panel.querySelector('#fzTrack');
   var spreads = [].slice.call(panel.querySelectorAll('.fz-spread'));
   var dots = [].slice.call(panel.querySelectorAll('.fz-ix'));
   var prev = panel.querySelector('#fzPrev'), next = panel.querySelector('#fzNext');
   var prog = panel.querySelector('#fzProg');
-  if(!track || !spreads.length) return;
+  if(!track || !spreads.length) return false;
+  panel.setAttribute('data-fz-ready','1');
   var cur = 0;
 
   function go(i, smooth){
@@ -4565,12 +4581,21 @@ function playMashaVideo() {
     else if (e.key === 'ArrowLeft') { go(cur - 1, true); }
   });
   paint();
+  return true;
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',function(){try{init()}catch(e){}});
+  } else { try{ if(!init()) setTimeout(init,50); }catch(e){} }
+  document.addEventListener('y2k:issue-unsealed',function(){ setTimeout(function(){try{init()}catch(e){}},30); });
 })();
 
 /* ---------- фотоальбом Вилены: полноэкранный просмотр ---------- */
 (function(){
+  function initLb(){
   var panel = document.getElementById('issue-panel-friends');
-  if (!panel) return;
+  if (!panel) return false;
+  if (panel.getAttribute('data-fz-lb')) return true;
+  panel.setAttribute('data-fz-lb','1');
   var lb = document.getElementById('fzLb');
   if (!lb){
     lb = document.createElement('div');
@@ -4644,6 +4669,12 @@ function playMashaVideo() {
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) show(at + (dx < 0 ? 1 : -1));
     else if (dy > 90) close();
   }, {passive: true});
+  return true;
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',function(){try{initLb()}catch(e){}});
+  } else { try{ if(!initLb()) setTimeout(initLb,50); }catch(e){} }
+  document.addEventListener('y2k:issue-unsealed',function(){ setTimeout(function(){try{initLb()}catch(e){}},30); });
 })();
 </script>
 
